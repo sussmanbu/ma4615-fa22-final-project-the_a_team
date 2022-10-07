@@ -8,16 +8,24 @@ draft: false
 
 This comes from the file `content/about.md`.
 
-This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
+This is a website for the final project for MA[46]15 Data Science with R by Team: The A Team.
 The members of this team are below.
 
-## Luis Iberico
+## Qianhui Rong
 
-Luis is a Ph.D. student in Stats and is the Teaching Fellow for the course.
+Quianhui....... write about yourself
 
-## Dan Sussman
+## Jason (Tzu-Wei) Liu
 
-Dan is a professor in the Math/Stat department and is the instructor for the course.
+Jason....... write about yourself
+
+## Jonathan Aguirre
+
+Jonathan....... write about yourself
+
+## Italo Duran
+
+Master student in Bioinformatics and Biology.
 
 <!-- Please leave in the information below -->
 
