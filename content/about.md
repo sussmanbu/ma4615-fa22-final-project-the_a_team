@@ -17,7 +17,7 @@ Quianhui....... write about yourself
 
 ## Jason (Tzu-Wei) Liu
 
-Jason....... write about yourself
+Majoring in Economics
 
 ## Jonathan Aguirre
 
