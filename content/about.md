@@ -27,6 +27,10 @@ Jonathan....... write about yourself
 
 Master student in Bioinformatics and Biology.
 
+## Seth Schallies
+
+Majoring in Psychology and Neuroscience
+
 <!-- Please leave in the information below -->
 
 ### Info About this Template.
