@@ -21,7 +21,7 @@ Majoring in Economics
 
 ## Jonathan Aguirre
 
-Jonathan....... write about yourself
+Computer Science major :)
 
 ## Italo Duran
 
