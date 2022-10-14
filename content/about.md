@@ -17,15 +17,19 @@ Quianhui....... write about yourself
 
 ## Jason (Tzu-Wei) Liu
 
-Jason....... write about yourself
+Majoring in Economics
 
 ## Jonathan Aguirre
 
-Jonathan....... write about yourself
+Computer Science major :)
 
 ## Italo Duran
 
 Master student in Bioinformatics and Biology.
+
+## Seth Schallies
+
+Majoring in Psychology and Neuroscience
 
 <!-- Please leave in the information below -->
 
