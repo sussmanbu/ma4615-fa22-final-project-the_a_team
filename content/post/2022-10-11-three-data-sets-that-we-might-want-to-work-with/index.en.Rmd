@@ -1,0 +1,71 @@
+---
+title: 'Three data sets that we might want to work with:'
+author: The A Team
+date: '2022-10-11'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-10-11T09:25:37-04:00'
+featuredVideo: ~
+featuredImage: /static/images/p0b6cqd9.jpeg
+---
+The three potential datasets are on  resource availability for food production forecast, UFO sightings and Pokemon.
+
+## resource availability for food production forecast
+
+# The Census of Agriculture
+
+[https://www.nass.usda.gov/AgCensus/](https://www.nass.usda.gov/AgCensus/)
+
+[https://www.fao.org/faostat/en/#home](https://www.fao.org/faostat/en/#home)
+
+# World climate change record data
+
+[https://www.fao.org/faostat/en/#data/ET/visualize](https://www.fao.org/faostat/en/#data/ET/visualize)
+
+# World food production
+
+[https://www.fao.org/faostat/en/#data/QCL/visualize](https://www.fao.org/faostat/en/#data/QCL/visualize)
+
+The first link is to the The Census of Agriculture, it's a complete count of U.S. farms and ranches. From small plots in rural or urban areas. growing fruit, vegetables or some food animals count if $1,000 or more of such products were raised and sold, or normally would have been sold, during the Census year. The Census of Agriculture, taken only once every five years, looks at land use and ownership, operator characteristics, production practices, income and expenditures. For America’s farmers and ranchers, the Census of Agriculture is their voice, their future, and their opportunity.
+
+The second link, shows the original data is collected for documentation of world food production, land used, climate changes, food insecurity data in order to address existing food issues with laws & regulations. The data was collected by the FAO (Food & Agriculture Organization of the United Nation) and EPA (United States Environmental Protection Agency). FAOSTAT provides free access to food and agriculture data for over 245 countries and territories and covers all FAO regional groupings from 1961 to the most recent year available.
+
+Give any details you can in regards to number of rows and number of columns for your data.
+
+The data sets for both links are loadable and can be cleaned and filtered in needed. 
+
+The main questions we hope to address is food production, insecurity & forecast, and food waste worldwide or the U.S.
+
+The challenges we foresee are outliers, missing data that would hinder forecasts, different date on collected data that need comparison.  
+
+
+## UFO sightings
+
+[https://github.com/planetsig/ufo-reports](https://github.com/planetsig/ufo-reports)
+
+The UFO dataset is basically about UFO sightings throughout the North American continent (mostly US and Canada). It features columns such as type of UFO, state, city , date, time, shape, and a brief description. In total there are over 11 columns with 80,000 rows. The data was originally aggregated by the National UFO reporting Center. In the “about us section”, the center states that “The Center’s primary function over the past four decades has been to receive, record, and to the greatest degree possible, corroborate and document reports from individuals who have been witness to unusual, possibly UFO-related events”. Most of the data entries are from personal reports, so that would have to be taken into account.
+
+Our main goal for this data could be to check where the most sightings are located and to see if the descriptions match. Here is where the challenge would arise since, at first glance, there seems to be no specific format to the descriptions so I am not sure if there is a way to sort it. The data should be easy to load, but I do not know if there is a way to “clean” it . I would also want to maybe address if there is “truth” to these reports, possibly by matching if the descriptions and shape match for specific locations.
+
+## Pokemon
+
+[https://www.kaggle.com/datasets/rounakbanik/pokemon?resource=download&select=pokemon.csv](https://www.kaggle.com/datasets/rounakbanik/pokemon?resource=download&select=pokemon.csv)
+
+The dataset contains the information of 802 Pokémon from Seven different generations of the game. Included in the dataset are basic stats for the Pokémon like “base attack” and “hp” to more advanced stats such as “special attack”, “special defense”, and speed. In total, the dataset includes 41 columns and 802 rows with both categorical and continuous variables. While the aggregate data was found on Kaggle, based on the information provided by the author, the data on each of the 802 Pokémon are derived from the source: http://serebii.net/ (a website that catalogs information on Pokémon from different versions of the game).
+
+The author originally created the dataset given their love and fond memories of the video game and wanted answer some questions such as:
+How does height and weight of a Pokémon correlate with its various base stats?
+Which type is the strongest overall? Which is the weakest?
+Which type is the most likely to be a legendary Pokémon?
+
+However, given the extensiveness of the data, we believe we can use it to answer other interesting questions regarding the game. For example, can we determine, statistically, the most powerful Pokémon across the seven versions of the game? We can also potentially examine the interaction variables between different Pokémon types. Or amongst the statistically strongest Pokémon, are we able to assemble “the strongest” and most complete team? Additionally, given the data from different generations of the game, we can also make comparisons between generations.
+
+Potential Challenges:
+Interpretation of data for individuals not familiar with Pokémon
+
+The data will require some normalizing given that some of the type weaknesses/effectiveness are given in ranges of 0-2, which could be difficult to interpret.
