@@ -11,23 +11,23 @@ authors: []
 series: []
 lastmod: '2022-10-11T09:25:37-04:00'
 featuredVideo: ~
-featuredImage: /static/images/p0b6cqd9.jpeg
+featuredImage: /static/images/p0b6cqd9.png
 ---
 The three potential datasets are on  resource availability for food production forecast, UFO sightings and Pokemon.
 
-## resource availability for food production forecast
+## resource availability for food production forecast:
 
-# The Census of Agriculture
+### The Census of Agriculture
 
 [https://www.nass.usda.gov/AgCensus/](https://www.nass.usda.gov/AgCensus/)
 
 [https://www.fao.org/faostat/en/#home](https://www.fao.org/faostat/en/#home)
 
-# World climate change record data
+### World climate change record data
 
 [https://www.fao.org/faostat/en/#data/ET/visualize](https://www.fao.org/faostat/en/#data/ET/visualize)
 
-# World food production
+### World food production
 
 [https://www.fao.org/faostat/en/#data/QCL/visualize](https://www.fao.org/faostat/en/#data/QCL/visualize)
 
@@ -44,7 +44,7 @@ The main questions we hope to address is food production, insecurity & forecast,
 The challenges we foresee are outliers, missing data that would hinder forecasts, different date on collected data that need comparison.  
 
 
-## UFO sightings
+### UFO sightings
 
 [https://github.com/planetsig/ufo-reports](https://github.com/planetsig/ufo-reports)
 
@@ -52,7 +52,7 @@ The UFO dataset is basically about UFO sightings throughout the North American c
 
 Our main goal for this data could be to check where the most sightings are located and to see if the descriptions match. Here is where the challenge would arise since, at first glance, there seems to be no specific format to the descriptions so I am not sure if there is a way to sort it. The data should be easy to load, but I do not know if there is a way to “clean” it . I would also want to maybe address if there is “truth” to these reports, possibly by matching if the descriptions and shape match for specific locations.
 
-## Pokemon
+### Pokemon
 
 [https://www.kaggle.com/datasets/rounakbanik/pokemon?resource=download&select=pokemon.csv](https://www.kaggle.com/datasets/rounakbanik/pokemon?resource=download&select=pokemon.csv)
 
