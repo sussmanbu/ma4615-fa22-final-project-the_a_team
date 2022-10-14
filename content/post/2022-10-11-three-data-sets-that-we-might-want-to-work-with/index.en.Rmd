@@ -11,7 +11,7 @@ authors: []
 series: []
 lastmod: '2022-10-11T09:25:37-04:00'
 featuredVideo: ~
-featuredImage: /static/images/alien_pokemon.png
+featuredImage: /static/images/pikachu.jpeg
 ---
 The three potential datasets are on  resource availability for food production forecast, UFO sightings and Pokemon.
 
