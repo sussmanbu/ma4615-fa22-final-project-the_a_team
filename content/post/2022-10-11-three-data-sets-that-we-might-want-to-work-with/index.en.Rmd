@@ -35,8 +35,6 @@ The first link is to the The Census of Agriculture, it's a complete count of U.S
 
 The second link, shows the original data is collected for documentation of world food production, land used, climate changes, food insecurity data in order to address existing food issues with laws & regulations. The data was collected by the FAO (Food & Agriculture Organization of the United Nation) and EPA (United States Environmental Protection Agency). FAOSTAT provides free access to food and agriculture data for over 245 countries and territories and covers all FAO regional groupings from 1961 to the most recent year available.
 
-Give any details you can in regards to number of rows and number of columns for your data.
-
 The data sets for both links are loadable and can be cleaned and filtered in needed. 
 
 The main questions we hope to address is food production, insecurity & forecast, and food waste worldwide or the U.S.
