@@ -39,7 +39,7 @@ The data sets for both links are loadable and can be cleaned and filtered in nee
 
 The main questions we hope to address is food production, insecurity & forecast, and food waste worldwide or the U.S.
 
-The challenges we foresee are outliers, missing data that would hinder forecasts, different date on collected data that need comparison.  
+The challenges we foresee are outliers, missing data that would hinder forecasts, different date on collected data that need comparison.
 
 
 ### UFO sightings
