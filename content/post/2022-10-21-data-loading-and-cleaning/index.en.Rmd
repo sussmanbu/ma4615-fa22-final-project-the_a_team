@@ -1,0 +1,22 @@
+---
+title: Data Loading and Cleaning
+author: 'The-A-Team '
+date: '2022-10-21'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-10-21T17:46:45-04:00'
+featuredVideo: ~
+featuredImage: ~
+---
+## U.S. Food waste dataset loading and cleaning overview: 
+
+  The comprehensive data regarding agriculture is quite large; therefore, we aim to first focus on data to analyze information on food waste. The Food and Agriculture provides extensive datasets that we intend on using to build on top of our primary analysis of food waste (e.g., food security and livestock data). The primary Food Waste & Loss dataset is small enough to be stored in the dataset folder.
+  
+  First, we are filtering by country and focusing on the US as an all-inclusive dataset (with all countries) is too large and likely too complicated for initial exploratory purposes. Following that, we will remove unnecessary columns within the dataset - URL, reference, note, region, treatment, cause_of_loss, loss_quantity, activity, and m49_code - these columns proved to be either incomplete or irrelevant to our analysis. Our initial exploratory phase will focus mainly on the columns: commodity, year, loss_percentage, and food_supply_stage. In addition, we will need to calibrate inconsistencies in columns like loss_percentage using col_number() as values are denoted in percentages likely to be registered as characters in R. Later on, we can also rename/recategorize some of the commodities. For example, one of the categories of commodities is labeled “Cantaloupe and other melons” - this can be changed to “melons” for simplicity.
+
+  The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage. 
