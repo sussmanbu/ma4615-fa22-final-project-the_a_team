@@ -21,8 +21,9 @@ featuredImage: ~
 
   The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage. 
   
-  
-```{r table, echo=FALSE}
+
+### Here's how the original dataset is set:
+```{r table, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
@@ -33,7 +34,9 @@ head(Food_waste)
 ```
 
 
-```{r cleaning, echo=FALSE}
+
+### Here we have cleaned the dataset, left with only with the parameters needed for our analyses:
+```{r cleaning, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 
