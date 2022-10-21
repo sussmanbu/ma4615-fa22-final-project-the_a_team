@@ -24,4 +24,32 @@ featuredImage: ~
 <p>The comprehensive data regarding agriculture is quite large; therefore, we aim to first focus on data to analyze information on food waste. The Food and Agriculture provides extensive datasets that we intend on using to build on top of our primary analysis of food waste (e.g., food security and livestock data). The primary Food Waste &amp; Loss dataset is small enough to be stored in the dataset folder.</p>
 <p>First, we are filtering by country and focusing on the US as an all-inclusive dataset (with all countries) is too large and likely too complicated for initial exploratory purposes. Following that, we will remove unnecessary columns within the dataset - URL, reference, note, region, treatment, cause_of_loss, loss_quantity, activity, and m49_code - these columns proved to be either incomplete or irrelevant to our analysis. Our initial exploratory phase will focus mainly on the columns: commodity, year, loss_percentage, and food_supply_stage. In addition, we will need to calibrate inconsistencies in columns like loss_percentage using col_number() as values are denoted in percentages likely to be registered as characters in R. Later on, we can also rename/recategorize some of the commodities. For example, one of the categories of commodities is labeled “Cantaloupe and other melons” - this can be changed to “melons” for simplicity.</p>
 <p>The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage.</p>
+<pre class="r"><code>suppressPackageStartupMessages(library(tidyverse))
+library(readr)
+
+Food_waste &lt;- read_csv(&quot;~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FAOSTAT Food waste &amp; loss.csv&quot;)</code></pre>
+<pre><code>## Rows: 3171 Columns: 18
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (13): country, cpc_code, commodity, loss_percentage_original, loss_quant...
+## dbl  (3): m49_code, year, loss_percentage
+## lgl  (2): region, sample_size
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>#View(Food_waste)
+head(Food_waste)</code></pre>
+<pre><code>## # A tibble: 6 × 18
+##   m49_code country               region cpc_code commodity  year loss_percentage
+##      &lt;dbl&gt; &lt;chr&gt;                 &lt;lgl&gt;  &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;           &lt;dbl&gt;
+## 1      840 United States of Ame… NA     01211    Asparagus  2019               9
+## 2      840 United States of Ame… NA     01212    Cabbages   2019               8
+## 3      840 United States of Ame… NA     01212    Cabbages   2019               7
+## 4      840 United States of Ame… NA     01212    Cabbages   2019              12
+## 5      840 United States of Ame… NA     01212    Cabbages   2019              12
+## 6      840 United States of Ame… NA     01212    Cabbages   2019              12
+## # … with 11 more variables: loss_percentage_original &lt;chr&gt;,
+## #   loss_quantity &lt;chr&gt;, activity &lt;chr&gt;, food_supply_stage &lt;chr&gt;,
+## #   treatment &lt;chr&gt;, cause_of_loss &lt;chr&gt;, sample_size &lt;lgl&gt;,
+## #   method_data_collection &lt;chr&gt;, reference &lt;chr&gt;, url &lt;chr&gt;, notes &lt;chr&gt;</code></pre>
 </div>
