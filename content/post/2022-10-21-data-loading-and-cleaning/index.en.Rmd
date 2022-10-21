@@ -21,7 +21,7 @@ featuredImage: ~
 
   The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage. 
   
-```{r plots}
+```{r plots, echo=FALSE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
