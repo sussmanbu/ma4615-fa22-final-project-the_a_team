@@ -21,7 +21,8 @@ featuredImage: ~
 
   The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage. 
   
-```{r plots, echo=FALSE}
+  
+```{r table, echo=FALSE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
@@ -29,5 +30,29 @@ library(readr)
 Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FAOSTAT Food waste & loss.csv")
 #View(Food_waste)
 head(Food_waste)
+```
 
+
+```{r cleaning, echo=FALSE}
+
+#In this block we can start cleaning the data until is ready for the ggpplots in another section
+
+# with this, the unnecessary columns have been taken out
+Food_waste$m49_code <- NULL 
+  Food_waste$country <- NULL 
+  Food_waste$region <- NULL
+  Food_waste$loss_percentage_original <- NULL
+  Food_waste$activity <- NULL
+  Food_waste$treatment <- NULL
+  Food_waste$cause_of_loss <- NULL
+  Food_waste$sample_size <- NULL
+  Food_waste$method_data_collection <- NULL
+  Food_waste$reference <- NULL
+  Food_waste$url <- NULL
+  Food_waste$notes <- NULL
+
+head(Food_waste)
+  
+#should continue cleaning here.....delete this line when continuing
+# should group duplicates in the rows would be the next step and done...
 ```
