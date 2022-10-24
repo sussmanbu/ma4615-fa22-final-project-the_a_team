@@ -28,7 +28,7 @@ featuredImage: "images/food_waste.jpg"
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
 
-Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FAOSTAT Food waste & loss.csv")
+Food_waste <- read_csv(here::here("dataset", "FAOSTAT Food waste & loss.csv"))
 #View(Food_waste)
 head(Food_waste)
 ```
