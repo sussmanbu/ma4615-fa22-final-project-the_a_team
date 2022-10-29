@@ -13,16 +13,17 @@ lastmod: '2022-10-21T17:46:45-04:00'
 featuredVideo: ~
 featuredImage: "images/food_waste.jpg" 
 ---
-## U.S. Food waste dataset loading and cleaning overview: 
 
-  The comprehensive data regarding agriculture is quite large; therefore, we aim to first focus on data to analyze information on food waste. The Food and Agriculture provides extensive datasets that we intend on using to build on top of our primary analysis of food waste (e.g., food security and livestock data). The primary Food Waste & Loss dataset is small enough to be stored in the dataset folder.
-  
-  First, we are filtering by country and focusing on the US as an all-inclusive dataset (with all countries) is too large and likely too complicated for initial exploratory purposes. Following that, we will remove unnecessary columns within the dataset - URL, reference, note, region, treatment, cause_of_loss, loss_quantity, activity, and m49_code - these columns proved to be either incomplete or irrelevant to our analysis. Our initial exploratory phase will focus mainly on the columns: commodity, year, loss_percentage, and food_supply_stage. In addition, we will need to calibrate inconsistencies in columns like loss_percentage using col_number() as values are denoted in percentages likely to be registered as characters in R. Later on, we can also rename/recategorize some of the commodities. For example, one of the categories of commodities is labeled “Cantaloupe and other melons” - this can be changed to “melons” for simplicity.
+## U.S. Food waste dataset loading and cleaning overview:
 
-  The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage. 
-  
+The comprehensive data regarding agriculture is quite large; therefore, we aim to first focus on data to analyze information on food waste. The Food and Agriculture provides extensive datasets that we intend on using to build on top of our primary analysis of food waste (e.g., food security and livestock data). The primary Food Waste & Loss dataset is small enough to be stored in the dataset folder.
+
+First, we are filtering by country and focusing on the US as an all-inclusive dataset (with all countries) is too large and likely too complicated for initial exploratory purposes. Following that, we will remove unnecessary columns within the dataset - URL, reference, note, region, treatment, cause_of_loss, loss_quantity, activity, and m49_code - these columns proved to be either incomplete or irrelevant to our analysis. Our initial exploratory phase will focus mainly on the columns: commodity, year, loss_percentage, and food_supply_stage. In addition, we will need to calibrate inconsistencies in columns like loss_percentage using col_number() as values are denoted in percentages likely to be registered as characters in R. Later on, we can also rename/recategorize some of the commodities. For example, one of the categories of commodities is labeled "Cantaloupe and other melons" - this can be changed to "melons" for simplicity.
+
+The first plots we can develop for simple exploration are time vs. waste and the second graph could be commodity vs. waste amount in either by weigh or percentage.
 
 ### Here's how the original dataset is set:
+
 ```{r table, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 suppressPackageStartupMessages(library(tidyverse))
@@ -33,13 +34,11 @@ Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dat
 head(Food_waste)
 ```
 
-
-
 ### Here we have cleaned the dataset, left with only with the parameters needed for our analyses:
+
 ```{r cleaning, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
-
 # with this, the unnecessary columns have been taken out
 Food_waste$m49_code <- NULL 
   Food_waste$country <- NULL 
@@ -53,9 +52,24 @@ Food_waste$m49_code <- NULL
   Food_waste$reference <- NULL
   Food_waste$url <- NULL
   Food_waste$notes <- NULL
+    
+  Food_waste %>% group_by(commodity) %>% summarise(loss_percentage = sum(loss_percentage))
 
 head(Food_waste)
   
 #should continue cleaning here.....delete this line when continuing
 # should group duplicates in the rows would be the next step and done...
+```
+
+### Here we have c:
+
+```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+# Basic ggpplot section
+
+ggplot(Food_waste, aes(x = year, y = loss_percentage)) +
+geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+  ggtitle("Proportion of food waste since 1970") +
+  xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
+
 ```

@@ -1,0 +1,27 @@
+---
+title: Data for Equity
+author: The A Team
+date: '2022-10-29'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-10-29T14:29:09-04:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
+### Principles for advancing equitable data practice
+
+
+  According to the Food Agriculture Organization, the data we use is sourced from scientific journals, academic publications, sub-national reports, and other international organizations like the World Bank. As such, the ethicality of our data’s instrumentation and collection is less of a concern as FAO does not provide a direct source. Therefore, issues such as privacy and re-identification risk are less prominent. Areas that we will have to consider will likely be concerning data processing and analysis, dissemination, and disposition. 
+
+  Given that our focus is the United States, where agriculture is a significant contributor to the economy, we need to consider how the data may be interpreted. The conclusions we will draw from our analysis. Our consideration must also account for the potential reinforcement of inequities or relative disparities. While understanding the magnitude of food waste and loss is essential in the US, our conclusion should not be considered neutral, as other components factor into this process. There exist inherent limitations to data analysis and the conclusions drawn from it.
+
+  In terms of limitation in our analysis, the complexity of the agriculture industry is critical to our consideration as data is likely to be incomplete, and essential information may be lacking along the supply chain. Moreover, behind food waste and loss, critical cultural and social components factor into this subject. Issues with over-consumption, portion control, and food aesthetics are aspects that contribute to food loss. 
+
+  While processing and analyzing our data, the beneficence could be abused or misused by politicizing the data and targeted marketing for a population. These kinds of misuse might not harm the consumer by means of abusing their personal identifiable information (PII) but by creating non-existing biases and misinterpretations. In an era of politicized science, transparency must be applied as a principle in every analysis. After we process and analyze the data, it is crucial for us to return data and results to community members and to return them in a form that everyone can use. Ensuring the results are communicated in a comprehensible way for all community members is an excellent method to incorporate equity in our research process. Therefore, we aim to proactively learn about social context and receive input from people who will bear the risk of findings. 
+
