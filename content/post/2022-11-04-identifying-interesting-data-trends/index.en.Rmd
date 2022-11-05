@@ -23,7 +23,7 @@ featuredImage: ~
 
 |           The predictor variables that we are currently looking at will be ‘year’, and examining a simple linear trend on food waste in the US throughout the years. As discussed earlier, this analysis will become more holistic as we proceed with the addition of more regions to our consideration and other factors potentially contributing to food waste. Below is another visualization of food waste based on commodities, throughout 50+ years. 
 
-```{r plot, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+```{r plot, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
@@ -42,7 +42,7 @@ foodwaste_new <- foodwaste %>%
 
 foodwaste_new %>% 
   ggplot(aes(loss_percentage, commodity)) + 
-  geom_boxplot()
+  geom_boxplot() + theme(axis.text = element_text(size = 4)) 
 
 ```
 
