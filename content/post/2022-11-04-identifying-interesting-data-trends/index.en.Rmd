@@ -1,0 +1,51 @@
+---
+title: 'Identifying interesting data trends '
+author: Daniel Sussman
+date: '2022-11-04'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-11-04T21:32:20-04:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
+### Data trends of interest:
+
+
+|           Based on our finding last time, we want to explore why food waste peaked at 2008 and what specific commodity contributed the most food loss percentage. After rearranging our data, we found that in 2008, 64% of papayas are lost and 53% of carrots & turnips are lost in the household stage. At the same time, over 18% of the commodity have over 30% loss (in the production process, retail, and households stage) in 2008. With the limited data, we are unable to discover the reason behinds this finding (May need further research). Furthermore, we want to explore the relationship between “loss_percentage” and “food_supply_stage” to understand where the majority of food waste/loss occur in the food supply chain. 
+
+|           Our initial exploration of the dataset is focused on the US, however, after further consideration, to better understand food waste, we are looking to explore other regions. This is largely due to the initial dataset having limited continuous variables and more abundant categorical variables. By expanding the countries of focus, it will allow for easier incorporation of other dataset and variables in the future, such as economic data (income, GDP, etc.) and its effect on food waste based on country. 
+
+|           The predictor variables that we are currently looking at will be ‘year’, and examining a simple linear trend on food waste in the US throughout the years. As discussed earlier, this analysis will become more holistic as we proceed with the addition of more regions to our consideration and other factors potentially contributing to food waste. Below is another visualization of food waste based on commodities, throughout 50+ years. 
+
+```{r plot, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+
+suppressPackageStartupMessages(library(tidyverse))
+library(readr)
+
+foodwaste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FAOSTAT Food waste & loss.csv")
+
+#nom <- foodwaste %>% group_by(commodity) %>% summarize(year,loss_percentage)
+#ggplot(nom, aes(year,loss_percentage)) + geom_line(aes(color = commodity), show.legend = FALSE)
+
+#Food_waste %>% filter(year == 2008) %>% arrange(desc(loss_percentage)) 
+
+foodwaste_new <- foodwaste %>% 
+  group_by(year) %>%
+  group_by(commodity) %>%
+  summarize(year, commodity, loss_percentage)
+
+foodwaste_new %>% 
+  ggplot(aes(loss_percentage, commodity)) + 
+  geom_boxplot()
+
+```
+
+![food_waste: figure_1](~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/static/images/Screen Shot 2022-11-04 at 12.42.50 PM.jpeg)
+
+Here in figure 1, represents the loss percentage for every commodity across all years combined. At first glance, this graph tells us that most commodities average a loss_percentage between 0 and 20 percent. Most being close to 10. 
