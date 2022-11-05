@@ -46,6 +46,4 @@ foodwaste_new %>%
 
 ```
 
-![Figure 1](~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/static/images/blog4fig1.jpeg){#id .class width=30% height=10%}
-
 Here in figure 1, represents the loss percentage for every commodity across all years combined. At first glance, this graph tells us that most commodities average a loss_percentage between 0 and 20 percent. Most being close to 10. 
