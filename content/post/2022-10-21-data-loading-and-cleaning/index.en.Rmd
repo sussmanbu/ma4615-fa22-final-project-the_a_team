@@ -40,7 +40,7 @@ head(Food_waste)
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 # with this, the unnecessary columns have been taken out
-Food_waste$m49_code <- NULL 
+  Food_waste$m49_code <- NULL 
   Food_waste$country <- NULL 
   Food_waste$region <- NULL
   Food_waste$loss_percentage_original <- NULL
@@ -52,24 +52,38 @@ Food_waste$m49_code <- NULL
   Food_waste$reference <- NULL
   Food_waste$url <- NULL
   Food_waste$notes <- NULL
-    
-  Food_waste %>% group_by(commodity) %>% summarise(loss_percentage = sum(loss_percentage))
-
-head(Food_waste)
-  
-#should continue cleaning here.....delete this line when continuing
-# should group duplicates in the rows would be the next step and done...
+  Food_waste$loss_quantity <- NULL
 ```
 
-### Here we have c:
+```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+fw1 <- Food_waste %>% group_by(year,commodity,food_supply_stage) %>%
+   summarise(mean_loss_percentage = mean(loss_percentage))
+  #summarise(commodity = sum(commodity))
+   
+head(fw1)
+
+```
+
+### Here we have a basic plot of food waste vs time:
 
 ```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
-# Basic ggpplot section
-
+# plotting food_waste before cleaning up the data
 ggplot(Food_waste, aes(x = year, y = loss_percentage)) +
 geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
   ggtitle("Proportion of food waste since 1970") +
   xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
 
+# plotting food_waste after cleaning up the duplicates from the data
+ggplot(fw1, aes(x = year, y = mean_loss_percentage)) +
+geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+  ggtitle("Proportion of food waste since 1970") +
+  xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
+
+# box plot for food_waste
+#fw1 %>% 
+  #ggplot(aes(mean_loss_percentage, commodity)) + 
+  #geom_boxplot() + theme(axis.text = element_text(size = 4)) 
+
 ```
+Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
