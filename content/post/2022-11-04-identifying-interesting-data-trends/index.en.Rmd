@@ -1,6 +1,6 @@
 ---
 title: 'Identifying interesting data trends '
-author: Daniel Sussman
+author: 'The-A-Team '
 date: '2022-11-04'
 slug: []
 categories: []

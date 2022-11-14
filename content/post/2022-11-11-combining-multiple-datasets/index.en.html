@@ -1,0 +1,40 @@
+---
+title: Combining multiple datasets
+author: 'The-A-Team '
+date: '2022-11-11'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-11-11T09:51:56-05:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="multiple-datasets-analyses" class="section level3">
+<h3>Multiple datasets Analyses:</h3>
+<div class="line-block">          To expand upon our analysis of food waste, we are combining additional information about food production and food prices (producer and consumer).</div><br>
+<div class="line-block">          The first set of new data that we are introducing is data on food production. The purpose of this dataset is to examine the relationship between production levels and food waste/loss. From this dataset, we aim to examine if there exists any correlation between the two. For example, more production leading to more waste. The primary concern is that if there does not exist a relationship, and that food waste/loss is high even in years of low production, it could signal a general excess in food production and consumption in the US. Given the many data on different commodities in the two datasets, the first challenge would be matching the production levels with food waste/loss based on commodities. Additionally, we need to match the years to be able to examine the dataset on an annual basis.</div><br>
+<div class="line-block">          The second set we are introducing is producer and consumer price indexes. This will help provide additional perspectives into food waste/loss as well as provide insight into relationships with the production levels. For example, a hypothesis could be that when producer prices are high and consumer prices are high, the overall production levels will be higher but food waste will be higher, too. The price indexes we are introducing does provide some categories of prices, such as meat, vegetables, and dairy. However, this is not nearly as specific nor detailed as the production or waste/loss data, hence, we will likely have to focus on the food prices for all foods. Additionally, the dataset provides percentage change in prices and not absolute values.</div><br>
+<div class="line-block">          We are also thinking of possibly looking at the relationship between food waste and the “affluence” of a country. It could be that the more affluent a country is, the more they are prone to wasting food. Possibly because they have more food than they need, but may also be that consumers may also value food less. On the other hand, I would be surprised to find a discovery where a less affluent country has a greater food waste. On the other hand, we could also look at food waste per continent/region to see if we find anything interesting there. For example, maybe food waste can be attributed to a western mentality of consumer consumption.</div><br>
+<pre><code>## # A tibble: 6 × 14
+##   `Domain Code` Domain             `Area Code (M4…` Area  `Element Code` Element
+##   &lt;chr&gt;         &lt;chr&gt;                         &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;  
+## 1 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## 2 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## 3 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## 4 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## 5 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## 6 QCL           Crops and livesto…              840 Unit…           5312 Area h…
+## # … with 8 more variables: `Item Code (CPC)` &lt;chr&gt;, Item &lt;chr&gt;,
+## #   `Year Code` &lt;dbl&gt;, Year &lt;dbl&gt;, Unit &lt;chr&gt;, Value &lt;dbl&gt;, Flag &lt;chr&gt;,
+## #   `Flag Description` &lt;chr&gt;</code></pre>
+</div>

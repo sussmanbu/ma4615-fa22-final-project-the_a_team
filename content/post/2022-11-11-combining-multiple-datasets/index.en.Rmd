@@ -1,0 +1,81 @@
+---
+title: Combining multiple datasets
+author: 'The-A-Team '
+date: '2022-11-11'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-11-11T09:51:56-05:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
+### Multiple datasets Analyses:
+
+|           To expand upon our analysis of food waste, we are combining additional information about food production and food prices (producer and consumer). 
+
+|           The first set of new data that we are introducing is data on food production. The purpose of this dataset is to examine the relationship between production levels and food waste/loss. From this dataset, we aim to examine if there exists any correlation between the two. For example, more production leading to more waste. The primary concern is that if there does not exist a relationship, and that food waste/loss is high even in years of low production, it could signal a general excess in food production and consumption in the US. Given the many data on different commodities in the two datasets, the first challenge would be matching the production levels with food waste/loss based on commodities. Additionally, we need to match the years to be able to examine the dataset on an annual basis. 
+
+|           The second set we are introducing is producer and consumer price indexes. This will help provide additional perspectives into food waste/loss as well as provide insight into relationships with the production levels. For example, a hypothesis could be that when producer prices are high and consumer prices are high, the overall production levels will be higher but food waste will be higher, too. The price indexes we are introducing does provide some categories of prices, such as meat, vegetables, and dairy. However, this is not nearly as specific nor detailed as the production or waste/loss data, hence, we will likely have to focus on the food prices for all foods. Additionally, the dataset provides percentage change in prices and not absolute values. 
+
+|           We are also thinking of possibly looking at the relationship between food waste and the “affluence” of a country. It could be that the more affluent a country is, the more they are prone to wasting food. Possibly because they have more food than they need, but may also be that consumers may also value food less. On the other hand, I would be surprised to find a discovery where a less affluent country has a greater food waste. On the other hand, we could also look at food waste per continent/region to see if we find anything interesting there. For example, maybe food waste can be attributed to a western mentality of consumer consumption. 
+
+
+```{r food_production, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+suppressPackageStartupMessages(library(tidyverse))
+library(readr)
+
+Food_production <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/production.csv")
+#View(Food_waste)
+head(Food_production)
+```
+
+```{r cleaning, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+
+#In this block we can start cleaning the data until is ready for the ggpplots in another section
+# with this, the unnecessary columns have been taken out
+  Food_production$`Domain Code` <- NULL 
+  Food_production$Domain <- NULL 
+  Food_production$`Area Code (M49)` <- NULL
+  Food_production$Area <- NULL
+  Food_production$Element <- NULL
+  Food_production$`Item Code (CPC)`<- NULL
+  Food_production$`Year Code` <- NULL
+  Food_production$Flag <- NULL
+  Food_production$`Flag Description`<- NULL
+ 
+```
+
+```{r normalizing, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+fp1 <- Food_production %>% group_by(Item, Year, Value, Unit) #%>%
+   #summarise(mean_loss_percentage = mean(loss_percentage))
+  #summarise(commodity = sum(commodity))
+   
+head(fp1)
+
+```
+
+
+```{r plot_foodprod, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+# plotting food_waste after cleaning up the duplicates from the data
+ggplot(fp1, aes(x = Year, y = Item)) +
+geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+  ggtitle("Proportion of food production") +
+  xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
+```
+
+```{r plot2, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+
+# plotting food_waste after cleaning up the duplicates from the data
+#ggplot(fp1, aes(x = Year, y = Item)) + geom_point() + facet_grid(~Item)
+
+#ggplot(fp1, aes(x = Year, y = Item, color = Value)) + geom_point(alpha=0.7) + theme(axis.text = element_text(size = 2)) 
+
+ggplot(fp1, aes(x = Year, y = Item)) + barplot()
+
+```
