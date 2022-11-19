@@ -79,3 +79,12 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
 ggplot(fp1, aes(x = Year, y = Item)) + barplot()
 
 ```
+
+```{r data}
+
+FdpN <- read_csv("~/Downloads/Production_Crops_Livestock_E_All_Data_(Normalized)/Production_Crops_Livestock_E_All_Data_(Normalized).csv")
+
+head(FdpN)
+```
+
+
