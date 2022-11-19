@@ -25,7 +25,7 @@
 #if(!require(shinydashboard)) install.packages("shinydashboard", repos = "http://cran.us.r-project.org")
 #if(!require(shinythemes)) install.packages("shinythemes", repos = "http://cran.us.r-project.org")
 
-load_pkg <- rlang::quos(shiny,shinythemes,tidyverse,plotly,lubridate,dplyr,ggiraph,maps,geojsonio,readxl,janitor,leaflet,RColorBrewer,shinythemes,shinydashboard,shinyWidgets)
+load_pkg <- rlang::quos(shiny,shinythemes,tidyverse,plotly,lubridate,magrittr,rvest,readxl,dplyr,maps,reshape2,ggiraph,RColorBrewer,leaflet,geojsonio,janitor,shinythemes,shinydashboard,shinyWidgets)
 
 invisible(lapply(lapply(load_pkg, rlang::quo_name),
                  library,
@@ -36,13 +36,99 @@ invisible(lapply(lapply(load_pkg, rlang::quo_name),
 ui <- bootstrapPage(
   #tags$head(includeHTML("gtag.html")),
   navbarPage(theme = shinythemes::shinytheme("superhero"), collapsible = TRUE,
-             HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">COVID-19 tracker</a>'), id="nav",
+             HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">Food Waste Tracker</a>'), id="nav",
              windowTitle = "Food Waste Tracker",
+             
+             
+             sidebarPanel(sliderInput(inputId = 'Year Range', label = 'Year Range',min=1961,max=2021,value = c(1961,2021),step=1),
+                          selectInput(inputId = "Aggregation", label = "Aggregation",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "Aggregation_Options", label = "Aggregation Options",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "Country", label = "Country",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "Basket_item", label = "Basket Item",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "Commodity", label = "Commodity (CPC 2.0)",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "Value_Chain_Stage", label = "Value Chain Stage(s)",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          selectInput(inputId = "method_data_collect", label = "Method Of Data Collection",
+                                      choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
+                          checkboxInput(inputId = "top_SGD_basket", label = "Select to keep only the top 10 SGD basket items",)),
+             
              
              tabPanel("Food Waste mapper",
                       div(class="outer",
                           tags$head(includeCSS("styles.css")),
-                          leafletOutput("mymap", width="100%", height="100%")))))
+                          leafletOutput("mymap", width="100%", height="100%") #,
+                          
+                          # absolutePanel(id = "controls", class = "panel panel-default",
+                          #               top = 75, left = 55, width = 250, fixed=TRUE,
+                          #               draggable = TRUE, height = "auto",
+                          #               
+                          #               span(tags$i(h6("Reported cases are subject to significant variation in testing policy and capacity between countries.")), style="color:#045a8d"),
+                          #               h3(textOutput("reactive_case_count"), align = "right"),
+                          #               h4(textOutput("reactive_death_count"), align = "right"),
+                          #               h6(textOutput("clean_date_reactive"), align = "right"),
+                          #               h6(textOutput("reactive_country_count"), align = "right"),
+                          #               plotOutput("epi_curve", height="130px", width="100%"),
+                          #               plotOutput("cumulative_plot", height="130px", width="100%") #,
+                                        
+                                        # sliderTextInput("plot_date",
+                                        #                 label = h5("Select mapping date"),
+                                        #                 choices = format(unique(cv_cases$date), "%d %b %y"),
+                                        #                 selected = format(current_date, "%d %b %y"),
+                                        #                 grid = FALSE,
+                                        #                 animate=animationOptions(interval = 3000, loop = FALSE))) 
+                                        )),
+             
+               tabPanel("Plot of loss percentage", fluid = TRUE),
+               tabPanel("Heatmap of Available Data", fluid = TRUE),
+               tabPanel("Boxplot by Stage", fluid = TRUE),
+               tabPanel("Data", fluid = TRUE)))
+
+####################################################################################
+
+
+# tabPanel("COVID-19 mapper",
+#          div(class="outer",
+#              tags$head(includeCSS("styles.css")),
+#              leafletOutput("mymap", width="100%", height="100%"),
+#              
+#              absolutePanel(id = "controls", class = "panel panel-default",
+#                            top = 75, left = 55, width = 250, fixed=TRUE,
+#                            draggable = TRUE, height = "auto",
+#                            
+#                            span(tags$i(h6("Reported cases are subject to significant variation in testing policy and capacity between countries.")), style="color:#045a8d"),
+#                            h3(textOutput("reactive_case_count"), align = "right"),
+#                            h4(textOutput("reactive_death_count"), align = "right"),
+#                            h6(textOutput("clean_date_reactive"), align = "right"),
+#                            h6(textOutput("reactive_country_count"), align = "right"),
+#                            plotOutput("epi_curve", height="130px", width="100%"),
+#                            plotOutput("cumulative_plot", height="130px", width="100%"),
+#                            
+#                            sliderTextInput("plot_date",
+#                                            label = h5("Select mapping date"),
+#                                            choices = format(unique(cv_cases$date), "%d %b %y"),
+#                                            selected = format(current_date, "%d %b %y"),
+#                                            grid = FALSE,
+#                                            animate=animationOptions(interval = 3000, loop = FALSE))),
+#              
+#              absolutePanel(id = "logo", class = "card", bottom = 20, left = 60, width = 80, fixed=TRUE, draggable = FALSE, height = "auto",
+#                            tags$a(href='https://www.lshtm.ac.uk', tags$img(src='lshtm_dark.png',height='40',width='80'))),
+#              
+#              absolutePanel(id = "logo", class = "card", bottom = 20, left = 20, width = 30, fixed=TRUE, draggable = FALSE, height = "auto",
+#                            actionButton("twitter_share", label = "", icon = icon("twitter"),style='padding:5px',
+#                                         onclick = sprintf("window.open('%s')", 
+#                                                           "https://twitter.com/intent/tweet?text=%20@LSHTM_Vaccines%20outbreak%20mapper&url=https://bit.ly/2uBvnds&hashtags=coronavirus")))
+#              
+#              
+#          )
+# )
+
+
+####################################################################################
 
 
 # Define server logic required to draw a histogram
