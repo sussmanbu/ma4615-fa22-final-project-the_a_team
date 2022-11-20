@@ -30,7 +30,7 @@ head(Food_waste)
   Food_waste$loss_quantity <- NULL
 ```
 
-### Here we have a basic plot of food waste vs time:
+### Here we have a basic plot of food waste vs timeE:
 
 ```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
