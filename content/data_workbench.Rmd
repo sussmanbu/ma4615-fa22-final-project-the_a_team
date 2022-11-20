@@ -1,5 +1,13 @@
 Here is our workbench page, here we can make graphs and anaylse the data trends
 
+```{r setwrk}
+
+#setwd("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team")
+
+```
+
+
+This section is for cleaning and analyzing the food loss data:
 
 ```{r table, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
@@ -30,7 +38,14 @@ head(Food_waste)
   Food_waste$loss_quantity <- NULL
 ```
 
-### Here we have a basic plot of food waste vs timeE:
+```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+fw1 <- Food_waste %>% group_by(year,country,commodity) %>%
+   summarise(mean_loss_percentage = mean(loss_percentage))
+  #summarise(commodity = sum(commodity))
+   
+head(fw1)
+
+```
 
 ```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
@@ -55,35 +70,15 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
 
 Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
 
-```{r plot, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
-suppressPackageStartupMessages(library(tidyverse))
-library(readr)
-
-Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FoodLossandWasteAll.csv")
-
-#nom <- foodwaste %>% group_by(commodity) %>% summarize(year,loss_percentage)
-#ggplot(nom, aes(year,loss_percentage)) + geom_line(aes(color = commodity), show.legend = FALSE)
-
-#Food_waste %>% filter(year == 2008) %>% arrange(desc(loss_percentage)) 
-
-foodwaste_new <- Food_waste %>% group_by(year,commodity,food_supply_stage) %>%
-   summarise(mean_loss_percentage = mean(loss_percentage))
-
-foodwaste_new %>% 
-  ggplot(aes(mean_loss_percentage, commodity)) + 
-  geom_boxplot() + theme(axis.text = element_text(size = 1)) 
-
-```
-
-Here in figure 1, represents the loss percentage for every commodity across all years combined. At first glance, this graph tells us that most commodities average a loss_percentage between 0 and 20 percent. Most being close to 10. 
+This section is for cleaning and analyzing the food production data:
 
 ```{r food_production, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
 
-Food_production <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/USA_food_production.csv")
+Food_production <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset-ignore/Production_All(Normalized).csv")
 #View(Food_waste)
 head(Food_production)
 ```
@@ -92,11 +87,11 @@ head(Food_production)
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 # with this, the unnecessary columns have been taken out
-  Food_production$`Domain Code` <- NULL 
-  Food_production$Domain <- NULL 
-  Food_production$`Area Code (M49)` <- NULL
-  Food_production$Area <- NULL
-  Food_production$Element <- NULL
+  #Food_production$`Domain Code` <- NULL 
+  #Food_production$Domain <- NULL 
+  #Food_production$`Area Code (M49)` <- NULL
+  #Food_production$Area <- NULL
+  #Food_production$Element <- NULL
   Food_production$`Item Code (CPC)`<- NULL
   Food_production$`Year Code` <- NULL
   Food_production$Flag <- NULL
