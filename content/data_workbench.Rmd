@@ -123,3 +123,24 @@ FdpN <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset-i
 head(FdpN)
 ```
 
+```{r Cleaning}
+# Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
+
+#GDP
+GDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/GDP.csv", col_types = cols(`[1961:2021]` = col_double()))
+GDP <- GDP[-c(1, 2, 4)]
+
+#AgriPercentageGDP
+AgriGDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/AgriPercentageGDP.csv", col_types = cols(`[1961:2021]` = col_double()))
+AgriGDP <- AgriGDP[-c(1, 2, 4)]
+
+#LandPercentage
+AgriLand <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/LandPercentage.csv", col_types = cols(`[1961:2021]` = col_double()))
+AgriGDP <- AgriGDP[-c(1, 2, 4)]
+
+#Population
+Population <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/population.csv", col_types = cols(`[1961:2021]` = col_double()))
+Population <- Population[-c(1, 2, 4)]
+
+```
+
