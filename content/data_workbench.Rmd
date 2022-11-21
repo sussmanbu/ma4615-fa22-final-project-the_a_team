@@ -23,6 +23,7 @@ head(Food_waste)
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 # with this, the unnecessary columns have been taken out
+
   #Food_waste$m49_code <- NULL 
   #Food_waste$country <- NULL 
   #Food_waste$region <- NULL
@@ -87,11 +88,6 @@ head(Food_production)
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 # with this, the unnecessary columns have been taken out
-  #Food_production$`Domain Code` <- NULL 
-  #Food_production$Domain <- NULL 
-  #Food_production$`Area Code (M49)` <- NULL
-  #Food_production$Area <- NULL
-  #Food_production$Element <- NULL
   Food_production$`Item Code (CPC)`<- NULL
   Food_production$`Year Code` <- NULL
   Food_production$Flag <- NULL
@@ -100,8 +96,8 @@ head(Food_production)
 ```
 
 ```{r normalizing, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
-fp1 <- Food_production %>% group_by(Item, Year, Value, Unit) #%>%
-   #summarise(mean_loss_percentage = mean(loss_percentage))
+ fp1 <- Food_production %>% group_by(Item, Year, Value, Unit) #%>%
+#    summarise(mean_loss_percentage = mean(loss_percentage))
   #summarise(commodity = sum(commodity))
    
 head(fp1)
@@ -116,12 +112,9 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
   xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
 ```
 
-```{r data}
 
-FdpN <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset-ignore/Production_All(Normalized).csv")
 
-head(FdpN)
-```
+## GDP Dataset:
 
 ```{r Cleaning}
 # Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
