@@ -147,6 +147,8 @@ Population <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-
 Population <- Population %>% group_by(Population[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
 Population <- Population[-c(1, 2, 4)]
 })
+
+# suppressedWanings() command used to suppress error for NA's when mutating from character to numeric
 ```
 
 ```{r}
