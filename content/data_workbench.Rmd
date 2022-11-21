@@ -84,7 +84,7 @@ Food_production <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_tea
 head(Food_production)
 ```
 
-```{r cleaning, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+```{r cleaning, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
 
 #In this block we can start cleaning the data until is ready for the ggpplots in another section
 # with this, the unnecessary columns have been taken out
@@ -95,7 +95,7 @@ head(Food_production)
  
 ```
 
-```{r normalizing, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
  fp1 <- Food_production %>% group_by(Item, Year, Value, Unit) #%>%
 #    summarise(mean_loss_percentage = mean(loss_percentage))
   #summarise(commodity = sum(commodity))
@@ -104,12 +104,12 @@ head(fp1)
 
 ```
 
-```{r plot_foodprod, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
+```{r plot_foodprod, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # plotting food_waste after cleaning up the duplicates from the data
-ggplot(fp1, aes(x = Year, y = Item)) +
-geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
-  ggtitle("Proportion of food production") +
-  xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
+ggplot(fp1, aes(x = Year, y = Area)) +
+ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = false) #+ #se = false, is to remove the confidence bands
+#   ggtitle("Proportion of food production") +
+#   xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
 ```
 
 
