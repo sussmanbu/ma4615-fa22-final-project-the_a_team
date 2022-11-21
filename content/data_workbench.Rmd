@@ -125,22 +125,31 @@ head(FdpN)
 
 ```{r Cleaning}
 # Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
-
+suppressWarnings({
 #GDP
-GDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/GDP.csv", col_types = cols(`[1961:2021]` = col_double()))
+GDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/GDP.csv",
+                show_col_types = F)
+GDP <- GDP %>% group_by(GDP[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
 GDP <- GDP[-c(1, 2, 4)]
 
 #AgriPercentageGDP
-AgriGDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/AgriPercentageGDP.csv", col_types = cols(`[1961:2021]` = col_double()))
+AgriGDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/AgriPercentageGDP.csv", show_col_types = F)
+AgriGDP <- AgriGDP %>% group_by(AgriGDP[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
 AgriGDP <- AgriGDP[-c(1, 2, 4)]
 
 #LandPercentage
-AgriLand <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/LandPercentage.csv", col_types = cols(`[1961:2021]` = col_double()))
-AgriGDP <- AgriGDP[-c(1, 2, 4)]
+AgriLand <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/LandPercentage.csv", show_col_types = F)
+AgriLand <- AgriLand %>% group_by(AgriLand[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+AgriLand <- AgriLand[-c(1, 2, 4)]
 
 #Population
-Population <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/population.csv", col_types = cols(`[1961:2021]` = col_double()))
+Population <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/population.csv", show_col_types = F)
+Population <- Population %>% group_by(Population[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
 Population <- Population[-c(1, 2, 4)]
+})
+```
 
+```{r}
+ggplot(GDP, aes(x = 2021, y = "Country Name")) + geom_bar()
 ```
 
