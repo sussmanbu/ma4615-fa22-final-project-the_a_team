@@ -14,33 +14,13 @@ This section is for cleaning and analyzing the food loss data:
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
 
-Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FoodLossandWasteAll.csv")
+Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAllClean.csv"))
 #View(Food_waste)
 head(Food_waste)
 ```
 
-```{r cleaning, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
-
-#In this block we can start cleaning the data until is ready for the ggpplots in another section
-# with this, the unnecessary columns have been taken out
-
-  #Food_waste$m49_code <- NULL 
-  #Food_waste$country <- NULL 
-  #Food_waste$region <- NULL
-  #Food_waste$loss_percentage_original <- NULL
-  Food_waste$activity <- NULL
-  Food_waste$treatment <- NULL
-  Food_waste$cause_of_loss <- NULL
-  Food_waste$sample_size <- NULL
-  Food_waste$method_data_collection <- NULL
-  Food_waste$reference <- NULL
-  Food_waste$url <- NULL
-  Food_waste$notes <- NULL
-  Food_waste$loss_quantity <- NULL
-```
-
 ```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
-fw1 <- Food_waste %>% group_by(year,country,commodity) %>%
+fw1 <- Food_waste %>% group_by(year, country, commodity) %>%
    summarise(mean_loss_percentage = mean(loss_percentage))
   #summarise(commodity = sum(commodity))
    
@@ -72,27 +52,16 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
 Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
 
 
-This section is for cleaning and analyzing the food production data:
+This section is for loading and analyzing the food production data:
 
 ```{r food_production, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
 
-Food_production <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset-ignore/Production_All(Normalized).csv")
-#View(Food_waste)
+Food_production <- read_csv(here::here("dataset_ignore", "Food_production_clean.csv"))
+#View(Food_production)
 head(Food_production)
-```
-
-```{r cleaning, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
-
-#In this block we can start cleaning the data until is ready for the ggpplots in another section
-# with this, the unnecessary columns have been taken out
-  Food_production$`Item Code (CPC)`<- NULL
-  Food_production$`Year Code` <- NULL
-  Food_production$Flag <- NULL
-  Food_production$`Flag Description`<- NULL
- 
 ```
 
 ```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
@@ -107,7 +76,7 @@ head(fp1)
 ```{r plot_foodprod, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
 # plotting food_waste after cleaning up the duplicates from the data
 ggplot(fp1, aes(x = Year, y = Area)) +
- geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = false) #+ #se = false, is to remove the confidence bands
+ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) #+ #se = false, is to remove the confidence bands
 #   ggtitle("Proportion of food production") +
 #   xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
 ```
@@ -116,32 +85,18 @@ ggplot(fp1, aes(x = Year, y = Area)) +
 
 ## GDP Dataset:
 
-```{r Cleaning}
-# Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
-suppressWarnings({
+```{r Loading}
 #GDP
-GDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/GDP.csv",
-                show_col_types = F)
-GDP <- GDP %>% group_by(GDP[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
-GDP <- GDP[-c(1, 2, 4)]
+GDP <- read_csv(here::here("dataset", "GDP_data_clean.csv"))
 
 #AgriPercentageGDP
-AgriGDP <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/AgriPercentageGDP.csv", show_col_types = F)
-AgriGDP <- AgriGDP %>% group_by(AgriGDP[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
-AgriGDP <- AgriGDP[-c(1, 2, 4)]
+AgriGDP <- read_csv(here::here("dataset", "AgriGDP_data_clean.csv"))
 
 #LandPercentage
-AgriLand <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/LandPercentage.csv", show_col_types = F)
-AgriLand <- AgriLand %>% group_by(AgriLand[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
-AgriLand <- AgriLand[-c(1, 2, 4)]
-
+AgriLand <- read_csv(here::here("dataset", "AgriLand_data_clean.csv"))
 #Population
-Population <- read_csv("~/Documents/01. Academic/05. Boston 22-23'/MA415/ma4615-fa22-final-project-the_a_team/dataset/population.csv", show_col_types = F)
-Population <- Population %>% group_by(Population[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
-Population <- Population[-c(1, 2, 4)]
-})
+Population <- read_csv(here::here("dataset", "Population_data_clean.csv"))
 
-# suppressedWanings() command used to suppress error for NA's when mutating from character to numeric
 ```
 
 ```{r}
