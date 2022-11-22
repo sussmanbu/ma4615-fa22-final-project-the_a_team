@@ -14,7 +14,7 @@ This section is for cleaning and analyzing the food loss data:
 suppressPackageStartupMessages(library(tidyverse))
 library(readr)
 
-Food_waste <- read_csv("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team/dataset/FoodLossandWasteAll.csv")
+Food_waste <- read_csv("C:/Users/jonat/Documents/GitDataSciPath/ma4615-fa22-final-project-the_a_team/dataset/FoodLossandWasteAll.csv")
 #View(Food_waste)
 head(Food_waste)
 ```
@@ -43,7 +43,7 @@ fw1 <- Food_waste %>% group_by(year,country,commodity) %>%
    summarise(mean_loss_percentage = mean(loss_percentage))
   #summarise(commodity = sum(commodity))
    
-head(fw1)
+Food_waste
 
 ```
 
@@ -66,6 +66,47 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
   #ggplot(aes(mean_loss_percentage, commodity)) + 
   #geom_boxplot() + theme(axis.text = element_text(size = 4)) 
 
+
+
+```
+
+
+```{r heatmapfoodwastebycountry}
+library(maps)
+mydata2 <- select(fw1, c('year','country','mean_loss_percentage'))
+mydata2 <- mydata2 %>% filter(year > 2009 )
+
+#mydata2 <- aggregate(cbind(mydata2$mean_loss_percentage),by=list(year=mydata2$year,country=mydata2&country), FUN=sum)
+mydata2
+mydata2 <- mydata2 %>% group_by(year,country) %>% summarise_each(funs(sum))
+mydata2
+mydata2 <- mydata2 %>% group_by(country) %>% summarise_each(funs(mean))
+#mydata2 <- mydata2 %>% group_by(country) %>% summarise_each(funs(sum)) 
+mydata2
+#sd <- order(mydata2$mean_loss_percentage,decreasing = TRUE)
+
+#sd<- data[order(mydata2$mean_loss_percentage, decreasing = TRUE), ]
+#sd
+
+#mydata <- data.frame(Country,Cases)
+#mydata
+world_map <- map_data("world")
+mydata<-mydata2
+mydata$country[mydata$country == "United States of America"] <- "USA"
+mydata$country[mydata$country == "Russian Federation"] <- "Russia"
+world_map <- map_data("world")
+world_map <- subset(world_map, region != "Antarctica")
+
+ggplot(mydata) +
+  geom_map(
+    dat = world_map, map = world_map, aes(map_id = region),
+    fill = "white", color = "#7f7f7f", size = 0.25
+  ) +
+  geom_map(map = world_map, aes(map_id = country, fill = mean_loss_percentage), size = 0.25) +
+  scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+world_map
 ```
 
 Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
