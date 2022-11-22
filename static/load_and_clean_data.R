@@ -69,7 +69,7 @@ write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllCle
 save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
 
 write_csv(Food_production_clean, file = here::here("dataset-ignore", "Food_production_clean.csv"))
-save(Food_production_clean, file = here::here("dataset_ignore/Food_production_clean.RData"))
+save(Food_production_clean, file = here::here("dataset-ignore/Food_production_clean.RData"))
 
 write_csv(GDP_data_clean, file = here::here("dataset", "GDP_data_clean.csv"))
 save(GDP_data_clean, file = here::here("dataset/GDP_data_clean.RData"))
