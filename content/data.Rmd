@@ -60,6 +60,7 @@ different regional statistics.
 
 Area: This one is just the name of each designated region. Area can mean continent or country based on how precise we decide to be at the time. Eg.United States or Central America may both be viable names for Area. 
 Item: This is the item in question that is being produced and measured, aka apples, almonds, etc.
-Unit : 
+Unit : This usually describes the food loss in tonnes. 
+Food Waste: Total Amount of food wasted as compared to the rest of the world.
 
 
