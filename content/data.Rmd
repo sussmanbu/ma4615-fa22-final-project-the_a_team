@@ -49,6 +49,9 @@ The cleaning for this portion of data was defining the “Year” columns as num
             We also used a Maps package for the purpose of making a very user-friendly graph that uses a map as a way to display data. This makes it easy for people to visualize 
 different regional statistics.
 
+```{r echo = F}
+source(here::here("static", "load_and_clean_data.R"))
+```
 
 ## Warnings:
 
