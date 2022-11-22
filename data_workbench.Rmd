@@ -51,6 +51,33 @@ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to 
 
 Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
 
+```{r heatmapfoodwastebycountry}
+library(maps)
+worlddata <- select(fw1, c('year','country','mean_loss_percentage'))
+worlddata <- worlddata %>% filter(year > 2009 )
+
+worlddata <- worlddata %>% group_by(year,country) %>% summarise_each(funs(sum))
+
+worlddata <- worlddata %>% group_by(country) %>% summarise_each(funs(mean))
+
+world_map <- map_data("world")
+mydata<-worlddata
+mydata$country[mydata$country == "United States of America"] <- "USA"
+mydata$country[mydata$country == "Russian Federation"] <- "Russia"
+world_map <- map_data("world")
+world_map <- subset(world_map, region != "Antarctica")
+
+ggplot(mydata) +
+  geom_map(
+    dat = world_map, map = world_map, aes(map_id = region),
+    fill = "white", color = "#7f7f7f", size = 0.25
+  ) +
+  geom_map(map = world_map, aes(map_id = country, fill = mean_loss_percentage), size = 0.25) +
+  scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss of Food Waste") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+world_map
+```
 
 This section is for loading and analyzing the food production data:
 

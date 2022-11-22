@@ -45,7 +45,9 @@ The cleaning for this portion of data was defining the “Year” columns as num
 
 ## Packages Used to Clean Code:
 
-|           Given that most of the cleaning required of the datasets were reorganization and redefining variables, a significant portion of the cleaning was used using dplyr. The remaining portion of the cleaning was done using base R functions. 
+|           Given that most of the cleaning required of the data sets were reorganization and redefining variables, a significant portion of the cleaning was used using dplyr. The remaining portion of the cleaning was done using base R functions. 
+            We also used a Maps package for the purpose of making a very user-friendly graph that uses a map as a way to display data. This makes it easy for people to visualize 
+different regional statistics.
 
 
 ## Warnings:
@@ -58,6 +60,7 @@ The cleaning for this portion of data was defining the “Year” columns as num
 
 Area: This one is just the name of each designated region. Area can mean continent or country based on how precise we decide to be at the time. Eg.United States or Central America may both be viable names for Area. 
 Item: This is the item in question that is being produced and measured, aka apples, almonds, etc.
-Unit : 
+Unit : This usually describes the food loss in tonnes. 
+Food Waste: Total Amount of food wasted as compared to the rest of the world.
 
 
