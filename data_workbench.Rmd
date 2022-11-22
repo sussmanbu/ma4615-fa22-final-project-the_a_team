@@ -1,0 +1,105 @@
+Here is our workbench page, here we can make graphs and anaylse the data trends
+
+```{r setwrk}
+
+#setwd("~/Desktop/MA415/ma4615-fa22-final-project-the_a_team")
+
+```
+
+
+This section is for cleaning and analyzing the food loss data:
+
+```{r table, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+suppressPackageStartupMessages(library(tidyverse))
+library(readr)
+
+Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAllClean.csv"))
+#View(Food_waste)
+head(Food_waste)
+```
+
+```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+fw1 <- Food_waste %>% group_by(year, country, commodity) %>%
+   summarise(mean_loss_percentage = mean(loss_percentage))
+  #summarise(commodity = sum(commodity))
+   
+head(fw1)
+
+```
+
+```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+# plotting food_waste before cleaning up the data
+ggplot(Food_waste, aes(x = year, y = loss_percentage)) +
+geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+  ggtitle("Proportion of food waste since 1970") +
+  xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
+
+# plotting food_waste after cleaning up the duplicates from the data
+ggplot(fw1, aes(x = year, y = mean_loss_percentage)) +
+geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+  ggtitle("Proportion of food waste since 1970") +
+  xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
+
+# box plot for food_waste
+#fw1 %>% 
+  #ggplot(aes(mean_loss_percentage, commodity)) + 
+  #geom_boxplot() + theme(axis.text = element_text(size = 4)) 
+
+```
+
+Figure one, shows the data as it is, and the second graph shows the data after cleaning out the duplicates.
+
+
+This section is for loading and analyzing the food production data:
+
+```{r food_production, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+suppressPackageStartupMessages(library(tidyverse))
+library(readr)
+
+Food_production <- read_csv(here::here("dataset_ignore", "Food_production_clean.csv"))
+#View(Food_production)
+head(Food_production)
+```
+
+```{r normalizing, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+ fp1 <- Food_production %>% group_by(Item, Year, Value, Unit) #%>%
+#    summarise(mean_loss_percentage = mean(loss_percentage))
+  #summarise(commodity = sum(commodity))
+   
+head(fp1)
+
+```
+
+```{r plot_foodprod, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+# plotting food_waste after cleaning up the duplicates from the data
+ggplot(fp1, aes(x = Year, y = Area)) +
+ geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) #+ #se = false, is to remove the confidence bands
+#   ggtitle("Proportion of food production") +
+#   xlab("Year") + ylab("Food Production by weight") + theme(axis.text = element_text(size = 2)) 
+```
+
+
+
+## GDP Dataset:
+
+```{r Loading}
+#GDP
+GDP <- read_csv(here::here("dataset", "GDP_data_clean.csv"))
+
+#AgriPercentageGDP
+AgriGDP <- read_csv(here::here("dataset", "AgriGDP_data_clean.csv"))
+
+#LandPercentage
+AgriLand <- read_csv(here::here("dataset", "AgriLand_data_clean.csv"))
+#Population
+Population <- read_csv(here::here("dataset", "Population_data_clean.csv"))
+
+```
+
+```{r}
+ggplot(GDP, aes(x = 2021, y = "Country Name")) + geom_bar()
+```
+

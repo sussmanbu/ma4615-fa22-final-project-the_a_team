@@ -1,34 +1,85 @@
 library(tidyverse)
 
-ufo_data <- read_csv(here::here("dataset", "ufo-complete-geocoded-time-standardized.csv"), 
-                      col_names = c("Date_and_Time", "City", "State", "Country", "Shape", "Time_in_Seconds", "Duration", "Summary", "Date_Posted", "Latitude", "Longitude"),
-                      col_types = cols(
-                        Date_and_Time = col_character(), # change to col_datetime() ? 
-                        City = col_character(),
-                        State = col_character(),
-                        Shape = col_character(),
-                        Time_in_Seconds = col_double(), 
-                        Country = col_character(),
-                        Duration = col_character(), 
-                        Summary = col_character(),
-                        Date_Posted = col_character(), #change to col_date() ? 
-                        Latitude = col_character(),
-                        Longitude = col_character(),
-                      ))
-ufo_data <- ufo_data %>% filter(!is.na(Date_and_Time)) %>% 
-  filter(!is.na(City)) %>% 
-  filter(!is.na(State)) %>% 
-  filter(!is.na(Shape)) %>% 
-  filter(!is.na(Time_in_Seconds)) %>% 
-  filter(!is.na(Country)) %>% 
-  filter(!is.na(Duration)) %>% 
-  filter(!is.na(Date_Posted)) %>% 
-  filter(!is.na(Latitude)) %>% 
-  filter(!is.na(Longitude))
-## CLEAN the data
-ufo_data_clean <- loan_data
+Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 
-write_csv(ufo_data_clean, file = here::here("dataset", "ufo_data_clean.csv"))
+## CLEAN the Food_waste data:
 
-save(ufo_data_clean, file = here::here("dataset/ufo_data_clean.RData"))
+#Food_waste$m49_code <- NULL 
+#Food_waste$country <- NULL 
+#Food_waste$region <- NULL
+#Food_waste$loss_percentage_original <- NULL
+Food_waste$activity <- NULL
+Food_waste$treatment <- NULL
+Food_waste$cause_of_loss <- NULL
+Food_waste$sample_size <- NULL
+Food_waste$method_data_collection <- NULL
+Food_waste$reference <- NULL
+Food_waste$url <- NULL
+Food_waste$notes <- NULL
+Food_waste$loss_quantity <- NULL
+
+Food_waste_clean <- Food_waste
+
+## CLEAN the Food_production data:
+
+Food_production <- read_csv(here::here("dataset_ignore", "Production_All(Normalized).csv"))
+
+#Food_production$`Domain Code` <- NULL 
+#Food_production$Domain <- NULL 
+#Food_production$`Area Code (M49)` <- NULL
+#Food_production$Area <- NULL
+#Food_production$Element <- NULL
+Food_production$`Item Code (CPC)`<- NULL
+Food_production$`Year Code` <- NULL
+Food_production$Flag <- NULL
+Food_production$`Flag Description`<- NULL
+
+Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
+
+## CLEAN the GDP data:
+
+# Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
+suppressWarnings({
+  #GDP
+  GDP_data <- read_csv(here::here("dataset", "GDP.csv"), show_col_types = F)
+  GDP_data <- GDP_data %>% group_by(GDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  GDP_data <- GDP_data[-c(1, 2, 4)]
+  GDP_data_clean <- GDP_data
+  #AgriPercentageGDP
+  AgriGDP_data <- read_csv(here::here("dataset", "AgriPercentageGDP.csv"), show_col_types = F)
+  AgriGDP_data <- AgriGDP_data %>% group_by(AgriGDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  AgriGDP_data <- AgriGDP_data[-c(1, 2, 4)]
+  AgriGDP_data_clean <- AgriGDP_data
+  #LandPercentage
+  AgriLand_data <- read_csv(here::here("dataset", "LandPercentage.csv"), show_col_types = F)
+  AgriLand_data <- AgriLand_data %>% group_by(AgriLand_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  AgriLand_data <- AgriLand_data[-c(1, 2, 4)]
+  AgriLand_data_clean <- AgriLand_data
+  #Population
+  Population_data <- read_csv(here::here("dataset", "population.csv"), show_col_types = F)
+  Population_data <- Population_data %>% group_by(Population_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  Population_data <- Population_data[-c(1, 2, 4)]
+  Population_data_clean <- Population_data
+})
+
+
+# Saving cleaned data
+
+write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllClean.csv"))
+save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
+
+write_csv(Food_production_clean, file = here::here("dataset_ignore", "Food_production_clean.csv"))
+save(Food_production_clean, file = here::here("dataset_ignore/Food_production_clean.RData"))
+
+write_csv(GDP_data_clean, file = here::here("dataset", "GDP_data_clean.csv"))
+save(GDP_data_clean, file = here::here("dataset/GDP_data_clean.RData"))
+
+write_csv(AgriGDP_data_clean, file = here::here("dataset", "AgriGDP_data_clean.csv"))
+save(AgriGDP_data_clean, file = here::here("dataset/AgriGDP_data_clean.RData"))
+
+write_csv(AgriLand_data_clean, file = here::here("dataset", "AgriLand_data_clean.csv"))
+save(AgriLand_data_clean, file = here::here("dataset/AgriLand_data_clean.RData"))
+
+write_csv(Population_data_clean, file = here::here("dataset", "Population_data_clean.csv"))
+save(Population_data_clean, file = here::here("dataset/Population_data_clean.RData"))
 
