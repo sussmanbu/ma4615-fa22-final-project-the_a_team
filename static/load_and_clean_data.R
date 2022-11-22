@@ -7,7 +7,7 @@ Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 #Food_waste$m49_code <- NULL 
 #Food_waste$country <- NULL 
 #Food_waste$region <- NULL
-#Food_waste$loss_percentage_original <- NULL
+Food_waste$loss_percentage_original <- NULL
 Food_waste$activity <- NULL
 Food_waste$treatment <- NULL
 Food_waste$cause_of_loss <- NULL
@@ -18,7 +18,9 @@ Food_waste$url <- NULL
 Food_waste$notes <- NULL
 Food_waste$loss_quantity <- NULL
 
-Food_waste_clean <- Food_waste
+Food_waste_clean <- Food_waste %>% group_by(year, country, commodity) %>%
+  summarise(mean_loss_percentage = mean(loss_percentage))
+#summarise(commodity = sum(commodity))
 
 ## CLEAN the Food_production data:
 

@@ -470,6 +470,7 @@ also used a Maps package for the purpose of making a very user-friendly
 graph that uses a map as a way to display data. This makes it easy for
 people to visualize</div>
 <p>different regional statistics.</p>
+<pre class="r"><code>source(here::here(&quot;static&quot;, &quot;load_and_clean_data.R&quot;))</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -486,6 +487,7 @@ people to visualize</div>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## `summarise()` has grouped output by &#39;year&#39;, &#39;country&#39;. You can override using the `.groups` argument.
 ## Rows: 3786052 Columns: 13
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
