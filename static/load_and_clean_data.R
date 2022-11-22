@@ -22,7 +22,7 @@ Food_waste_clean <- Food_waste
 
 ## CLEAN the Food_production data:
 
-Food_production <- read_csv(here::here("dataset_ignore", "Production_All(Normalized).csv"))
+Food_production <- read_csv(here::here("dataset-ignore", "Production_All(Normalized).csv"))
 
 #Food_production$`Domain Code` <- NULL 
 #Food_production$Domain <- NULL 
