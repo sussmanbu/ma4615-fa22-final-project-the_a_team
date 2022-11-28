@@ -13,7 +13,7 @@ The members of this team are below.
 
 ## Qianhui Rong
 
-Quianhui....... write about yourself
+Majoring in Finance & Statistics 
 
 ## Jason (Tzu-Wei) Liu
 
