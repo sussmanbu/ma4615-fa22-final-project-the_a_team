@@ -7,8 +7,6 @@ featuredImage:
 draft: false
 ---
 
-
-
 ## Overview
 
 
@@ -137,9 +135,6 @@ source(here::here("static", "load_and_clean_data.R"))
 4) Value: Total amount of food produced in the given unit
 
 5) Unit: Unit used to measured the production of food, quantity given by 'value'
-
-
-
 
 
 ```{r echo=TRUE}
