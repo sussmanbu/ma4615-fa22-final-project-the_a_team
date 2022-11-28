@@ -9,6 +9,7 @@ draft: false
 
 ## Overview
 
+
 |           With the world population recently surpassing the 8 billion threshold, and the increasing challenges of food security and scrutiny on the effects of agriculture on climate change, we wanted to further examine some of the relationships that factor into food waste and loss. 
 
 |           The first step in our data collection process was to find data on Food Waste and Loss around the world, which we found via the Food and Agriculture Organization database. This dataset was curated by the United Nation in efforts to better identify food waste and loss in each country. In addition, the dataset provides information on food waste and loss based on commodities as well as stages in the supply chain. The dataset contains information on ____ countries and provides historical data of food waste and loss as a percentage dating back to the 1960's. (How it was collected) 
@@ -62,5 +63,9 @@ Area: This one is just the name of each designated region. Area can mean contine
 Item: This is the item in question that is being produced and measured, aka apples, almonds, etc.
 Unit : This usually describes the food loss in tonnes. 
 Food Waste: Total Amount of food wasted as compared to the rest of the world.
+
+```{r echo=TRUE}
+source(here::here("static","load_and_clean_data.R"))
+```
 
 
