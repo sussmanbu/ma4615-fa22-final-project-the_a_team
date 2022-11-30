@@ -40,27 +40,37 @@ Food_production_clean <- filter(Food_production, Food_production$Element == "Pro
 
 ## CLEAN the GDP data:
 
+paste0(rep("row_index_", 54), c(218:271))
+
 # Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
 suppressWarnings({
   #GDP
   GDP_data <- read_csv(here::here("dataset", "GDP.csv"), show_col_types = F)
   GDP_data <- GDP_data %>% group_by(GDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   GDP_data <- GDP_data[-c(1, 2, 4)]
+  GDP_data <- GDP_data[-c(218:271),]
+  colnames(GDP_data)[1] <- "Country"
   GDP_data_clean <- GDP_data
   #AgriPercentageGDP
   AgriGDP_data <- read_csv(here::here("dataset", "AgriPercentageGDP.csv"), show_col_types = F)
   AgriGDP_data <- AgriGDP_data %>% group_by(AgriGDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   AgriGDP_data <- AgriGDP_data[-c(1, 2, 4)]
+  AgriGDP_data <- AgriGDP_data[-c(218:271),]
+  colnames(AgriGDP_data)[1] <- "Country"
   AgriGDP_data_clean <- AgriGDP_data
   #LandPercentage
   AgriLand_data <- read_csv(here::here("dataset", "LandPercentage.csv"), show_col_types = F)
   AgriLand_data <- AgriLand_data %>% group_by(AgriLand_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   AgriLand_data <- AgriLand_data[-c(1, 2, 4)]
+  AgriLand_data <- AgriLand_data[-c(218:271),]
+  colnames(AgriLand_data)[1] <- "Country"
   AgriLand_data_clean <- AgriLand_data
   #Population
   Population_data <- read_csv(here::here("dataset", "population.csv"), show_col_types = F)
   Population_data <- Population_data %>% group_by(Population_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   Population_data <- Population_data[-c(1, 2, 4)]
+  Population_data <- Population_data[-c(218:537),]
+  colnames(Population_data)[1] <- "Country"
   Population_data_clean <- Population_data
 })
 
