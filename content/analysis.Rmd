@@ -31,16 +31,22 @@ you will
  
   The world population just break through 8 billion recently. According to World Food Programme, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis.  Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to explore potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
   
-  * What questions are you interested in answering?
+ 
+```{r}
+library(tidyverse)
+print(getwd())
+data <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
+load(here::here("dataset/FoodLossandWasteAllClean.RData"))
+print(ls())
+
+```
+ * What questions are you interested in answering?
 
 
 
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
-
-
 ```{r q1}
-library(tidyverse)
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(mean_loss_percentage >= 40)%>%
