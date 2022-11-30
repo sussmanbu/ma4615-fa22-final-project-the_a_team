@@ -11,20 +11,6 @@ This comes from the file `content/analysis.Rmd`.
 
 We describe here our detailed data analysis.
 
-
-```{r}
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
-```
-
-## Note on Attribution
-
-If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
-
-```
 > To be or not to be.
 ```
 
@@ -42,7 +28,77 @@ you will
 
 * Introduce what motivates your Data Analysis (DA)
   * Which variables and relationships are you most interested in?
+ 
+  The world population just break through 8 billion recently. According to World Food Programme, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis.  Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to explore potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
+  
   * What questions are you interested in answering?
+
+
+
+
+US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
+
+
+```{r q1}
+library(tidyverse)
+FoodLossandWasteAllClean %>%
+  select(country,commodity, mean_loss_percentage)%>%
+  filter(mean_loss_percentage >= 40)%>%
+  group_by(country) %>%
+  summarise(count=n()) %>%
+  filter(count > 5)%>%
+  ggplot(aes(x = country, y =count))+
+  geom_col()
+
+
+```
+The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
+
+```{r q2}
+FoodLossandWasteAllClean %>%
+  select(country,commodity, mean_loss_percentage)%>%
+  filter(country == 'United States of America', mean_loss_percentage >= 40) %>%
+  group_by(commodity) %>%
+  summarise(count = n()) %>%
+  filter(count >=3)%>%
+  arrange(count)%>%
+  ggplot(aes(x = commodity, y = count))+
+  geom_col()
+
+
+```
+The following graph explore the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
+
+
+```{r q3}
+FoodLossandWasteAllClean %>%
+  select(year,country,commodity, mean_loss_percentage)%>%
+  filter(country == 'United States of America') %>%
+  group_by(year) %>%
+  summarise(sum_loss_per_year = sum(mean_loss_percentage))%>%
+  ggplot(aes(x = year, y = sum_loss_per_year))+
+  geom_line()
+  
+
+  
+
+```
+The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.  
+
+```{r q4}
+FoodLossandWasteAllClean %>%
+  select(year,country,commodity, mean_loss_percentage)%>%
+  filter(country == 'United States of America') %>%
+  group_by(commodity) %>%
+  summarise(sum_loss_per_year = sum(mean_loss_percentage))%>%
+  arrange(desc(sum_loss_per_year))
+
+
+
+```
+
+
+
 * Breadth of the DA
   * Make sure that you ask enough initial questions to explore the different variables in your data.
   * i.e. Do you explore more than just one or two variables? Do you explore a few different relationships or many?
