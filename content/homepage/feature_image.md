@@ -7,20 +7,20 @@ widget:
   # Options: sm, md, lg and xl. Default is md.
   width:
 
-  sidebar:
+  #sidebar:
     # Options: left and right. Leave blank to hide.
-    position:
+    #position:
     # Options: sm, md, lg and xl. Default is md.
-    scale:
+    #scale:
   
   background:
     # Options: primary, secondary, tertiary or any valid color value. Default is primary.
     color: secondary
-    image: images/data-science.png
+    image: images/food2.jpeg
     # Options: auto, cover and contain. Default is auto.
-    size: contain
+    size: cover
     # Options: center, top, right, bottom, left.
-    position: left
+    position: center
     # Options: fixed, local, scroll.
     attachment: local
 ---

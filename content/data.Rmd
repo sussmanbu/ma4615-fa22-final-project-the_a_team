@@ -7,9 +7,8 @@ featuredImage:
 draft: false
 ---
 
-
-
 ## Overview
+
 
 |           With the world population recently surpassing the 8 billion threshold, and the increasing challenges of food security and scrutiny on the effects of agriculture on climate change, we wanted to further examine some of the relationships that factor into food waste and loss. 
 
@@ -138,7 +137,8 @@ source(here::here("static", "load_and_clean_data.R"))
 5) Unit: Unit used to measured the production of food, quantity given by 'value'
 
 
-
-
+```{r echo=TRUE}
+source(here::here("static","load_and_clean_data.R"))
+```
 
 
