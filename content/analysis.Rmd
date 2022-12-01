@@ -45,7 +45,7 @@ While our analysis is quantitatively-driven, …
 ```{r}
 library(tidyverse)
 print(getwd())
-data <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
+FoodLossandWasteAllClean <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
 load(here::here("dataset/FoodLossandWasteAllClean.RData"))
 print(ls())
 
