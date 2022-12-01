@@ -42,7 +42,7 @@ Some of the hypotheses driving our analysis can be seen below:
 While our analysis is quantitatively-driven, …
 
   
-```{r echo = F}
+```{r int, echo=TRUE, paged.print=TRUE}
 library(tidyverse)
 print(getwd())
 FoodLossandWasteAllClean <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
@@ -53,7 +53,7 @@ print(ls())
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
-```{r echo = F}
+```{r 1, echo=TRUE}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(mean_loss_percentage >= 40)%>%
@@ -68,7 +68,7 @@ FoodLossandWasteAllClean %>%
 
 The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
 
-```{r echo = F}
+```{r 2, echo=TRUE}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America', mean_loss_percentage >= 40) %>%
@@ -82,7 +82,7 @@ FoodLossandWasteAllClean %>%
 The following graph explore the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
 
 
-```{r echo = F}
+```{r 3, echo=TRUE}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
@@ -93,7 +93,7 @@ FoodLossandWasteAllClean %>%
 ```
 The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.  
 
-```{r echo = F}
+```{r 4, echo=TRUE, paged.print=TRUE}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
