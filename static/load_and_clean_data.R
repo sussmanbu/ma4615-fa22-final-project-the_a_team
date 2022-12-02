@@ -36,7 +36,7 @@ Food_production$`Year Code` <- NULL
 Food_production$Flag <- NULL
 Food_production$`Flag Description`<- NULL
 
-Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
+Food_production_clean <- filter(Food_production,Food_production$Element == "Production")
 
 ## CLEAN the GDP data:
 
