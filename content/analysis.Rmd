@@ -3,7 +3,7 @@ title: "Analysis"
 description: null
 toc: yes
 featuredVideo: null
-featuredImage: https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg
+featuredImage: null
 draft: no
 ---
 
@@ -53,7 +53,7 @@ print(ls())
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
-```{r 1, echo=TRUE}
+```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(mean_loss_percentage >= 40)%>%
