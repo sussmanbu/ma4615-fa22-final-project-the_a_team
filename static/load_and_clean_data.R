@@ -1,5 +1,5 @@
 library(tidyverse)
-
+library(countrycode)
 Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 
 ## CLEAN the Food_waste data:
@@ -18,8 +18,13 @@ Food_waste$url <- NULL
 Food_waste$notes <- NULL
 Food_waste$loss_quantity <- NULL
 
-Food_waste_clean <- Food_waste %>% group_by(year, country, commodity) %>%
+Food_waste_clean <- Food_waste %>% group_by(year, country, commodity,m49_code) %>%
   summarise(mean_loss_percentage = mean(loss_percentage))
+
+#this is how we get the countries into regions
+Food_waste_clean <- Food_waste_clean %>%
+  mutate(country_region = countrycode(m49_code, origin = "iso3n", destination = "region"))
+
 #summarise(commodity = sum(commodity))
 
 ## CLEAN the Food_production data:
