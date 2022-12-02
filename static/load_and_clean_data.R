@@ -37,6 +37,7 @@ Food_production$Flag <- NULL
 Food_production$`Flag Description`<- NULL
 
 Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
+  colnames(Food_production_clean)[2] <- "M49Code"
 
 ## CLEAN the GDP data:
 
