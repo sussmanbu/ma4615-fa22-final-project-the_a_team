@@ -1,5 +1,5 @@
 library(tidyverse)
-
+library(countrycode)
 Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 
 ## CLEAN the Food_waste data:
@@ -20,11 +20,14 @@ Food_waste$loss_quantity <- NULL
 
 Food_waste_clean <- Food_waste %>% group_by(year, m49_code,country, commodity) %>%
   summarise(mean_loss_percentage = mean(loss_percentage))
+#this is how we get the countries into regions
+Food_waste_clean <- Food_waste_clean %>%
+  mutate(country_region = countrycode(m49_code, origin = "iso3n", destination = "region"))
 #summarise(commodity = sum(commodity))
 
 ## CLEAN the Food_production data:
 
-Food_production <- read_csv(here::here("dataset-ignore", "Production_All(Normalized).csv"))
+Food_production <- read_csv(here::here("dataset_ignore", "Production_All(Normalized).csv"))
 
 #Food_production$`Domain Code` <- NULL 
 #Food_production$Domain <- NULL 
@@ -80,8 +83,8 @@ suppressWarnings({
 write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllClean.csv"))
 save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
 
-write_csv(Food_production_clean, file = here::here("dataset-ignore", "Food_production_clean.csv"))
-save(Food_production_clean, file = here::here("dataset-ignore/Food_production_clean.RData"))
+write_csv(Food_production_clean, file = here::here("dataset_ignore", "Food_production_clean.csv"))
+save(Food_production_clean, file = here::here("dataset_ignore/Food_production_clean.RData"))
 
 write_csv(GDP_data_clean, file = here::here("dataset", "GDP_data_clean.csv"))
 save(GDP_data_clean, file = here::here("dataset/GDP_data_clean.RData"))
