@@ -29,58 +29,13 @@ GDP is a relatively effective signal of a country’s development; thus, “The 
 “The greater quantity of food production, the greater amount of food waste percentage”
 “The greater percentage of agriculture as GDP, the greater amount of food wasted”</p>
 <p>While our analysis is quantitatively-driven, …</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.4.0     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>print(getwd())</code></pre>
-<pre><code>## [1] &quot;/Users/italo/Desktop/MA415/ma4615-fa22-final-project-the_a_team/content&quot;</code></pre>
-<pre class="r"><code>FoodLossandWasteAllClean &lt;- read_csv(here::here(&quot;dataset/FoodLossandWasteAllClean.csv&quot;))</code></pre>
-<pre><code>## Rows: 13969 Columns: 4
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (2): country, commodity
-## dbl (2): year, mean_loss_percentage
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>load(here::here(&quot;dataset/FoodLossandWasteAllClean.RData&quot;))
-print(ls())</code></pre>
-<pre><code>## [1] &quot;Food_waste_clean&quot;         &quot;FoodLossandWasteAllClean&quot;</code></pre>
 <p>US have the most “over 40% food loss per commodity per year” up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production &amp; retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.</p>
 <p><img src="/analysis_files/figure-html/1-1.png" width="672" /></p>
 <p>The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production &amp; retail process of these juice.</p>
-<pre class="r"><code>FoodLossandWasteAllClean %&gt;%
-  select(country,commodity, mean_loss_percentage)%&gt;%
-  filter(country == &#39;United States of America&#39;, mean_loss_percentage &gt;= 40) %&gt;%
-  group_by(commodity) %&gt;%
-  summarise(count = n()) %&gt;%
-  filter(count &gt;=3)%&gt;%
-  arrange(count)%&gt;%
-  ggplot(aes(x = commodity, y = count))+
-  geom_col()</code></pre>
 <p><img src="/analysis_files/figure-html/2-1.png" width="672" />
 The following graph explore the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.</p>
-<pre class="r"><code>FoodLossandWasteAllClean %&gt;%
-  select(year,country,commodity, mean_loss_percentage)%&gt;%
-  filter(country == &#39;United States of America&#39;) %&gt;%
-  group_by(year) %&gt;%
-  summarise(sum_loss_per_year = sum(mean_loss_percentage))%&gt;%
-  ggplot(aes(x = year, y = sum_loss_per_year))+
-  geom_line()</code></pre>
 <p><img src="/analysis_files/figure-html/3-1.png" width="672" />
 The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.</p>
-<pre class="r"><code>FoodLossandWasteAllClean %&gt;%
-  select(year,country,commodity, mean_loss_percentage)%&gt;%
-  filter(country == &#39;United States of America&#39;) %&gt;%
-  group_by(commodity) %&gt;%
-  summarise(sum_loss_per_year = sum(mean_loss_percentage))%&gt;%
-  arrange(desc(sum_loss_per_year))</code></pre>
 <pre><code>## # A tibble: 85 × 2
 ##    commodity        sum_loss_per_year
 ##    &lt;chr&gt;                        &lt;dbl&gt;
