@@ -6,7 +6,7 @@ Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 
 #Food_waste$m49_code <- NULL 
 #Food_waste$country <- NULL 
-Food_waste$region <- NULL
+#Food_waste$region <- NULL
 Food_waste$loss_percentage_original <- NULL
 Food_waste$activity <- NULL
 Food_waste$treatment <- NULL
@@ -18,7 +18,7 @@ Food_waste$url <- NULL
 Food_waste$notes <- NULL
 Food_waste$loss_quantity <- NULL
 
-Food_waste_clean <- Food_waste %>% group_by(year, m49_code,country, commodity) %>%
+Food_waste_clean <- Food_waste %>% group_by(year, country, commodity) %>%
   summarise(mean_loss_percentage = mean(loss_percentage))
 #summarise(commodity = sum(commodity))
 
@@ -36,7 +36,8 @@ Food_production$`Year Code` <- NULL
 Food_production$Flag <- NULL
 Food_production$`Flag Description`<- NULL
 
-Food_production_clean <- filter(Food_production,Food_production$Element == "Production")
+Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
+  colnames(Food_production_clean)[2] <- "M49Code"
 
 ## CLEAN the GDP data:
 
