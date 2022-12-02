@@ -7,20 +7,6 @@ featuredImage: null
 draft: no
 ---
 
-This comes from the file `content/analysis.Rmd`.
-
-We describe here our detailed data analysis.
-
-> To be or not to be.
-```
-
-> To be or not to be.
-
-Also, make sure to provide a link or citation to where you are quoting from.
-
--------
-
-
 ## Rubric: On this page
 
 you will
