@@ -168,7 +168,7 @@ World_data <- World_data[-c(1:5, 7, 61),]
 #===================================================================================================================
 
 # Aggregating World Macro Data w/ World Production Data
-worldprod <- worldprod[-c(1)]
+#worldprod <- worldprod[-c(1)]
 AggData <- cbind(World_data, worldprod)
 
 # Saving cleaned data
