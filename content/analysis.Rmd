@@ -49,7 +49,7 @@ FoodLossandWasteAllClean %>%
   ggplot(aes(x = country, y = count)) +
   geom_col() + 
   labs(x= "Country", y = "number of commodities with over 40% loss")
-
+ 
 
 ```
 

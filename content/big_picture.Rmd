@@ -2,7 +2,7 @@
 title: Wealthy Countries Waste More Food Than They Produce
 description: aaaaaaaaaa
 toc: true
-featuredImage: /images/Big_Picture_Food_Waste.jpeg
+featuredImage: "/images/Big_Picture_Food_Waste.jpeg"
 featuredVideo:
 draft: false
 ---
