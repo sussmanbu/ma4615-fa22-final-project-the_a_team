@@ -1,10 +1,10 @@
 ---
-title: Wealthy Countries Waste More Food Than They Produce
-description: aaaaaaaaaa
-toc: true
-featuredImage: "/images/Big_Picture_Food_Waste.jpeg"
-featuredVideo:
-draft: false
+title: "Wealthy Countries Waste More Food Than They Produce"
+description: An accessible analysis to the general public and shiny interactive. 
+toc: yes
+featuredImage: /images/Big_Picture_Food_Waste.jpeg
+featuredVideo: null
+draft: no
 ---
 
 This comes from the file `content/big_picture.Rmd`.
