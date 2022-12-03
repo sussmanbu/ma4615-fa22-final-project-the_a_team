@@ -1,0 +1,16 @@
+---
+title: EDA, Thesis & Project wrap up
+author: The A Team
+date: '2022-12-02'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-12-02T17:43:15-05:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
