@@ -39,13 +39,16 @@ Food_production <- read_csv(here::here("dataset-ignore", "Production_All(Normali
 Food_production$`Item Code (CPC)`<- NULL
 Food_production$`Year Code` <- NULL
 Food_production$Flag <- NULL
+Food_production$Flag <- NULL
 Food_production$`Flag Description`<- NULL
 
 Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
   colnames(Food_production_clean)[2] <- "M49Code"
+  
 
-M49 <- gsub('[^[:alnum:] ]', ' ' , Food_production_clean)
-
+#MX49 <- gsub('[^[:alnum:] ]', ' ' , Food_production_clean)
+as.numeric( sub("'","",Food_production_clean$M49Code, fixed = TRUE))
+Food_production_clean <- Food_production_clean %>% mutate(M49 = as.numeric( sub("'","",Food_production_clean$M49Code, fixed = TRUE)))  
 
 ## CLEAN the GDP data:
 
