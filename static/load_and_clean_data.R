@@ -72,7 +72,7 @@ Food_waste_clean <- Food_waste_clean %>%
 
 
 
-
+#===============================================================================================================
 
 ## CLEAN the GDP data:
 
@@ -110,24 +110,97 @@ suppressWarnings({
   Population_data_clean <- Population_data
 })
 
+#=======================================================================================================
+#=======================================================================================================
+# Aggregating World Macro Data
+
+suppressWarnings({
+  #GDP
+  GDP_data <- read_csv(here::here("dataset", "GDP.csv"), show_col_types = F)
+  GDP_data <- GDP_data %>% group_by(GDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  GDP_data <- GDP_data[-c(1, 2, 4)]
+  colnames(GDP_data)[1] <- "Country"
+  GDP_data_clean_macro <- GDP_data
+  #AgriPercentageGDP
+  AgriGDP_data <- read_csv(here::here("dataset", "AgriPercentageGDP.csv"), show_col_types = F)
+  AgriGDP_data <- AgriGDP_data %>% group_by(AgriGDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  AgriGDP_data <- AgriGDP_data[-c(1, 2, 4)]
+  colnames(AgriGDP_data)[1] <- "Country"
+  AgriGDP_data_clean_macro <- AgriGDP_data
+  #LandPercentage
+  AgriLand_data <- read_csv(here::here("dataset", "LandPercentage.csv"), show_col_types = F)
+  AgriLand_data <- AgriLand_data %>% group_by(AgriLand_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  AgriLand_data <- AgriLand_data[-c(1, 2, 4)]
+  colnames(AgriLand_data)[1] <- "Country"
+  AgriLand_data_clean_macro <- AgriLand_data
+  #Population
+  Population_data <- read_csv(here::here("dataset", "population.csv"), show_col_types = F)
+  Population_data <- Population_data %>% group_by(Population_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
+  Population_data <- Population_data[-c(1, 2, 4)]
+  Population_data <- Population_data[-c(218:271),]
+  colnames(Population_data)[1] <- "Country"
+  Population_data_clean_macro <- Population_data
+})
+
+# World Data Aggregate
+# First Step:
+GDP_World <- GDP_data_clean_macro %>% filter(Country == "World")
+  GDP_World <- GDP_World[-c(1)]
+AgriGDP_World <- AgriGDP_data_clean_macro %>% filter(Country == "World")
+  AgriGDP_World <- AgriGDP_World[-c(1)]
+AgriLand_World <- AgriLand_data_clean_macro %>% filter(Country == "World")
+  AgriLand_World <- AgriLand_World[-c(1)]
+Pop_World <- Population_data_clean_macro %>% filter(Country == "World")
+  Pop_World <- Pop_World[-c(1)]
+# Second Step:
+GDP_World <- as.data.frame(t(GDP_World))
+  colnames(GDP_World)[1] <- "GDP"
+AgriGDP_World <- as.data.frame(t(AgriGDP_World))
+  colnames(AgriGDP_World)[1] <- "AgriGDP"
+AgriLand_World <- as.data.frame(t(AgriLand_World))
+  colnames(AgriLand_World)[1] <- "AgriLand"
+Pop_World <- as.data.frame(t(Pop_World))  
+  colnames(Pop_World)[1] <- "Population"
+# Aggregate  
+World_data <- cbind(GDP_World, AgriGDP_World, AgriLand_World, Pop_World)
+World_data <- World_data[-c(1:5, 7, 61),] 
+
+#===================================================================================================================
+
+# Aggregating World Macro Data w/ World Production Data
+worldprod <- worldprod[-c(1)]
+AggData <- cbind(World_data, worldprod)
 
 # Saving cleaned data
 
+# Food Waste
 write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllClean.csv"))
 save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
-
+# Food Production
 write_csv(Food_production_clean, file = here::here("dataset-ignore", "Food_production_clean.csv"))
 save(Food_production_clean, file = here::here("dataset-ignore/Food_production_clean.RData"))
-
+# GDP by Country
 write_csv(GDP_data_clean, file = here::here("dataset", "GDP_data_clean.csv"))
 save(GDP_data_clean, file = here::here("dataset/GDP_data_clean.RData"))
-
+# AgriGDP by Country
 write_csv(AgriGDP_data_clean, file = here::here("dataset", "AgriGDP_data_clean.csv"))
 save(AgriGDP_data_clean, file = here::here("dataset/AgriGDP_data_clean.RData"))
-
+# AgriLand by Country
 write_csv(AgriLand_data_clean, file = here::here("dataset", "AgriLand_data_clean.csv"))
 save(AgriLand_data_clean, file = here::here("dataset/AgriLand_data_clean.RData"))
-
+# Population by Country
 write_csv(Population_data_clean, file = here::here("dataset", "Population_data_clean.csv"))
 save(Population_data_clean, file = here::here("dataset/Population_data_clean.RData"))
+# GDP Country + Regions
+write_csv(GDP_data_clean_macro, file = here::here("dataset", "GDP_data_clean_macro.csv"))
+save(GDP_data_clean_macro, file = here::here("dataset/GDP_data_clean_macro.RData"))
+# AgriGDP Country + Regions
+write_csv(AgriGDP_data_clean_macro, file = here::here("dataset", "AgriGDP_data_clean_macro.csv"))
+save(AgriGDP_data_clean_macro, file = here::here("dataset/AgriGDP_data_clean_macro.RData"))
+# AgriLand Country + Regions
+write_csv(AgriLand_data_clean_macro, file = here::here("dataset", "AgriLand_data_clean_macro.csv"))
+save(AgriLand_data_clean_macro, file = here::here("dataset/AgriLand_data_clean_macro.RData"))
+# Population Country + Regions
+write_csv(Population_data_clean_macro, file = here::here("dataset", "Population_data_clean_macro.csv"))
+save(Population_data_clean_macro, file = here::here("dataset/Population_data_clean_macro.RData"))
 
