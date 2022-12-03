@@ -14,3 +14,11 @@ featuredVideo: ~
 featuredImage: ~
 ---
 
+## Scope of Interactive Data Description 
+
+
+|           We are continuing our exploratory data analysis by making graphs that may or may not make the final cut. For example, we have recently made four graphs that explore which country loss certain commodity over 40% in a specific year and which commodity are loss the most through out history. Surprisingly, we found our that fruit juice – such as pineapple juice and orange juice loss the most as production throughout the production & retail process. However, we are unable to explain the reason behind this findings with our current data sets
+
+|           After we found out US waste the most amount of food, we create a graph exploring US’s food waste throughout history. We found out that US’s food waste peaked at 2008, double the average amount of food waste across history. We suspect that there is a correlation between a countries financial performance and its ability to control food waste. Thus, we will be digging deeper into how GDP is connected with food waste. Does country with higher GDP tend to waste more food (as % of total production)? 
+
+|           Our food waste & loss data set include detailed data for each country and each commodity across fifty year. We face difficulty when we attempt to find trend and tendency across dataset since there are too many dimensions. Therefore, we are exploring different options, such as using the country code to group country by regions (Such as North America, Asia..) or grouping commodity by the cdc code. 
