@@ -46,8 +46,9 @@ FoodLossandWasteAllClean %>%
   group_by(country) %>%
   summarise(count=n()) %>%
   filter(count > 5)%>%
-  ggplot(aes(x = country, y =count))+
-  geom_col()
+  ggplot(aes(x = country, y = count)) +
+  geom_col() + 
+  labs(x= "Country", y = "number of commodities with over 40% loss")
 
 
 ```
@@ -65,7 +66,7 @@ FoodLossandWasteAllClean %>%
   ggplot(aes(x = commodity, y = count))+
   geom_col()
 ```
-The following graph explore the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
+The following graph explores the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
 
 
 ```{r 3, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -75,7 +76,8 @@ FoodLossandWasteAllClean %>%
   group_by(year) %>%
   summarise(sum_loss_per_year = sum(mean_loss_percentage))%>%
   ggplot(aes(x = year, y = sum_loss_per_year))+
-  geom_line()
+  geom_line()+
+  labs(x = "Year", y = "Sum of Loss Per Year")
 ```
 The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.  
 

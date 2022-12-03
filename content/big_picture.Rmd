@@ -1,8 +1,8 @@
 ---
-title: Big Picture
-description:
+title: Wealthy Countries Waste More Food Than They Produce
+description: aaaaaaaaaa
 toc: true
-featuredImage: /images/The_Big_Picture_2.jpeg
+featuredImage: /images/Big_Picture_Food_Waste.jpeg
 featuredVideo:
 draft: false
 ---
@@ -17,16 +17,28 @@ Think of this page as your 538/Upshot style article. This means that you should 
 
 You will
 
-
-
 * Title
   * Your big picture page should have a creative/click-baity title/headline that provides a hint about your thesis.
+  
+  Title: Wealthy Countries Waste More Food Than They Produce
+  
 * Clarity of Explanation
   * You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible).
+  
+  Thesis + analysis: Globally, countries with a high GDP tend to waste more food than they produce. Additionally, we noticed countries that are experiencing economic turmoil also experience an increase in food waste. """confirm this is true with other countries"""
+  Locally, we are the largest culprit of this food waste. The United States has the most commodities that have above 40% loss, this is a significant amount compared to many other countries. Interestingly, in the U.S., juices take the lead for products with the the highest amount of waste. """include something about juice production""". We observed the highest amount of food loss in the U.S. during the 2008 recession. This is counter intuitive and concerning considering that food becomes more challenging to afford during these times. """also check food production during these times to perhaps draw a connection to food availablility """. 
+  
 * Quality of Figures
   * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
+  
+  
+  
+  
 * Creativity
   * Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
+  
+  
+  
   
 **Note**: This page should have no code visible, i.e. use `echo=FALSE`.  
 
