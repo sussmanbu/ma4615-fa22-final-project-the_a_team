@@ -44,6 +44,9 @@ Food_production$`Flag Description`<- NULL
 Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
   colnames(Food_production_clean)[2] <- "M49Code"
 
+M49 <- gsub('[^[:alnum:] ]', ' ' , Food_production_clean)
+
+
 ## CLEAN the GDP data:
 
 paste0(rep("row_index_", 54), c(218:271))
