@@ -14,7 +14,7 @@ featuredVideo: ~
 featuredImage: ~
 ---
 
-## Scope of Interactive Data Description 
+## Project's wrap-up overview: 
  
 
 |       As for our core EDA, we are investigating the correlation between food waste and food production worldwide and finding causation in correlation to each country's GDP. 
