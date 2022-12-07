@@ -79,7 +79,7 @@ Food_production_clean <- filter(Food_production, Food_production$Element == "Pro
 
 |           The datasets extracted from the World Bank’s database are relatively “complete”. However, the four variables that we introduced using their database (GDP, Agriculture as Percentage of GDP, Percentage Agriculture Land, Population) share a common “issue”. Due to exogenous factors, some countries have a significant amount of missing values - mostly East European countries and small island nations. This is because they simply did not exist, and therefore, data was not collectible. For example, much of the data for Eastern European countries are not available until mid-to-late 1990s as they existed within the Soviet Union prior to that. As such, we will have to treat the missing values as NA despite most available data dating back to the 1960s (NA's will be revisited later in the aggregate data section).
 
-|           The cleaning for this portion of data was defining the “Year” columns as numeric rather than character as originally formatted. The second part was to drop the irrelevant columns, including country code, series code, and series name. This can be seen in the chunk above/below:
+|           The cleaning for this portion of data was defining the “Year” columns as numeric rather than character as originally formatted. The second part was to drop the irrelevant columns, including country code, series code, and series name. This can be seen in the chunk below:
 
 ```{r eval = F, echo = T}
 ## CLEAN the GDP data:
@@ -152,6 +152,7 @@ Food_production_clean2 <- Food_production_clean1 %>% group_by(Year) %>% summaris
 
 ```{r eval = F, echo = T}
 # World Data Aggregate
+
 # First Step:
 GDP_World <- GDP_data_clean_macro %>% filter(Country == "World")
   GDP_World <- GDP_World[-c(1)]
@@ -161,6 +162,7 @@ AgriLand_World <- AgriLand_data_clean_macro %>% filter(Country == "World")
   AgriLand_World <- AgriLand_World[-c(1)]
 Pop_World <- Population_data_clean_macro %>% filter(Country == "World")
   Pop_World <- Pop_World[-c(1)]
+  
 # Second Step:
 GDP_World <- as.data.frame(t(GDP_World))
   colnames(GDP_World)[1] <- "GDP"
@@ -170,6 +172,7 @@ AgriLand_World <- as.data.frame(t(AgriLand_World))
   colnames(AgriLand_World)[1] <- "AgriLand"
 Pop_World <- as.data.frame(t(Pop_World))  
   colnames(Pop_World)[1] <- "Population"
+  
 # Aggregate  
 World_data <- cbind(GDP_World, AgriGDP_World, AgriLand_World, Pop_World)
 World_data <- World_data[-c(1:5, 7, 61),] 
