@@ -11,6 +11,7 @@ draft: false
 
 |           The first step in our data collection process was to find data on Food Waste and Loss around the world, which we found via the Food and Agriculture Organization database. This dataset was curated by the United Nation in efforts to better identify food waste and loss in each country. In addition, the dataset provides information on food waste and loss based on commodities as well as stages in the supply chain. The dataset contains information around two-hundred countries and provides historical data of food waste and loss as a percentage dating back to the 1960's. (How it was collected) 
 
+
 |           To supplement our analysis, we added variables that we considered to be relevant contributors to the overall food waste and loss. The first set of variables we introduced were Year, GDP, Percentage of GDP as Agriculture, Percentage of Land used for Agriculture, and Population by country. These datasets were extracted from the World Bank’s database, which actively collects general census data for most countries. To better match our primary Food Waste and Loss dataset, we have downloaded the datasets from the World Bank to date back to the 1960's as well. The next set we introduced is data on Food Production in tonnes. This data was curated, again, by the Food and Agriculture Organization of the United Nations, in an effort to study food waste and loss by country. The last variable that we added to our analysis was Region/Continent, which was sorted using Rstudio based on the country’s region. 
 
 #### Links to data:
@@ -25,6 +26,7 @@ World Development Indicators: [https://databank.worldbank.org/reports.aspx?sourc
 ### Food Waste and Loss
 
 |           The Food Waste and Loss dataset is the one that requires the least cleaning. As aforementioned, the dataset provides information about waste and loss based on stages in the supply chain. However, due to the data collection method utilized by the United Nation, this information is incomplete and inconsistent from country to country. Hence, because of the large amount of missing information, some columns will be removed from the original dataset for our research purposes. The data that will not be relevant to our analysis are: activity, commodities code (both given by name in addition to code), sample size (majority NA), treatment, references, cause_of_loss, method_data_collection, notes, loss_quantity, and url. 
+
 
 ```{r eval = F, echo = T}
 #Food_waste$m49_code <- NULL 
@@ -52,6 +54,7 @@ Food_waste_clean <- Food_waste %>% group_by(year, country, commodity, m49_code) 
 ### Food Production
 
 |           The Food Production dataset; even though its file size is bigger; it's relatively “cleaner” in comparison to the Food Waste and Loss dataset. The cleaning for this dataset began with removing Item Code (CPC), Item Code, Year Code, Flag, and Flag Description. Much like the treatment done to Food Waste and Loss, a new variable was made, "Production" - that used the food_production dataset to be piped and group_by, the Item, Year, and Unit. 
+
 
 ```{r eval = F, echo = T}
 ## CLEAN the Food_production data:
@@ -227,10 +230,4 @@ source(here::here("static", "load_and_clean_data.R"))
 5) Loss: Tonnes loss per year by the world in food production 
 
 5) Production: Total production in tonnes given by year for the world
-
-
-```{r echo=TRUE}
-source(here::here("static","load_and_clean_data.R"))
-```
-
 
