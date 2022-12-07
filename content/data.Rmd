@@ -153,7 +153,7 @@ Food_production_clean2 <- Food_production_clean1 %>% group_by(Year) %>% summaris
 
 In continuation, the macro datasets also already provide data in terms of the world as a whole. Hence, the following treatment was no longer utilized in the formatting of aggregate data in the macro datasets: [dataset_name <- dataset_name[-c(218:271),] (refer to Initial Cleaning of World Bank Data for context). Using the already provided world data, new datasets were created using filters for each macro variable and combined to create a new aggregated macro dataset (dropping some years - explained in following section). 
 
-```{r}
+```{r eval = F, echo = T}
 # World Data Aggregate
 # First Step:
 GDP_World <- GDP_data_clean_macro %>% filter(Country == "World")
