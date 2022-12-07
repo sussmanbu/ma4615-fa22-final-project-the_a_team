@@ -111,8 +111,28 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
   
-Model/Inference currently a work in progress
-  
+```{r eval = F, echo = T}
+model1 <- lm(Loss ~ Production, data = AggData)
+```
+
+```{r eval = T, echo = F}
+summary(model1)
+```
+
+```{r eval = F, echo = T}
+model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
+```
+
+```{r eval = T, echo = F}
+summary(model2)
+```
+
+```{r}
+suppressPackageStartupMessages(library(olsrr))
+ols_step_all_possible(model2) %>% head(6)
+```
+
+
 * Explain the flaws and limitations of your analysis
   * Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? ...
   
