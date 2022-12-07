@@ -1,5 +1,5 @@
-library(tidyverse)
-library(countrycode)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(countrycode))
 Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAll.csv"))
 
 ## CLEAN the Food_waste data:
@@ -18,13 +18,13 @@ Food_waste$url <- NULL
 Food_waste$notes <- NULL
 Food_waste$loss_quantity <- NULL
 
-Food_waste_clean <- Food_waste %>% group_by(year, country, commodity,m49_code) %>%
+Food_waste_clean <- Food_waste %>% group_by(year, country, commodity, m49_code) %>%
   summarise(mean_loss_percentage = mean(loss_percentage))
 
 Food_waste_clean <- Food_waste_clean[c(1,5)]
-Food_waste_clean <- Food_waste_clean %>% group_by(year) %>% summarise(count = n(), sum = sum(mean_loss_percentage,na.rm = TRUE)/count) #this is the best version of food clean
+Food_waste_clean <- Food_waste_clean %>% group_by(year) %>% summarise(count = n(), sum = sum(mean_loss_percentage, na.rm = TRUE)/count) #this is the best version of food clean
 
-## CLEAN the Food_production data: ====================================================================Food Production Calculations
+## CLEAN the Food_production data: ==================================================================== Food Production Calculations
 
 Food_production <- read_csv(here::here("dataset-ignore", "Production_All(Normalized).csv"))
 
@@ -45,6 +45,7 @@ colnames(Food_production_clean)[2] <- "M49Code"
 
 #MX49 <- gsub('[^[:alnum:] ]', ' ' , Food_production_clean)
 as.numeric( sub("'","",Food_production_clean$M49Code, fixed = TRUE))
+
 Food_production_clean <- Food_production_clean %>% mutate(M49 = as.numeric( sub("'","",Food_production_clean$M49Code, fixed = TRUE)))  
 
 Food_production_clean1 <- Food_production_clean %>% filter(M49 == 1)
