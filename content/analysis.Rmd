@@ -140,7 +140,9 @@ all_variables %>%
 ```
 
 ```{r}
-ols_step_forward_p(model2)
+ols_step_forward_p(model2) %>% 
+  kbl(caption = "Stepwise Forward Variable Selection") %>%
+  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
 ```
 
 
