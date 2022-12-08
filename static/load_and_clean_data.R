@@ -59,9 +59,9 @@ Food_production_clean2 <- Food_production_clean1 %>% group_by(Year) %>% summaris
 
 #===========================combining production and food loss
 Food_production_clean2 <- Food_production_clean2[-c(1:5,7),]
-Food_waste_clean <- Food_waste_clean[-c(55),]
+Food_waste_clean1 <- Food_waste_clean1[-c(55),]
 
-worldprod <- left_join(Food_production_clean2,Food_waste_clean, by = c("Year" = "year"))
+worldprod <- left_join(Food_production_clean2,Food_waste_clean1, by = c("Year" = "year"))
 worldprod <- worldprod[-c(3)]
 worldprod <- worldprod %>% group_by(Year) %>% summarise(Loss = Production * (sum/100), Production, LossPercentage = sum)
 #===========================
@@ -203,4 +203,7 @@ save(AgriLand_data_clean_macro, file = here::here("dataset/AgriLand_data_clean_m
 # Population Country + Regions
 write_csv(Population_data_clean_macro, file = here::here("dataset", "Population_data_clean_macro.csv"))
 save(Population_data_clean_macro, file = here::here("dataset/Population_data_clean_macro.RData"))
+# Aggregate Data
+write_csv(AggData, file = here::here("dataset", "AggData.csv"))
+save(AggData, file = here::here("dataset/AggData.RData"))
 
