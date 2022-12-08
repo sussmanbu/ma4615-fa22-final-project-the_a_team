@@ -109,6 +109,8 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
   
 ```{r eval = F, echo = T}
+AggData <- read_csv(here::here("dataset/AggData.csv"))
+load(here::here("AggData.RData"))
 model1 <- lm(Loss ~ Production, data = AggData)
 ```
 
