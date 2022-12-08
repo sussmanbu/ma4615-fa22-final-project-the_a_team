@@ -110,7 +110,7 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   
 ```{r eval = F, echo = T}
 AggData <- read_csv(here::here("dataset/AggData.csv"))
-load(here::here("AggData.RData"))
+load(here::here("dataset/AggData.RData"))
 model1 <- lm(Loss ~ Production, data = AggData)
 ```
 
