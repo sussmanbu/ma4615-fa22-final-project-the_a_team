@@ -136,8 +136,10 @@ summary(model2)</code></pre>
 ##   (1 observation deleted due to missingness)
 ## Multiple R-squared:  0.4239, Adjusted R-squared:  0.3488 
 ## F-statistic: 5.642 on 6 and 46 DF,  p-value: 0.0001869</code></pre>
-<pre class="r"><code>suppressPackageStartupMessages(library(olsrr))
-suppressPackageStartupMessages(library(kableExtra))</code></pre>
+<pre class="r"><code>suppressPackageStartupMessages(library(olsrr))</code></pre>
+<pre><code>## Warning: package &#39;olsrr&#39; was built under R version 4.2.2</code></pre>
+<pre class="r"><code>suppressPackageStartupMessages(library(kableExtra))</code></pre>
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.2.2</code></pre>
 <pre class="r"><code>all_variables &lt;- ols_step_all_possible(model2) 
 colnames(all_variables)[1:5] &lt;- c(&#39;Index&#39;, &#39;n&#39;, &#39;Predictors&#39;, &#39;R-Square&#39;, &#39;Adj R-Square&#39;)
 
@@ -358,6 +360,7 @@ Year AgriLand
 </ul></li>
 </ul>
 <p>One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.</p>
+<p>The first flaw (no consistent data on a year-to-year basis) led to us believing that we could make a yearly analysis for every country. Therefore, when we started pumping out some graphs and a heat map for certain years, we got some “blank” spaces. Thus we realized that this flaw sort of forced us to work on a over-the-year basis instead. Of course this was not the case for every country, as places such as the United Stated are usually always good about collecting data.</p>
 <ul>
 <li>Clarity Figures
 <ul>

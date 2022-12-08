@@ -132,11 +132,15 @@ ggplot(GDP, aes(x = 2021, y = "Country Name")) + geom_bar()
 
 # MODEL Testing
 ```{r}
+library(car)
 model1 <- lm(Loss ~ Production, data = AggData)
 summary(model1)
 
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
 summary(model2)
 (beta <- coef(model2))
+
+avPlots(model2)
+
 ```
 

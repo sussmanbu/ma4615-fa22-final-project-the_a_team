@@ -159,6 +159,8 @@ summary(model3)
   * Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? ...
   
 One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.
+
+The first flaw (no consistent data on a year-to-year basis) led to us believing that we could make a yearly analysis for every country. Therefore, when we started pumping out some graphs and a heat map for certain years, we got some "blank" spaces. Thus we realized that this flaw sort of forced us to work on a over-the-year basis instead. Of course this was not the case for every country, as places such as the United Stated are usually always good about collecting data. 
   
 * Clarity Figures
   * Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?
