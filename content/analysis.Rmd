@@ -36,6 +36,37 @@ load(here::here("dataset/FoodLossandWasteAllClean.RData"))
 print(ls())
 ```
 
+
+  Here, we started our analysis by checking out all the countries in an easy to see heatmap. Right off the bat, one can notice that the United States
+is a main contributor to worldwide Food Waste, so we may want to focus our attention to this country. Also, we know that the US is one country with a
+high GDP, so maybe other high GDP countries follow suit. For the map, we had to change the names of some of our countries names in the data sets so that they would match that of the maps library. For example, United States of America changes to USA. Also, note how some countries do not have data which will be explained in our flaws section.
+```{r heatmapfoodwastebycountry, fig.align= 'center'}
+library(maps)
+worlddata <- select(FoodLossandWasteAllClean, c('year','country','mean_loss_percentage'))
+worlddata <- worlddata %>% filter(year > 2009 )
+
+worlddata <- worlddata %>% group_by(year,country) %>% summarise_each(funs(sum))
+
+worlddata <- worlddata %>% group_by(country) %>% summarise_each(funs(mean))
+
+world_map <- map_data("world")
+mydata<-worlddata
+mydata$country[mydata$country == "United States of America"] <- "USA"
+mydata$country[mydata$country == "Russian Federation"] <- "Russia"
+world_map <- map_data("world")
+world_map <- subset(world_map, region != "Antarctica")
+
+ggplot(mydata) +
+  geom_map(
+    dat = world_map, map = world_map, aes(map_id = region),
+    fill = "white", color = "#7f7f7f", size = 0.25
+  ) +
+  geom_map(map = world_map, aes(map_id = country, fill = mean_loss_percentage), size = 0.25) +
+  scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss of Food Waste since 2010") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+world_map
+```
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
 ```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
@@ -140,6 +171,13 @@ variable_corr <- AggData %>%
 
 corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
 ```
+
+```{r echo = T}
+suppressPackageStartupMessages(library(olsrr))
+suppressPackageStartupMessages(library(kableExtra))
+
+>>>>>>> df560396a85910281d2284a011b8d9fbfb80b903
+```
 |           However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. The potential interaction between the predictors, therefore, prompts the next step in our analysis. Using the "olsrr" package, we generated all possible predictors (including interaction terms) to determine the most appropriate predictors based the package's default statistical tests (p-value and AIC). 
 
 ```{r echo=FALSE, fig.align = 'center'}
@@ -171,15 +209,16 @@ summary(model3)
 * Explain the flaws and limitations of your analysis
   * Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? ...
   
-One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.
+  One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.
 
-The first flaw (no consistent data on a year-to-year basis) led to us believing that we could make a yearly analysis for every country. Therefore, when we started pumping out some graphs and a heat map for certain years, we got some "blank" spaces. Thus we realized that this flaw sort of forced us to work on a over-the-year basis instead. Of course this was not the case for every country, as places such as the United Stated are usually always good about collecting data. 
+  The second flaw (no consistent data on a year-to-year basis) led to us believing that we could make a yearly analysis for every country. Therefore, when we started pumping out some graphs and a heat map for certain years, we got some "blank" spaces. Thus we realized that this flaw sort of forced us to work on a over-the-year basis instead. Of course this was not the case for every country, as places such as the United Stated are usually always good about collecting data. These blank spaces could also affect our overall world data, because during periods of instability, there are some countries that may not care about collecting data, so that is left out of our world analysis. 
+  As for the flaw about countries coming about and leaving, we do not think that it will really affect our data too much due to the fact we started focusing on the world as a whole. We feel that working with the world as a whole minimizes that small data issues that indidividual countries may have.
   
 * Clarity Figures
   * Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?
   * Each figure should provide a key insight. Too many figures or other data summaries can detract from this.
   
-We believe that our graphs are actually quite easy to glance at. While making these graphs, we wanted to design them in a way that they could possibly be the first iteration of something that can be used in the “interactive” part of this project. For example, the heatmap we made at the beginning quickly helped us understand which country was a “problem” when it came to food waste.
+We believe that our graphs are actually quite easy to glance at. While making these graphs, we wanted to design them in a way that they could possibly be the first iteration of something that can be used in the “interactive” part of this project. For example, the heatmap we made at the beginning quickly helped us understand which country was a “problem” when it came to food waste. 
   
 * Clarity of Explanations
   * Do you introduce why you are doing each analysis?
