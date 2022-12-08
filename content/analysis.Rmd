@@ -38,7 +38,7 @@ print(ls())
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
-```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(mean_loss_percentage >= 40)%>%
@@ -52,7 +52,7 @@ FoodLossandWasteAllClean %>%
 
 The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
 
-```{r 2, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 2, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America', mean_loss_percentage >= 40) %>%
@@ -66,7 +66,7 @@ FoodLossandWasteAllClean %>%
 The following graph explores the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
 
 
-```{r 3, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 3, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
@@ -78,7 +78,7 @@ FoodLossandWasteAllClean %>%
 ```
 The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.  
 
-```{r 4, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+```{r 4, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
@@ -108,28 +108,27 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
   
-```{r}
+```{r include=FALSE}
 AggData <- read_csv(here::here("dataset/AggData.csv"))
 load(here::here("dataset/AggData.RData"))
 ```
 
-```{r}
+```{r echo=FALSE}
 model1 <- lm(Loss ~ Production, data = AggData)
 summary(model1)
 ```
 
-```{r}
+```{r echo=FALSE}
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
 summary(model2)
 ```
 
-
-```{r eval = T, echo = T}
+```{r echo = T}
 suppressPackageStartupMessages(library(olsrr))
 suppressPackageStartupMessages(library(kableExtra))
 ```
 
-```{r}
+```{r echo=FALSE, fig.align = 'center'}
 all_variables <- ols_step_all_possible(model2) 
 colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
 
@@ -140,7 +139,7 @@ all_variables %>%
   kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
 ```
 
-```{r}
+```{r echo=FALSE, fig.align='center'}
 ols_step_forward_p(model2) 
 ```
 
