@@ -174,16 +174,19 @@ corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", t
 
 |           However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. The potential interaction between the predictors, therefore, prompts the next step in our analysis. Using the "olsrr" package, we generated all possible predictors (including interaction terms) to determine the most appropriate predictors based the package's default statistical tests (p-value and AIC). 
 
-```{r echo=FALSE, fig.align = 'center'}
+```{r echo=FALSE}
 all_variables <- ols_step_all_possible(model2) 
 colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
+```
 
+```{r echo=FALSE, fig.align = 'center'}
 all_variables %>% 
   head(10) %>% 
   summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %>% 
   kbl(caption = "All Possible Variables") %>%
   kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
 ```
+
 
 |           With the output listing the Top 10 predictor variables, it appears that 'AgriGDP', 'AgriLand', and 'Year' are the top three predictors in potentially explaining levels of 'Loss'. Using this information, we proceeded with a step-wise forward predictor selection process, based on the predictor's p-values, which ultimately gave us the following conclusion:
 
@@ -193,7 +196,7 @@ ols_step_forward_p(model2)
 
 |           The conclusion drawn from our variable selection was that 'AgriGDP' is the most appropriate predictor amongst all available data in our 'AggData' file. Thus, building our final model, we have the regression model below: 
 
-```{r}
+```{r echo = F}
 model3 <- model1 <- lm(Loss ~ AgriGDP, data = AggData)
 summary(model3)
 ```
