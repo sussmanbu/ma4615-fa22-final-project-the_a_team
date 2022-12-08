@@ -40,7 +40,7 @@ print(ls())
   Here, we started our analysis by checking out all the countries in an easy to see heatmap. Right off the bat, one can notice that the United States
 is a main contributor to worldwide Food Waste, so we may want to focus our attention to this country. Also, we know that the US is one country with a
 high GDP, so maybe other high GDP countries follow suit. For the map, we had to change the names of some of our countries names in the data sets so that they would match that of the maps library. For example, United States of America changes to USA. Also, note how some countries do not have data which will be explained in our flaws section.
-```{r heatmapfoodwastebycountry, fig.align= 'center'}
+```{r heatmapfoodwastebycountry, fig.align= 'center',echo=FALSE}
 library(maps)
 worlddata <- select(FoodLossandWasteAllClean, c('year','country','mean_loss_percentage'))
 worlddata <- worlddata %>% filter(year > 2009 )
@@ -65,7 +65,7 @@ ggplot(mydata) +
   scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss of Food Waste since 2010") +
   expand_limits(x = world_map$long, y = world_map$lat)
 
-world_map
+#world_map
 ```
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
