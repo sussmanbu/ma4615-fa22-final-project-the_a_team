@@ -108,32 +108,29 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
   
-```{r eval = F, echo = T}
+```{r}
 AggData <- read_csv(here::here("dataset/AggData.csv"))
 load(here::here("dataset/AggData.RData"))
 ```
 
-```{r eval = T, echo = F}
+```{r}
 model1 <- lm(Loss ~ Production, data = AggData)
 summary(model1)
 ```
 
-```{r eval = F, echo = T}
+```{r}
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
-```
-
-```{r eval = T, echo = F}
 summary(model2)
 ```
 
-```{r eval = F, echo = T}
+
+```{r eval = T, echo = T}
 suppressPackageStartupMessages(library(olsrr))
 suppressPackageStartupMessages(library(kableExtra))
-
-all_variables <- ols_step_all_possible(model2) 
 ```
 
-```{r echo = F}
+```{r}
+all_variables <- ols_step_all_possible(model2) 
 colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
 all_variables %>% 
   head(10) %>% 
