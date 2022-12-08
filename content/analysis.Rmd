@@ -172,12 +172,6 @@ variable_corr <- AggData %>%
 corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
 ```
 
-```{r echo = T}
-suppressPackageStartupMessages(library(olsrr))
-suppressPackageStartupMessages(library(kableExtra))
-
->>>>>>> df560396a85910281d2284a011b8d9fbfb80b903
-```
 |           However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. The potential interaction between the predictors, therefore, prompts the next step in our analysis. Using the "olsrr" package, we generated all possible predictors (including interaction terms) to determine the most appropriate predictors based the package's default statistical tests (p-value and AIC). 
 
 ```{r echo=FALSE, fig.align = 'center'}
