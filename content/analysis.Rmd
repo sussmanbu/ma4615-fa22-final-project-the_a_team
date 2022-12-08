@@ -127,9 +127,24 @@ model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, d
 summary(model2)
 ```
 
-```{r}
+```{r eval = F, echo = T}
 suppressPackageStartupMessages(library(olsrr))
-ols_step_all_possible(model2) %>% head(6)
+suppressPackageStartupMessages(library(kableExtra))
+
+all_variables <- ols_step_all_possible(model2) 
+```
+
+```{r echo = F}
+colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
+all_variables %>% 
+  head(10) %>% 
+  summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %>% 
+  kbl(caption = "All Possible Variables") %>%
+  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
+```
+
+```{r}
+ols_step_forward_p(model2)
 ```
 
 
