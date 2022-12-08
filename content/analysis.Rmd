@@ -107,21 +107,27 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * You should also include some kind of formal statistical model and/or inference. This could be a linear regression, logistic regression, hypothesis testing etc.
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
-  
+|           In building our data analysis, we will be using our "Aggregate Data" file which is the data file that consolidates all the datasets introduced. The main statistical analysis that we have conducted was using regression models, specifically simple and multi regression. 
+
 ```{r include=FALSE}
 AggData <- read_csv(here::here("dataset/AggData.csv"))
 load(here::here("dataset/AggData.RData"))
 ```
+
+|           The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. While the p-value indicates statistical significance, and to an extent, answers our initial hypothesis regarding the two variables relationship, 'Production' alone likely does not account for all 'Loss'.  
 
 ```{r echo=FALSE}
 model1 <- lm(Loss ~ Production, data = AggData)
 summary(model1)
 ```
 
+|           Hence, in this second model, we expanded upon the original simple regression model into a multi regression model including other macro variables that we had originally been interested about: 'Year', 'GDP', 'Agriculture as Percentage of GDP', 'Percentage of Land used for Agriculture', 'Population', and 'Production'. 
+
 ```{r echo=FALSE}
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
 summary(model2)
 ```
+|           However, upon expanding our model, based on the p-value, it appears that only three out of six variables
 
 ```{r echo = T}
 suppressPackageStartupMessages(library(olsrr))
@@ -141,6 +147,11 @@ all_variables %>%
 
 ```{r echo=FALSE, fig.align='center'}
 ols_step_forward_p(model2) 
+```
+
+```{r}
+model3 <- model1 <- lm(Loss ~ AgriGDP, data = AggData)
+summary(model3)
 ```
 
 
