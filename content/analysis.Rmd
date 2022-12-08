@@ -40,7 +40,7 @@ print(ls())
   Here, we started our analysis by checking out all the countries in an easy to see heatmap. Right off the bat, one can notice that the United States
 is a main contributor to worldwide Food Waste, so we may want to focus our attention to this country. Also, we know that the US is one country with a
 high GDP, so maybe other high GDP countries follow suit. For the map, we had to change the names of some of our countries names in the data sets so that they would match that of the maps library. For example, United States of America changes to USA. Also, note how some countries do not have data which will be explained in our flaws section.
-```{r heatmapfoodwastebycountry, fig.align= 'center'}
+```{r heatmapfoodwastebycountry, fig.align= 'center',echo=FALSE}
 library(maps)
 worlddata <- select(FoodLossandWasteAllClean, c('year','country','mean_loss_percentage'))
 worlddata <- worlddata %>% filter(year > 2009 )
@@ -65,7 +65,7 @@ ggplot(mydata) +
   scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss of Food Waste since 2010") +
   expand_limits(x = world_map$long, y = world_map$lat)
 
-world_map
+#world_map
 ```
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
@@ -132,7 +132,12 @@ Our whole analysis revolved around food waste loss in different countries over t
   * When you answer one question, usually more questions arise as well. 
   * The depth of the DA is about coming up with and exploring the answers to these questions, often iterating the process a few times.
   
-Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. For this, we could plot every country in a heatmap. To see whether food loss has decreased over time worldwide, we could do a geom dot plot with a geom line to see the relationship.
+  Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. 
+  
+  For this, we could plot every country in a heatmap. From this heatmap, we started honing in a little on the US as one of the biggest food waste offender, which led us to the bar graphs right below it, where we start seeing more specific example of just how much food the US wastes compares to other countries. Then, we wondered how worldwide sum loss has been doing over. Surprisingly, for the most part, it seems that we are on a downward trend (Shame on you United States). 
+  
+  As we delved deeper into the World Wide food waste and production, we started to question whether GDP and population had any sort of the correlation with the former variables. Thus, our regression models came to be. Our findings can be found there.  
+
 
 * Modeling and Inference 
   * You should also include some kind of formal statistical model and/or inference. This could be a linear regression, logistic regression, hypothesis testing etc.
