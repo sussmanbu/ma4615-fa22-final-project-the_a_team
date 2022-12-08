@@ -141,12 +141,7 @@ all_variables %>%
 ```
 
 ```{r}
-variable_selection <- ols_step_forward_p(model2) 
-colnames(variable_selection)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
-
-variable_selection %>% 
-  kbl(caption = "Stepwise Forward Variable Selection") %>%
-  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
+ols_step_forward_p(model2) 
 ```
 
 
