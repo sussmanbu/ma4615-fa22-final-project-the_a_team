@@ -132,7 +132,12 @@ Our whole analysis revolved around food waste loss in different countries over t
   * When you answer one question, usually more questions arise as well. 
   * The depth of the DA is about coming up with and exploring the answers to these questions, often iterating the process a few times.
   
-Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. For this, we could plot every country in a heatmap. To see whether food loss has decreased over time worldwide, we could do a geom dot plot with a geom line to see the relationship.
+  Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. 
+  
+  For this, we could plot every country in a heatmap. From this heatmap, we started honing in a little on the US as one of the biggest food waste offender, which led us to the bar graphs right below it, where we start seeing more specific example of just how much food the US wastes compares to other countries. Then, we wondered how worldwide sum loss has been doing over. Surprisingly, for the most part, it seems that we are on a downward trend (Shame on you United States). 
+  
+  As we delved deeper into the World Wide food waste and production, we started to question whether GDP and population had any sort of the correlation with the former variables. Thus, our regression models came to be. Our findings can be found there.  
+
 
 * Modeling and Inference 
   * You should also include some kind of formal statistical model and/or inference. This could be a linear regression, logistic regression, hypothesis testing etc.
