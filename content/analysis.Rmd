@@ -29,12 +29,11 @@ While our analysis is quantitatively-driven, …
 
   
 ```{r int, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 print(getwd())
 FoodLossandWasteAllClean <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
 load(here::here("dataset/FoodLossandWasteAllClean.RData"))
 print(ls())
-
 ```
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
@@ -49,8 +48,6 @@ FoodLossandWasteAllClean %>%
   ggplot(aes(x = country, y = count)) +
   geom_col() + 
   labs(x= "Country", y = "number of commodities with over 40% loss")
- 
-
 ```
 
 The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
