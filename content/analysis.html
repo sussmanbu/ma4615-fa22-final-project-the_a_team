@@ -7,6 +7,8 @@ featuredImage: null
 draft: no
 ---
 
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 <div id="TOC">
 
@@ -78,7 +80,277 @@ What is the projected food waste loss for a specific region in 2023?</p>
 <li>Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.</li>
 </ul></li>
 </ul>
-<p>Model/Inference currently a work in progress</p>
+<pre class="r"><code>AggData &lt;- read_csv(here::here(&quot;dataset/AggData.csv&quot;))</code></pre>
+<pre><code>## Rows: 54 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (8): GDP, AgriGDP, AgriLand, Population, Year, Loss, Production, LossPer...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>load(here::here(&quot;dataset/AggData.RData&quot;))</code></pre>
+<pre class="r"><code>model1 &lt;- lm(Loss ~ Production, data = AggData)
+summary(model1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Loss ~ Production, data = AggData)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -585087131 -115732941  -28574344  142025080  663246104 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 8.700e+08  8.753e+07   9.939 1.28e-13 ***
+## Production  1.818e-02  5.559e-03   3.270  0.00191 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 208500000 on 52 degrees of freedom
+## Multiple R-squared:  0.1706, Adjusted R-squared:  0.1546 
+## F-statistic:  10.7 on 1 and 52 DF,  p-value: 0.00191</code></pre>
+<pre class="r"><code>model2 &lt;- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
+summary(model2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Loss ~ Year + GDP + AgriGDP + AgriLand + Population + 
+##     Production, data = AggData)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -401785287  -99038421  -10308608  112454861  588290004 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -6.277e+11  2.190e+11  -2.866  0.00625 **
+## Year         3.224e+08  1.127e+08   2.860  0.00635 **
+## GDP          6.403e-06  9.913e-06   0.646  0.52157   
+## AgriGDP     -5.089e+07  7.730e+07  -0.658  0.51358   
+## AgriLand     3.005e+08  1.639e+08   1.834  0.07316 . 
+## Population  -5.027e+00  1.449e+00  -3.470  0.00114 **
+## Production   2.169e-01  1.012e-01   2.143  0.03745 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 182800000 on 46 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.4239, Adjusted R-squared:  0.3488 
+## F-statistic: 5.642 on 6 and 46 DF,  p-value: 0.0001869</code></pre>
+<pre class="r"><code>suppressPackageStartupMessages(library(olsrr))
+suppressPackageStartupMessages(library(kableExtra))</code></pre>
+<pre class="r"><code>all_variables &lt;- ols_step_all_possible(model2) 
+colnames(all_variables)[1:5] &lt;- c(&#39;Index&#39;, &#39;n&#39;, &#39;Predictors&#39;, &#39;R-Square&#39;, &#39;Adj R-Square&#39;)
+
+all_variables %&gt;% 
+  head(10) %&gt;% 
+  summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %&gt;% 
+  kbl(caption = &quot;All Possible Variables&quot;) %&gt;%
+  kable_classic(full_width = F, html_font = &quot;Cambria&quot;, fixed_thead = T)</code></pre>
+<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-5">Table 1: </span>All Possible Variables
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Index
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Predictors
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+R-Square
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Adj R-Square
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+AgriGDP
+</td>
+<td style="text-align:right;">
+0.2347192
+</td>
+<td style="text-align:right;">
+0.2197137
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+AgriLand
+</td>
+<td style="text-align:right;">
+0.2133760
+</td>
+<td style="text-align:right;">
+0.1982486
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Year
+</td>
+<td style="text-align:right;">
+0.1939272
+</td>
+<td style="text-align:right;">
+0.1784258
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Population
+</td>
+<td style="text-align:right;">
+0.1888800
+</td>
+<td style="text-align:right;">
+0.1732816
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Production
+</td>
+<td style="text-align:right;">
+0.1705889
+</td>
+<td style="text-align:right;">
+0.1546387
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+GDP
+</td>
+<td style="text-align:right;">
+0.1439178
+</td>
+<td style="text-align:right;">
+0.1274546
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Year Population
+</td>
+<td style="text-align:right;">
+0.2951072
+</td>
+<td style="text-align:right;">
+0.2674643
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+GDP AgriLand
+</td>
+<td style="text-align:right;">
+0.2525274
+</td>
+<td style="text-align:right;">
+0.2232147
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+AgriLand Production
+</td>
+<td style="text-align:right;">
+0.2519245
+</td>
+<td style="text-align:right;">
+0.2225882
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Year AgriLand
+</td>
+<td style="text-align:right;">
+0.2475960
+</td>
+<td style="text-align:right;">
+0.2180899
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ols_step_forward_p(model2) </code></pre>
+<pre><code>## 
+##                                 Selection Summary                                  
+## ----------------------------------------------------------------------------------
+##         Variable                  Adj.                                                
+## Step    Entered     R-Square    R-Square     C(p)         AIC            RMSE         
+## ----------------------------------------------------------------------------------
+##    1    AgriGDP       0.2347      0.2197    12.1090    2180.4885    200101907.9473    
+## ----------------------------------------------------------------------------------</code></pre>
 <ul>
 <li>Explain the flaws and limitations of your analysis
 <ul>

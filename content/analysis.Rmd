@@ -29,12 +29,11 @@ While our analysis is quantitatively-driven, …
 
   
 ```{r int, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 print(getwd())
 FoodLossandWasteAllClean <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
 load(here::here("dataset/FoodLossandWasteAllClean.RData"))
 print(ls())
-
 ```
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
@@ -49,8 +48,6 @@ FoodLossandWasteAllClean %>%
   ggplot(aes(x = country, y = count)) +
   geom_col() + 
   labs(x= "Country", y = "number of commodities with over 40% loss")
- 
-
 ```
 
 The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
@@ -111,8 +108,43 @@ Answering these questions may seem simple at first glance, but as it turns out, 
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
   
-Model/Inference currently a work in progress
-  
+```{r}
+AggData <- read_csv(here::here("dataset/AggData.csv"))
+load(here::here("dataset/AggData.RData"))
+```
+
+```{r}
+model1 <- lm(Loss ~ Production, data = AggData)
+summary(model1)
+```
+
+```{r}
+model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
+summary(model2)
+```
+
+
+```{r eval = T, echo = T}
+suppressPackageStartupMessages(library(olsrr))
+suppressPackageStartupMessages(library(kableExtra))
+```
+
+```{r}
+all_variables <- ols_step_all_possible(model2) 
+colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
+
+all_variables %>% 
+  head(10) %>% 
+  summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %>% 
+  kbl(caption = "All Possible Variables") %>%
+  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
+```
+
+```{r}
+ols_step_forward_p(model2) 
+```
+
+
 * Explain the flaws and limitations of your analysis
   * Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? ...
   
