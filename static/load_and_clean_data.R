@@ -179,7 +179,7 @@ AggData <- cbind(World_data, worldprod)
 # Saving cleaned data
 
 # Food Waste
-write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllClean.csv"))
+write_csv(Food_waste_clean, file = here::here("datasset", "FoodLossandWasteAllClean.csv"))
 save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
 # Food Production
 write_csv(Food_production_clean, file = here::here("dataset-ignore", "Food_production_clean.csv"))

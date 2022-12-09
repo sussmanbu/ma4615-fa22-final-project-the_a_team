@@ -161,7 +161,7 @@ suppressPackageStartupMessages(library(corrplot))
 
 |           The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. While the p-value indicates statistical significance, and to an extent, answers our initial hypothesis regarding the two variables' relationship, 'Production' alone likely does not account for all 'Loss'. This can also be inferred from the correlation figures (≈ 0.413), which shows a below-average correlation between the two variables. 
 
-```{r echo=FALSE, fig.align = 'center}
+```{r echo=FALSE, fig.align = 'center'}
 model1 <- lm(Loss ~ Production, data = AggData)
 summary(model1)
 corr_a <- AggData %>% select(Loss, Production)
@@ -170,7 +170,7 @@ cor(corr_a)
 
 |           Hence, in this second model, we expanded upon the original simple model into a multi-regression model including other macro predictors that we had originally been interested in: 'Year', 'GDP', 'Agriculture as Percentage of GDP', 'Percentage of Land used for Agriculture', 'Population', and 'Production'. 
 
-```{r echo=FALSE, fig.align = 'center}
+```{r echo=FALSE, fig.align = 'center'}
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
 summary(model2)
 
