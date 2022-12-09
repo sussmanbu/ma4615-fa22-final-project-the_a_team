@@ -9,12 +9,12 @@ draft: false
 
 ## Overview
 
-
-|           With the world population recently surpassing the 8 billion threshold, and the increasing challenges of food security and scrutiny on the effects of agriculture on climate change, we wanted to further examine some of the relationships that factor into food waste and loss. 
-
 |           The first step in our data collection process was to find data on Food Waste and Loss around the world, which we found via the Food and Agriculture Organization database. This dataset was curated by the United Nation in efforts to better identify food waste and loss in each country. In addition, the dataset provides information on food waste and loss based on commodities as well as stages in the supply chain. The dataset contains information around two-hundred countries and provides historical data of food waste and loss as a percentage dating back to the 1960's. (How it was collected) 
 
 |           To supplement our analysis, we added variables that we considered to be relevant contributors to the overall food waste and loss. The first set of variables we introduced were Year, GDP, Percentage of GDP as Agriculture, Percentage of Land used for Agriculture, and Population by country. These datasets were extracted from the World Bank’s database, which actively collects general census data for most countries. To better match our primary Food Waste and Loss dataset, we have downloaded the datasets from the World Bank to date back to the 1960's as well. The next set we introduced is data on Food Production in tonnes. This data was curated, again, by the Food and Agriculture Organization of the United Nations, in an effort to study food waste and loss by country. The last variable that we added to our analysis was Region/Continent, which was sorted using Rstudio based on the country’s region. 
+
+|            As we began researching these two data sets, one may beg the question: How is the data collected? This is actually pretty clear for both of our data sets! For the Food and Agriculture Organization, they send questionnaires out to each country "on a regular basis". They also review and validate these questionnaires as they come back to make sure that the data is as good as possible. The World Bank collects data by looking at "official sources", such as reports collected by the "Bank's country management units". This data may also be altered based on balance of payments "to account for fiscal differences". The terminology for aggregating this data and doing calculations plus their other methodologies can be found in their website below.   
+            
 
 #### Links to data:
 Food waste: [https://www.fao.org/platform-food-loss-waste/flw-data/en](https://www.fao.org/platform-food-loss-waste/flw-data/en)
@@ -27,13 +27,9 @@ World Development Indicators: [https://databank.worldbank.org/reports.aspx?sourc
 
 ### Food Waste and Loss
 
-|           The Food Waste and Loss dataset is the one that requires the least cleaning. As aforementioned, the dataset provides information about waste and loss based on stages in the supply chain. However, due to the data collection method utilized by the United Nation, this information is incomplete and inconsistent from country to country. Hence, because of the large amount of missing information, some columns will be removed from the original dataset for our research purposes. The data that will not be relevant to our analysis are: activity, commodities code (both given by name in addition to code), sample size (majority NA), treatment, references, cause_of_loss,method_data_collection,notes,loss_quantity, and url. 
-
-|           We cleaned the dataset by piping the data using group_by, isolating the year, country, and commodity. This would allow us to use only what we need for this research and to size down the dataset. Later, piped this into a summarise() function to find the mean loss percentage, this would eliminate any duplicate commodities that were loss in the same year by the same country. This new cleaned dataset was stored in a new variable named fw1 (food waste 1).
+|           The Food Waste and Loss dataset is the one that requires the least cleaning. As aforementioned, the dataset provides information about waste and loss based on stages in the supply chain. However, due to the data collection method utilized by the United Nation, this information is incomplete and inconsistent from country to country. Hence, because of the large amount of missing information, some columns will be removed from the original dataset for our research purposes. The data that will not be relevant to our analysis are: activity, commodities code (both given by name in addition to code), sample size (majority NA), treatment, references, cause_of_loss, method_data_collection, notes, loss_quantity, and url. 
 
 ```{r eval = F, echo = T}
-## CLEAN the Food_waste data:
-
 #Food_waste$m49_code <- NULL 
 #Food_waste$country <- NULL 
 #Food_waste$region <- NULL
@@ -47,19 +43,25 @@ Food_waste$reference <- NULL
 Food_waste$url <- NULL
 Food_waste$notes <- NULL
 Food_waste$loss_quantity <- NULL
+```
 
-Food_waste_clean <- Food_waste %>% group_by(year, country, commodity) %>%
+|           We cleaned the dataset by piping the data using group_by, isolating the year, country, and commodity. This would allow us to use only what we need for this research and to size down the dataset. Later, piped this into a summarise() function to find the mean loss percentage, this would eliminate any duplicate commodities that were loss in the same year by the same country. This new cleaned dataset was stored in a new variable named fw1 (food waste 1).
+
+```{r eval = F, echo = T}
+Food_waste_clean <- Food_waste %>% group_by(year, country, commodity, m49_code) %>%
   summarise(mean_loss_percentage = mean(loss_percentage))
 ```
 
 ### Food Production
 
-|           The Food Production dataset; even though its file size is bigger; is relatively “cleaner” in comparison to the Food Waste and Loss dataset. The cleaning for this dataset that was done to remove Item Code (CPC), Item Code,Year Code, Flag, and Flag Description. Much like the treatment done to Food Waste and Loss, a new variable was made, fp1 (food production 1), That used the food_production dataset to be piped and group_by, the Item, Year, and Unit. 
-
+|           The Food Production dataset; even though its file size is bigger; it's relatively “cleaner” in comparison to the Food Waste and Loss dataset. The cleaning for this dataset began with removing Item Code (CPC), Item Code, Year Code, Flag, and Flag Description. Much like the treatment done to Food Waste and Loss, a new variable was made, "Production" - that used the food_production dataset to be piped and group_by, the Item, Year, and Unit. 
+|
 ```{r eval = F, echo = T}
 ## CLEAN the Food_production data:
 
 Food_production <- read_csv(here::here("dataset-ignore", "Production_All(Normalized).csv"))
+
+# General Cleaning of Columns
 
 #Food_production$`Domain Code` <- NULL 
 #Food_production$Domain <- NULL 
@@ -71,74 +73,164 @@ Food_production$`Year Code` <- NULL
 Food_production$Flag <- NULL
 Food_production$`Flag Description`<- NULL
 
+# Creating New Variable "Production"
 Food_production_clean <- filter(Food_production, Food_production$Element == "Production")
+  colnames(Food_production_clean)[2] <- "M49Code"
 ```
 
-## Initial Cleaning World Bank Data
+## Initial Cleaning World Bank Data (Macro Data)
 
-|           The datasets extracted from the World Bank’s database are relatively “complete”. However, the four variables that we introduced using their database (GDP, Agriculture as Percentage of GDP, Percentage Agriculture Land, Population) share a common “issue”. Due to exogenous factors, some countries have a significant amount of missing values - mostly East European countries and small island nations. This is because they simply did not exist, and therefore, data was uncollectible. For example, much of the data for Eastern European countries are not available until mid-to-late 1990s as they existed within the Soviet Union prior to that. As such, we will have to treat the missing values as NA despite most available data dating back to the 1960s.
+|           The datasets extracted from the World Bank’s database are relatively “complete”. However, the four variables that we introduced using their database (GDP, Agriculture as Percentage of GDP, Percentage Agriculture Land, Population) share a common “issue”. Due to exogenous factors, some countries have a significant amount of missing values - mostly East European countries and small island nations. This is because they simply did not exist, and therefore, data was not collectible. For example, much of the data for Eastern European countries are not available until mid-to-late 1990s as they existed within the Soviet Union prior to that. As such, we will have to treat the missing values as NA despite most available data dating back to the 1960s (NA's will be revisited later in the aggregate data section).
 
-The cleaning for this portion of data was defining the “Year” columns as numeric rather than character as originally downloaded. The second part was to drop the irrelevant columns, including country code, series code, and series name. This can be seen in the chunk above/below:
+|           The cleaning for this portion of data was defining the “Year” columns as numeric rather than character as originally formatted. The second part was to drop the irrelevant columns, including country code, series code, and series name. This can be seen in the chunk below:
 
 ```{r eval = F, echo = T}
 ## CLEAN the GDP data:
 
 # Datasets cleaning: GDP, AgriPercentageGDP, LandPercentage, and Population
+
+# Please note: due to excess of NA data, the warnings have been suppressed that would normally appear due to conversion from character to numeric
 suppressWarnings({
+  
   #GDP
   GDP_data <- read_csv(here::here("dataset", "GDP.csv"), show_col_types = F)
-  GDP_data <- GDP_data %>% group_by(GDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
-  GDP_data <- GDP_data[-c(1, 2, 4)]
+  # The below commands formats the desired column into numeric
+  GDP_data <- GDP_data %>% group_by(GDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup() 
+  # The below commands drops columns associated with the irrelevant columns
+  GDP_data <- GDP_data[-c(1, 2, 4)] 
+  # The below commands drop the irrelevant rows currently not applicable to EDA analysis
+  # However, these data will be revisited in the aggregate data section
+  GDP_data <- GDP_data[-c(218:271),]
+  colnames(GDP_data)[1] <- "Country"
   GDP_data_clean <- GDP_data
-  #AgriPercentageGDP
+  
+  #Agriculture as Percentage of GDP
   AgriGDP_data <- read_csv(here::here("dataset", "AgriPercentageGDP.csv"), show_col_types = F)
   AgriGDP_data <- AgriGDP_data %>% group_by(AgriGDP_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   AgriGDP_data <- AgriGDP_data[-c(1, 2, 4)]
+  AgriGDP_data <- AgriGDP_data[-c(218:271),] # This drops regional information, which was not used for EDA
+  colnames(AgriGDP_data)[1] <- "Country"
   AgriGDP_data_clean <- AgriGDP_data
-  #LandPercentage
+  
+  #Land Percentage used for Agriculture
   AgriLand_data <- read_csv(here::here("dataset", "LandPercentage.csv"), show_col_types = F)
   AgriLand_data <- AgriLand_data %>% group_by(AgriLand_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   AgriLand_data <- AgriLand_data[-c(1, 2, 4)]
+  AgriLand_data <- AgriLand_data[-c(218:271),]
+  colnames(AgriLand_data)[1] <- "Country"
   AgriLand_data_clean <- AgriLand_data
+  
   #Population
   Population_data <- read_csv(here::here("dataset", "population.csv"), show_col_types = F)
   Population_data <- Population_data %>% group_by(Population_data[3]) %>% mutate_if(is.character, as.numeric) %>% ungroup()
   Population_data <- Population_data[-c(1, 2, 4)]
+  Population_data <- Population_data[-c(218:537),]
+  colnames(Population_data)[1] <- "Country"
   Population_data_clean <- Population_data
 })
+```
+
+## Aggregate Data for Detailed Analysis
+
+|           In order to build a deeper analysis to our data, we have aggregated all of the datasets mentioned above into one dataset. The treatment of the data can be understood below:
+
+|           The first step in aggregating our data is to further consolidate some of the previous datasets. Starting with the "Food_waste_clean" dataset, we only keep columns 1 and 5 which represents the year and mean loss percentage. This is followed by dropping the NA's, followed by aggregating the mean loss percentages and averaging them out to give mean loss percentage of the world based on year. 
+
+```{r eval = F, echo = T}
+Food_waste_clean <- Food_waste_clean[c(1,5)]
+Food_waste_clean <- Food_waste_clean %>% group_by(year) %>% summarise(count = n(), sum = sum(mean_loss_percentage, na.rm = TRUE)/count)
+```
+
+|           The next step in the cleaning process is to identify the food production data for the world as a whole. Unlike the "Food_waste_clean" dataset, the production dataset provides world data when M49 = 1. Hence, we converted 'M49Code' column in the "Food_production_clean" dataset into numerics and filtering to create a new dataset titled "Food_production_clean1" to be only world data. This is followed by then dropping the irrelevant columns and NA's to make a new column of "Production" which gives the sum of food production in tonnes by year. 
+
+```{r eval = F, echo = T}
+Food_production_clean <- Food_production_clean %>% mutate(M49 = as.numeric( sub("'","",Food_production_clean$M49Code, fixed = TRUE)))  
+Food_production_clean1 <- Food_production_clean %>% filter(M49 == 1)
+
+Food_production_clean1 <- Food_production_clean1[-c(1:7,9,11)]
+Food_production_clean2 <- Food_production_clean1 %>% group_by(Year) %>% summarise(Production = sum(Value,na.rm = TRUE))
+```
+
+|           In continuation, the macro datasets also already provide data in terms of the world as a whole. Hence, the following treatment was no longer utilized in the formatting of aggregate data in the macro datasets: [dataset_name <- dataset_name[-c(218:271),] (refer to Initial Cleaning of World Bank Data for context). Using the already provided world data, new datasets were created using filters for each macro variable and combined to create a new aggregated macro dataset (dropping some years - explained in following section). 
+
+```{r eval = F, echo = T}
+# World Data Aggregate
+
+# First Step:
+GDP_World <- GDP_data_clean_macro %>% filter(Country == "World")
+  GDP_World <- GDP_World[-c(1)]
+AgriGDP_World <- AgriGDP_data_clean_macro %>% filter(Country == "World")
+  AgriGDP_World <- AgriGDP_World[-c(1)]
+AgriLand_World <- AgriLand_data_clean_macro %>% filter(Country == "World")
+  AgriLand_World <- AgriLand_World[-c(1)]
+Pop_World <- Population_data_clean_macro %>% filter(Country == "World")
+  Pop_World <- Pop_World[-c(1)]
+  
+# Second Step:
+GDP_World <- as.data.frame(t(GDP_World))
+  colnames(GDP_World)[1] <- "GDP"
+AgriGDP_World <- as.data.frame(t(AgriGDP_World))
+  colnames(AgriGDP_World)[1] <- "AgriGDP"
+AgriLand_World <- as.data.frame(t(AgriLand_World))
+  colnames(AgriLand_World)[1] <- "AgriLand"
+Pop_World <- as.data.frame(t(Pop_World))  
+  colnames(Pop_World)[1] <- "Population"
+  
+# Aggregate  
+World_data <- cbind(GDP_World, AgriGDP_World, AgriLand_World, Pop_World)
+World_data <- World_data[-c(1:5, 7, 61),] 
+```
+
+|           Following, we joined the newly edited "Food_production_clean2" dataset with "Food_waste_clean" in aggregating our data. In addition, some of the years were dropped (including the world macro dataset) in the two datasets to only represent years with data available in both. Next, we multiplied the 'mean_loss_percentage' and 'production' by 'year' to create a new variable that gives in absolute terms - 'tonnes loss in production by year'. 
+
+```{r eval = F, echo = T}
+Food_production_clean2 <- Food_production_clean2[-c(1:5,7),]
+Food_waste_clean <- Food_waste_clean[-c(55),]
+
+# World production data was joined by matching the years
+worldprod <- left_join(Food_production_clean2,Food_waste_clean, by = c("Year" = "year"))
+worldprod <- worldprod[-c(3)]
+
+# Creating new variable of food loss in tonnes
+worldprod <- worldprod %>% group_by(Year) %>% summarise(Loss = Production * (sum/100), Production, LossPercentage = sum)
+```
+
+|           The final step in our aggregation was to now join the treated macro data with the new "worldprod" dataset. 
+
+```{r eval = F, echo = T}
+# Aggregating World Macro Data w/ World Production Data
+
+AggData <- cbind(World_data, worldprod)
 ```
 
 
 ## Packages Used to Clean Code:
 
-|           Given that most of the cleaning required of the datasets were reorganization and redefining variables, a significant portion of the cleaning was used using dplyr. The remaining portion of the cleaning was done using base R functions. 
-            We also used a Maps package for the purpose of making a very user-friendly graph that uses a map as a way to display data. This makes it easy for people to visualize different regional statistics. This graph is introduced in the EDA page.
+|           Given that most of the cleaning required of the datasets were reorganization and redefining variables, a significant portion of the cleaning was used using dplyr. The remaining portion of the cleaning was done using base R functions.
 
-```{r echo=TRUE, message=TRUE}
+|           We also used a Maps package for the purpose of making a very user-friendly graph that uses a map as a way to display data. This makes it easy for people to visualize different regional statistics. This graph is introduced in the EDA page.
+
+```{r echo = TRUE, message = TRUE}
 source(here::here("static", "load_and_clean_data.R"))
 ```
 
 ## Warnings:
 
-|           For the cleaning of the World Bank data, due to the conversion from character to numeric, it prompts R to notify of warnings regarding the treatment of NAs. However, as we will continue to recognize the missing values (reasons discussed above), these warnings are ignored using the function supressWarnings(). 
+|           For the cleaning of the World Bank data, due to the conversion from character to numeric, it prompts R to notify of warnings regarding the treatment of NAs. However, as we will continue to recognize the missing values (reasons discussed above), these warnings are ignored using the function suppressWarnings(). 
 
 ## Data Variables: 
 
 |           As stated before, this data set focused on food production and waste based on varying regions. As such, our data variables are quite easy to understand:
 
-1) Country: Country the data is associated to  
+1) Year: from 1966 - 2020  
 
-2) Commodity/Item: Categorization of food, e.g. Almonds, Cabbage, Rice, etc.
+2) GDP: GDP for the world by year from 1966-2020
 
-3) Loss Percentage: Percentage of commodity loss as a percentage of overall production
+3) AgriGDP: Agriculture as a percentage of GDP for the world by year from 1966-2020
 
-4) Value: Total amount of food produced in the given unit
+4) AgriLand: Land used for agriculture as a percentage of total land worldwide from 1966-2020
 
-5) Unit: Unit used to measured the production of food, quantity given by 'value'
+5) Loss: Tonnes loss per year by the world in food production 
 
-
-```{r echo=TRUE}
-source(here::here("static","load_and_clean_data.R"))
-```
-
+5) Production: Total production in tonnes given by year for the world
 

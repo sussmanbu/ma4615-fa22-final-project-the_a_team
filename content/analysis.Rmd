@@ -29,17 +29,47 @@ While our analysis is quantitatively-driven, …
 
   
 ```{r int, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-library(tidyverse)
+suppressPackageStartupMessages(library(tidyverse))
 print(getwd())
 FoodLossandWasteAllClean <- read_csv(here::here("dataset/FoodLossandWasteAllClean.csv"))
 load(here::here("dataset/FoodLossandWasteAllClean.RData"))
 print(ls())
-
 ```
 
+
+  Here, we started our analysis by checking out all the countries in an easy to see heatmap. Right off the bat, one can notice that the United States
+is a main contributor to worldwide Food Waste, so we may want to focus our attention to this country. Also, we know that the US is one country with a
+high GDP, so maybe other high GDP countries follow suit. For the map, we had to change the names of some of our countries names in the data sets so that they would match that of the maps library. For example, United States of America changes to USA. Also, note how some countries do not have data which will be explained in our flaws section.
+```{r heatmapfoodwastebycountry, fig.align= 'center',echo=FALSE}
+suppressPackageStartupMessages(library(maps))
+worlddata <- select(FoodLossandWasteAllClean, c('year','country','mean_loss_percentage'))
+worlddata <- worlddata %>% filter(year > 2009 )
+
+worlddata <- worlddata %>% group_by(year,country) %>% summarise_each(funs(sum))
+
+worlddata <- worlddata %>% group_by(country) %>% summarise_each(funs(mean))
+
+world_map <- map_data("world")
+mydata<-worlddata
+mydata$country[mydata$country == "United States of America"] <- "USA"
+mydata$country[mydata$country == "Russian Federation"] <- "Russia"
+world_map <- map_data("world")
+world_map <- subset(world_map, region != "Antarctica")
+
+ggplot(mydata) +
+  geom_map(
+    dat = world_map, map = world_map, aes(map_id = region),
+    fill = "white", color = "#7f7f7f", size = 0.25
+  ) +
+  geom_map(map = world_map, aes(map_id = country, fill = mean_loss_percentage), size = 0.25) +
+  scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Mean Loss of Food Waste since 2010") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+#world_map
+```
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
 
-```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(mean_loss_percentage >= 40)%>%
@@ -49,13 +79,11 @@ FoodLossandWasteAllClean %>%
   ggplot(aes(x = country, y = count)) +
   geom_col() + 
   labs(x= "Country", y = "number of commodities with over 40% loss")
- 
-
 ```
 
 The following graph indicates that in the US, Pineapple juice, Orange juice and grapefruit juice have been wasted the most over the past decades. One commonality between the most-wasted-commodity is that they are all juice. We may want to explore where did most of the waste occur in the production & retail process of these juice.
 
-```{r 2, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 2, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America', mean_loss_percentage >= 40) %>%
@@ -69,7 +97,7 @@ FoodLossandWasteAllClean %>%
 The following graph explores the sum food waste per year in the United States. In 2008, US incurred the most amount of food waste in the past five decades. A possible explanation for this severe food waste year is that during the depression, a lot of food are wasted because a lot of retailer and food processor went out of business. We may need more data to back up our hypothesis.
 
 
-```{r 3, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r 3, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
@@ -81,7 +109,7 @@ FoodLossandWasteAllClean %>%
 ```
 The following data further explore the most wasted food in US. Besides from juice, we observe that Canned mushrooms, Tomatoes and Spinach are also among the highest wasted food in the US.  
 
-```{r 4, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+```{r 4, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, fig.align='center'}
 FoodLossandWasteAllClean %>%
   select(year,country,commodity, mean_loss_percentage)%>%
   filter(country == 'United States of America') %>%
@@ -104,25 +132,107 @@ Our whole analysis revolved around food waste loss in different countries over t
   * When you answer one question, usually more questions arise as well. 
   * The depth of the DA is about coming up with and exploring the answers to these questions, often iterating the process a few times.
   
-Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. For this, we could plot every country in a heatmap. To see whether food loss has decreased over time worldwide, we could do a geom dot plot with a geom line to see the relationship.
+  Answering these questions may seem simple at first glance, but as it turns out, there are a bunch of countries in the world. In order to be able to compare all of the different countries’ food loss within a certain timeframe, we want to be able to display the data in a simple user-friendly manner. 
+  
+  For this, we could plot every country in a heatmap. From this heatmap, we started honing in a little on the US as one of the biggest food waste offender, which led us to the bar graphs right below it, where we start seeing more specific example of just how much food the US wastes compares to other countries. Then, we wondered how worldwide sum loss has been doing over. Surprisingly, for the most part, it seems that we are on a downward trend (Shame on you United States). 
+  
+  As we delved deeper into the World Wide food waste and production, we started to question whether GDP and population had any sort of the correlation with the former variables. Thus, our regression models came to be. Our findings can be found there.  
+
 
 * Modeling and Inference 
   * You should also include some kind of formal statistical model and/or inference. This could be a linear regression, logistic regression, hypothesis testing etc.
   * Explain the techniques you used for validating your results.
   * Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
-  
-Model/Inference currently a work in progress
-  
+
+|           In building our data analysis, we will be using our "Aggregate Data" file which is the data file that consolidates all the datasets introduced. The main statistical analysis that we have conducted was using regression models, specifically simple and multi-regression. 
+
+```{r include=FALSE}
+AggData <- read_csv(here::here("dataset/AggData.csv"))
+load(here::here("dataset/AggData.RData"))
+```
+
+|           These are the packages that will be used in our analysis.
+
+```{r echo = T}
+suppressPackageStartupMessages(library(olsrr))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(corrplot))
+```
+
+|           The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. While the p-value indicates statistical significance, and to an extent, answers our initial hypothesis regarding the two variables' relationship, 'Production' alone likely does not account for all 'Loss'. This can also be inferred from the correlation figures (≈ 0.413), which shows a below-average correlation between the two variables. 
+
+```{r echo=FALSE, fig.align = 'center'}
+model1 <- lm(Loss ~ Production, data = AggData)
+summary(model1)
+corr_a <- AggData %>% select(Loss, Production)
+cor(corr_a)
+```
+
+|           Hence, in this second model, we expanded upon the original simple model into a multi-regression model including other macro predictors that we had originally been interested in: 'Year', 'GDP', 'Agriculture as Percentage of GDP', 'Percentage of Land used for Agriculture', 'Population', and 'Production'. 
+
+```{r echo=FALSE, fig.align = 'center'}
+model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
+summary(model2)
+
+variable_corr <- AggData %>% 
+  select(-LossPercentage)
+
+corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
+```
+
+|           However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. The potential interaction between the predictors, therefore, prompts the next step in our analysis. Furthermore, the multi-regression model, likely, is not the "best" model to be used in our analysis as we can observe a negative intercept. The negative intercept itself is logically flawed as it suggests "negative" loss when all other predictor are null-ed. In the next step, using the "olsrr" package, we generated all possible predictors (including interaction terms) to determine the most appropriate predictors based the package's default statistical tests (p-value and AIC). 
+
+```{r echo=FALSE}
+all_variables <- ols_step_all_possible(model2) 
+colnames(all_variables)[1:5] <- c('Index', 'n', 'Predictors', 'R-Square', 'Adj R-Square')
+```
+
+```{r echo=FALSE, fig.align = 'center'}
+all_variables %>% 
+  head(10) %>% 
+  summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %>% 
+  kbl(caption = "All Possible Variables") %>%
+  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T, position = "center")
+```
+
+|           With the output listing the Top 10 predictor variables, it appears that 'AgriGDP', 'AgriLand', and 'Year' are the top three predictors in potentially explaining levels of 'Loss'. Using this information, we proceeded to construct a second multi-regression model in attempt to examine the relationship they have on 'Loss'.
+
+```{r echo=F, fig.align='center'}
+model3 <- lm(Loss ~ Year + AgriGDP + AgriLand, data = AggData)
+summary(model3)
+```
+
+|           In reference to the new model, it appears that similar problems persists. Firstly, the intercept again remains negative, which as previously discussed is flawed. Additionally, the new model that was constructed based on the all variable analysis still gives predictors that prove to be statistically insignifiant. Hence, in our next step we proceeded with a step-wise forward predictor selection process. The package uses the predictor's p-values to construct a model with statistically significant predictors. 
+
+```{r echo=FALSE, fig.align='center'}
+ols_step_forward_p(model2)
+```
+
+|           The conclusion drawn from our variable selection was that 'AgriGDP' alone is the most appropriate predictor among all available data in our 'AggData' file. Thus, building our final model, we have the simple regression model below: 
+
+```{r echo = F}
+model4 <- model1 <- lm(Loss ~ AgriGDP, data = AggData)
+summary(model4)
+
+corr_b <- AggData %>% select(Loss, AgriGDP)
+cor(corr_b, use = "pairwise.complete.obs")
+```
+      
+|           The following model demonstrates a negative relationship between 'Loss' and 'Agriculture as a Percentage of GDP', where correlation ≈ -0.484. This conclusion was initially counter-intuitive as one would likely assume that greater percentage of agriculture as GDP likely means more production and consumption. Upon further analysis (refer back to correlation matrix), we found that 'GDP' has a negative correlation to 'AgriGDP'. Hence, there likely exists factors within the 'AgriGDP' data that explains this relationship. For example, 'AgriGDP' includes data for both import and export of agricultural goods. The 'Loss' data itself reports only loss in production that occurred domestically. Hence, if a country imports a greater proportion of its agricultural goods as opposed to producing domestically, the net effect could indeed be negative. And while the new simple regression model's correlation between the predictor and response variables is still below-average, there appears to be a slight increase. This, while, more promising, still suggests that there exists other factors outside of our consideration that are more appropriate in helping project food production loss. 
+
 * Explain the flaws and limitations of your analysis
   * Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? ...
   
-One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.
+  One assumption that we initially made was that our food waste dataset held data for every country and every year. We were first proven wrong when we realized that some countries ceased to exist or began existing throughout the time period recorded. Also, there are years in which some countries may be missing data. This is due to the fact that the way our data was initially collected by the FAO (Food and Agriculture Org) was basically by going through old documents that the country may have provided. This does not work when countries do not really prioritize collecting this information.
+
+  The second flaw (no consistent data on a year-to-year basis) led to us believing that we could make a yearly analysis for every country. Therefore, when we started pumping out some graphs and a heat map for certain years, we got some "blank" spaces. Thus we realized that this flaw sort of forced us to work on a over-the-year basis instead. Of course this was not the case for every country, as places such as the United Stated are usually always good about collecting data. These blank spaces could also affect our overall world data, because during periods of instability, there are some countries that may not care about collecting data, so that is left out of our world analysis. 
+  As for the flaw about countries coming about and leaving, we do not think that it will really affect our data too much due to the fact we started focusing on the world as a whole. We feel that working with the world as a whole minimizes that small data issues that indidividual countries may have.
   
 * Clarity Figures
   * Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?
   * Each figure should provide a key insight. Too many figures or other data summaries can detract from this.
   
-We believe that our graphs are actually quite easy to glance at. While making these graphs, we wanted to design them in a way that they could possibly be the first iteration of something that can be used in the “interactive” part of this project. For example, the heatmap we made at the beginning quickly helped us understand which country was a “problem” when it came to food waste.
+We believe that our graphs are actually quite easy to glance at. While making these graphs, we wanted to design them in a way that they could possibly be the first iteration of something that can be used in the “interactive” part of this project. For example, the heatmap we made at the beginning quickly helped us understand which country was a “problem” when it came to food waste. 
   
 * Clarity of Explanations
   * Do you introduce why you are doing each analysis?
