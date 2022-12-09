@@ -13,6 +13,9 @@ draft: false
 
 |           To supplement our analysis, we added variables that we considered to be relevant contributors to the overall food waste and loss. The first set of variables we introduced were Year, GDP, Percentage of GDP as Agriculture, Percentage of Land used for Agriculture, and Population by country. These datasets were extracted from the World Bank’s database, which actively collects general census data for most countries. To better match our primary Food Waste and Loss dataset, we have downloaded the datasets from the World Bank to date back to the 1960's as well. The next set we introduced is data on Food Production in tonnes. This data was curated, again, by the Food and Agriculture Organization of the United Nations, in an effort to study food waste and loss by country. The last variable that we added to our analysis was Region/Continent, which was sorted using Rstudio based on the country’s region. 
 
+|            As we began researching these two data sets, one may beg the question: How is the data collected? This is actually pretty clear for both of our data sets! For the Food and Agriculture Organization, they send questionnaires out to each country "on a regular basis". They also review and validate these questionnaires as they come back to make sure that the data is as good as possible. The World Bank collects data by looking at "official sources", such as reports collected by the "Bank's country management units". This data may also be altered based on balance of payments "to account for fiscal differences". The terminology for aggregating this data and doing calculations plus their other methodologies can be found in their website below.   
+            
+
 #### Links to data:
 Food waste: [https://www.fao.org/platform-food-loss-waste/flw-data/en](https://www.fao.org/platform-food-loss-waste/flw-data/en)
 Production:[https://www.fao.org/faostat/en/#data/QCL](https://www.fao.org/faostat/en/#data/QCL)
