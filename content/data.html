@@ -49,6 +49,7 @@ Food_waste$loss_quantity &lt;- NULL</code></pre>
 <p>We cleaned the dataset by piping the data using group_by, isolating the year, country, and commodity. This would allow us to use only what we need for this research and to size down the dataset. Later, piped this into a summarise() function to find the mean loss percentage, this would eliminate any duplicate commodities that were loss in the same year by the same country. This new cleaned dataset was stored in a new variable named fw1 (food waste 1).</p>
 <pre class="r"><code>Food_waste_clean &lt;- Food_waste %&gt;% group_by(year, country, commodity, m49_code) %&gt;%
   summarise(mean_loss_percentage = mean(loss_percentage))</code></pre>
+<p><br></p>
 </div>
 <div id="food-production" class="section level3">
 <h3>Food Production</h3>
@@ -73,6 +74,7 @@ Food_production$`Flag Description`&lt;- NULL
 # Creating New Variable &quot;Production&quot;
 Food_production_clean &lt;- filter(Food_production, Food_production$Element == &quot;Production&quot;)
   colnames(Food_production_clean)[2] &lt;- &quot;M49Code&quot;</code></pre>
+<p><br></p>
 </div>
 </div>
 <div id="initial-cleaning-world-bank-data-macro-data" class="section level2">
@@ -122,6 +124,7 @@ suppressWarnings({
   colnames(Population_data)[1] &lt;- &quot;Country&quot;
   Population_data_clean &lt;- Population_data
 })</code></pre>
+<p><br></p>
 </div>
 <div id="aggregate-data-for-detailed-analysis" class="section level2">
 <h2>Aggregate Data for Detailed Analysis</h2>
@@ -175,6 +178,7 @@ worldprod &lt;- worldprod %&gt;% group_by(Year) %&gt;% summarise(Loss = Producti
 <pre class="r"><code># Aggregating World Macro Data w/ World Production Data
 
 AggData &lt;- cbind(World_data, worldprod)</code></pre>
+<p><br></p>
 </div>
 <div id="packages-used-to-clean-code" class="section level2">
 <h2>Packages Used to Clean Code:</h2>
@@ -206,20 +210,97 @@ AggData &lt;- cbind(World_data, worldprod)</code></pre>
 ## `mutate_if()` ignored the following grouping variables:
 ## `mutate_if()` ignored the following grouping variables:
 ## `mutate_if()` ignored the following grouping variables:</code></pre>
+<p><br></p>
 </div>
 <div id="warnings" class="section level2">
 <h2>Warnings:</h2>
 <p>For the cleaning of the World Bank data, due to the conversion from character to numeric, it prompts R to notify of warnings regarding the treatment of NAs. However, as we will continue to recognize the missing values (reasons discussed above), these warnings are ignored using the function suppressWarnings().</p>
+<p><br></p>
 </div>
 <div id="data-variables" class="section level2">
 <h2>Data Variables:</h2>
-<p>As stated before, this data set focused on food production and waste based on varying regions. As such, our data variables are quite easy to understand:</p>
-<ol style="list-style-type: decimal">
-<li><p>Year: from 1966 - 2020</p></li>
-<li><p>GDP: GDP for the world by year from 1966-2020</p></li>
-<li><p>AgriGDP: Agriculture as a percentage of GDP for the world by year from 1966-2020</p></li>
-<li><p>AgriLand: Land used for agriculture as a percentage of total land worldwide from 1966-2020</p></li>
-<li><p>Loss: Tonnes loss per year by the world in food production</p></li>
-<li><p>Production: Total production in tonnes given by year for the world</p></li>
-</ol>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="23%" />
+<col width="41%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Variables</th>
+<th align="center">Code Variables</th>
+<th align="center">Dataset</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Year</td>
+<td align="center">Year</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">From 1966 - 2020</td>
+</tr>
+<tr class="even">
+<td align="center">GDP</td>
+<td align="center">GDP</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">GDP for the world by year from 1966-2020</td>
+</tr>
+<tr class="odd">
+<td align="center">Commodity</td>
+<td align="center">Commodity</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">List of food products in tonnes loss per year by the world</td>
+</tr>
+<tr class="even">
+<td align="center">Country</td>
+<td align="center">Country</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">List of countries that contributed to the food loss census</td>
+</tr>
+<tr class="odd">
+<td align="center">M49 Code</td>
+<td align="center">M49 Code</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">Standard for area codes used by the United Nations for statistical purposes</td>
+</tr>
+<tr class="even">
+<td align="center">Loss</td>
+<td align="center">mean_loss_percenatge</td>
+<td align="center">FoodLossandWasteAllClean.csv</td>
+<td align="center">Mean loss percenatge in tonnes loss per year by the world in food production</td>
+</tr>
+<tr class="odd">
+<td align="center">Loss</td>
+<td align="center">Loss_percenatge</td>
+<td align="center">AggData.csv</td>
+<td align="center">Tonnes loss percentage per year by the world in food production</td>
+</tr>
+<tr class="even">
+<td align="center">Loss</td>
+<td align="center">Loss</td>
+<td align="center">AggData.csv</td>
+<td align="center">Tonnes loss per year by the world in food production</td>
+</tr>
+<tr class="odd">
+<td align="center">Production</td>
+<td align="center">Production</td>
+<td align="center">AggData.csv</td>
+<td align="center">Total production in tonnes given by year for the world</td>
+</tr>
+<tr class="even">
+<td align="center">Agriculture GDP</td>
+<td align="center">AgriGDP</td>
+<td align="center">AggData.csv</td>
+<td align="center">Agriculture as a percentage of GDP for the world by year from 1966-2020</td>
+</tr>
+<tr class="odd">
+<td align="center">Agriculture Land</td>
+<td align="center">AgriLand</td>
+<td align="center">AggData.csv</td>
+<td align="center">Land used for agriculture as a percentage of total land worldwide from 1966-2020</td>
+</tr>
+</tbody>
+</table>
 </div>
