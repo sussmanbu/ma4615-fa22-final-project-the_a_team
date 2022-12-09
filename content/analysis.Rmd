@@ -195,7 +195,6 @@ all_variables %>%
   kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T, position = "center")
 ```
 
-
 |           With the output listing the Top 10 predictor variables, it appears that 'AgriGDP', 'AgriLand', and 'Year' are the top three predictors in potentially explaining levels of 'Loss'. Using this information, we proceeded to construct a second multi-regression model in attempt to examine the relationship they have on 'Loss'.
 
 ```{r echo=F, fig.align='center'}
