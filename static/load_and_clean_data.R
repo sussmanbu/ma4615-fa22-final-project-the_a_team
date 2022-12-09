@@ -182,7 +182,7 @@ AggData <- cbind(World_data, worldprod)
 write_csv(Food_production_clean, file = here::here("dataset-ignore", "Food_production_clean.csv"))
 save(Food_production_clean, file = here::here("dataset-ignore/Food_production_clean.RData"))
 # Food Waste
-write_csv(Food_waste_clean, file = here::here("datasset", "FoodLossandWasteAllClean.csv"))
+write_csv(Food_waste_clean, file = here::here("dataset", "FoodLossandWasteAllClean.csv"))
 save(Food_waste_clean, file = here::here("dataset/FoodLossandWasteAllClean.RData"))
 # GDP by Country
 write_csv(GDP_data_clean, file = here::here("dataset", "GDP_data_clean.csv"))
