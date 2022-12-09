@@ -67,7 +67,7 @@ worldprod <- worldprod %>% group_by(Year) %>% summarise(Loss = Production * (sum
 #===========================
 #this is how we get the countries into regions
 
-Food_waste_clean <- Food_waste_clean %>%
+#Food_waste_clean <- Food_waste_clean %>%
   #mutate(country_region = countrycode(m49_code, origin = "iso3n", destination = "region")) #this separates countries into regions, may not need it for final version
 
 #Food_waste_clean <- Food_waste_clean %>% mutate(country_region = countrycode(m49_code, origin = "iso3n", destination = "region")) #this separates countries into regions, may not need it for final version
