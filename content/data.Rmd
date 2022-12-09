@@ -216,7 +216,7 @@ source(here::here("static", "load_and_clean_data.R"))
 
 ## Warnings:
 
-|           For the cleaning of the World Bank data, due to the conversion from character to numeric, it prompts R to notify of warnings regarding the treatment of NAs. However, as we will continue to recognize the missing values (reasons discussed above), these warnings are ignored using the function supressWarnings(). 
+|           For the cleaning of the World Bank data, due to the conversion from character to numeric, it prompts R to notify of warnings regarding the treatment of NAs. However, as we will continue to recognize the missing values (reasons discussed above), these warnings are ignored using the function suppressWarnings(). 
 
 ## Data Variables: 
 
