@@ -192,7 +192,7 @@ all_variables %>%
   head(10) %>% 
   summarise(Index, n, Predictors, `R-Square`, `Adj R-Square`) %>% 
   kbl(caption = "All Possible Variables") %>%
-  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T)
+  kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T, position = "center")
 ```
 
 
