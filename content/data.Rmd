@@ -15,11 +15,12 @@ To supplement our analysis, we added variables that we considered to be relevant
 <br><br>
 Most of the data collected by these organizations was from various sources (e.g., subnational reports, academic studies, FAOSTAT and reports from national and international organizations such as the World Bank, GIZ, FAO, IFPRI, and other sources). How did they collected it? This is actually pretty clear for both of our data sets! For the Food and Agriculture Organization, they send questionnaires out to each country "on a regular basis". They also review and validate these questionnaires as they come back to make sure that the data is as good as possible. The World Bank collects data by looking at "official sources", such as reports collected by the "Bank's country management units". This data may also be altered based on balance of payments "to account for fiscal differences". The terminology for aggregating this data and doing calculations plus their other methodologies can be found in their website below.   
             
-
+            
 #### Links to data:
  * Food waste: [https://www.fao.org/platform-food-loss-waste/flw-data/en](https://www.fao.org/platform-food-loss-waste/flw-data/en)
  * Production:[https://www.fao.org/faostat/en/#data/QCL](https://www.fao.org/faostat/en/#data/QCL)
  * World Development Indicators: [https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country=#](https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country=#)
+
 
 
 ## Initial Cleaning Food Agriculture and Organization Data 
