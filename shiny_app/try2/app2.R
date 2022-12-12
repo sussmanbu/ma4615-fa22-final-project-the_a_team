@@ -51,7 +51,6 @@ ui <- bootstrapPage(
              
              
              sidebarPanel(sliderInput(inputId = 'Year Range', label = 'Year Range',min=1961,max=2021,value = c(1961,2021),step=1),
-                          selectInput(inputId = "Aggregation", label = "Aggregation",choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
                           selectInput(inputId = "type_eda", label = "E.D.A. Categories ",choices = unique(Food_waste$type_eda),selected = "Country")),
                           # selectInput(inputId = "Country", label = "Country",
                           #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
@@ -66,8 +65,8 @@ ui <- bootstrapPage(
                           # checkboxInput(inputId = "top_SGD_basket", label = "Select to keep only the top 10 SGD basket items",)),
              
              
-             tabPanel("Food Waste mapper", div(class="outer",tags$head(includeCSS("styles.css")),
-                          leafletOutput("mymap", width="100%", height="100%") #,
+             #tabPanel("Food Waste mapper", div(class="outer",tags$head(includeCSS("styles.css")),
+                          #leafletOutput("mymap", width="100%", height="100%") #,
                           
                           # absolutePanel(id = "controls", class = "panel panel-default",
                           #               top = 75, left = 55, width = 250, fixed=TRUE,
@@ -87,7 +86,7 @@ ui <- bootstrapPage(
                                         #                 selected = format(current_date, "%d %b %y"),
                                         #                 grid = FALSE,
                                         #                 animate=animationOptions(interval = 3000, loop = FALSE))) 
-                                        )),
+                                        #)),
              
                tabPanel("Plot of loss percentage", fluid = TRUE),
                tabPanel("Heatmap of Available Data", fluid = TRUE),
@@ -167,7 +166,11 @@ server <- function(input, output) {
 #' or table object, and those will be displayed in your application.
 #' here we load the fields from the server and UI to connect it between them so it gives us an ouput on the app.
 
-output$table <- renderTable(draw_table(dataf = load_data() )) # replace this NULL
+#output$table <- renderTable(draw_table(dataf = load_data() )) # replace this NULL
+
+
+
+
 ###### back up copy of og server code
 
 # server <- function(input, output) {
