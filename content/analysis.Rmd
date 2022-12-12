@@ -68,7 +68,7 @@ ggplot(mydata) +
 #world_map
 ```
 
-```{r plots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+```{r heatmapfoodwastebycountry, fig.align= 'center',echo=FALSE}
 library(plotly)
 # plotting food_waste before cleaning up the data
 plot1 <- 

@@ -76,31 +76,32 @@ server <- function(input, output) {
     #          main = 'Histogram of waiting times')
     # })
   
-  data_yr <- reactive({input$year_range})  
-  data_country <- reactive({input$country}) 
-  data_commodity <- reactive({input$commodity}) 
+  # data_yr <- reactive({input$year_range})  
+  # data_country <- reactive({input$country}) 
+  # data_commodity <- reactive({input$commodity}) 
     
     output$dotPlot <- renderPlot ({
       
-      # data_yr <- input$year_range
-      # data_country <- input$country
-      # data_commodity <- input$commodity
+      data_yr <- input$year_range
+      data_country <- input$country
+      data_commodity <- input$commodity
       
-      ggplot(Food_waste, aes(x = year, y = mean_loss_percentage, data_yr())) +
+      ggplot(Food_waste, aes(x = year, y = mean_loss_percentage) +
         geom_point(alpha = 0.3) + geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
         ggtitle("Proportion of food waste since 1970") +
         xlab("Year") + ylab("Food waste by percentage")  + labs(color = "commodity")
+      )
     })
     
     br()
     
     # this one works, but it only shows one country at a time...
     output$table <- renderDataTable({
-      #country_filter <- subset(Food_waste, Food_waste$country == input$country)
-      country_filter <- subset(Food_waste, Food_waste$country == data_country())
+      country_filter <- subset(Food_waste, Food_waste$country == input$country)
+      #country_filter <- subset(Food_waste, Food_waste$country == data_country())
       #year_filter <- subset(Food_waste, Food_waste$year == input$year)
-      year_filter <- subset(Food_waste, Food_waste$year == data_yr()) })
-    
+      #year_filter <- subset(Food_waste, Food_waste$year == data_yr()) 
+    })
     
 }
 
