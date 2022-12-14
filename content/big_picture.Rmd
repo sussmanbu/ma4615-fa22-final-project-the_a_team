@@ -2,7 +2,7 @@
 title: "Wealthy Countries Waste More Food Than They Produce"
 description: An accessible analysis to the general public and shiny interactive. 
 toc: yes
-featuredImage: /images/Big_Picture_Food_Waste.jpeg
+featured_image: "/images/foodd.gif"
 featuredVideo: null
 draft: no
 ---

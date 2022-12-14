@@ -1,9 +1,9 @@
 ---
 title: The Data
-description: 
+description: Global food loss and production dating back to the 1960’s.
 toc: true 
 featuredVideo: 
-featuredImage: /images/giphy.gif
+featured_image: "/images/blob.gif"
 draft: false
 ---
 
@@ -234,16 +234,36 @@ For the cleaning of the World Bank data, due to the conversion from character to
 ## Data Variables: 
  
 | Variables | Code Variables | Dataset | Description |
-|:---------:|:--------------:|:--------------------------:|:-----------:|
+|:---------:|:--------------:|:--------------------------:|-----------:|
 |Year       |Year            |FoodLossandWasteAllClean.csv|From 1966 - 2020|
+|           |                |                            |                |
+|           |                |                            |                |
 |GDP        |GDP             |FoodLossandWasteAllClean.csv|GDP for the world by year from 1966-2020|
+|           |                |                            |                |
+|           |                |                            |                |
 |Commodity  |Commodity       |FoodLossandWasteAllClean.csv|List of food products in tonnes loss per year by the world|
+|           |                |                            |                |
+|           |                |                            |                |
 |Country    |Country         |FoodLossandWasteAllClean.csv|List of countries that contributed to the food loss census|
+|           |                |                            |                |
+|           |                |                            |                |
 |M49 Code   |M49 Code        |FoodLossandWasteAllClean.csv|Standard for area codes used by the United Nations for statistical purposes|
+|           |                |                            |                |
+|           |                |                            |                |
 |Loss       |mean_loss_percenatge|FoodLossandWasteAllClean.csv|Mean loss percenatge in tonnes loss per year by the world in food production|
+|           |                |                            |                |
+|           |                |                            |                |
 |Loss       |Loss_percenatge |AggData.csv|Tonnes loss percentage per year by the world in food production|
+|           |                |                            |                |
+|           |                |                            |                |
 |Loss       |Loss            |AggData.csv|Tonnes loss per year by the world in food production|
+|           |                |                            |                |
+|           |                |                            |                |
 |Production |Production      |AggData.csv|Total production in tonnes given by year for the world|
+|           |                |                            |                |
+|           |                |                            |                |
 |Agriculture GDP |AgriGDP    |AggData.csv|Agriculture as a percentage of GDP for the world by year from 1966-2020|
+|           |                |                            |                |
+|           |                |                            |                |
 |Agriculture Land|AgriLand   |AggData.csv|Land used for agriculture as a percentage of total land worldwide from 1966-2020| 
 

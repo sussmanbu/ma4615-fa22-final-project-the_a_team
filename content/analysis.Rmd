@@ -1,20 +1,20 @@
 ---
-title: "Analysis"
-description: null
+title: "Data Analysis"
+description: Exploring the relationships between food production, food waste, and GDP.
 toc: yes
 featuredVideo: null
-featuredImage: null
+featured_image: "/images/cookng.gif"
 draft: no
 ---
 
 ## Rubric: On this page
 
-you will
+you will:
 
 
 * Introduce what motivates your Data Analysis (DA)
-  * Which variables and relationships are you most interested in?
-  * What questions are you interested in answering?
+* Which variables and relationships are you most interested in?
+* What questions are you interested in answering?
 
 The world population just break through 8 billion recently. According to World Food Programme, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis. Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to explore potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
   
