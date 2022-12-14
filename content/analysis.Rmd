@@ -69,18 +69,18 @@ ggplot(mydata) +
 ```
 
 ```{r plot1_worldfoodloss, echo=FALSE, message=FALSE, warning=FALSE}
-library(plotly)
-# plotting food_waste before cleaning up the data
-plot1 <- 
-  ggplot(FoodLossandWasteAllClean, aes(x = year, y = mean_loss_percentage, color = country)) +
-  geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
-    ggtitle("Proportion of food waste since 1970") +
-    xlab("Year") + ylab("Food waste by percentage")  #+ labs(color = "commodity")
-
-p1 <- plot1 + guides(color = FALSE)#+ scale_x_continuous(, 10)
-#plot_ly(Food_waste,  x = ~year, y = ~mean_loss_percentage, color = ~country ) %>% add_markers()
-
-plotly::ggplotly(p1)
+# library(plotly)
+# # plotting food_waste before cleaning up the data
+# plot1 <- 
+#   ggplot(FoodLossandWasteAllClean, aes(x = year, y = mean_loss_percentage, color = country)) +
+#   geom_point(alpha = 0.3)+ geom_smooth(size=0.5, se = FALSE) + #se = false, is to remove the confidence bands
+#     ggtitle("Proportion of food waste since 1970") +
+#     xlab("Year") + ylab("Food waste by percentage")  #+ labs(color = "commodity")
+# 
+# p1 <- plot1 + guides(color = FALSE)#+ scale_x_continuous(, 10)
+# #plot_ly(Food_waste,  x = ~year, y = ~mean_loss_percentage, color = ~country ) %>% add_markers()
+# 
+# plotly::ggplotly(p1)
 ```
 
 US have the most "over 40% food loss per commodity per year" up to today, which is around two times the amount Mexico have. It is unimaginable how some commodity lose almost of its amount during production & retail process. We want to look deeper into which commodity are incurring the most loss in US and if there is any reason behind it.
