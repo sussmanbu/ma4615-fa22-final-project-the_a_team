@@ -7,4 +7,4 @@ theme_version: '2.8.2'
 <!--cascade: --> 
 featured_image: '/images/giphy.gif'
 ---
-Welcome to my blog with some of my work in progress. I've been working on this book idea. You can read some of the chapters below.
+Welcome! Come along and discover with us how we can tackle the food loss crisis around the globe with some data science!
