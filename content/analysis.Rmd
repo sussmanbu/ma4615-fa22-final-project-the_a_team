@@ -15,15 +15,15 @@ you will
 * Introduce what motivates your Data Analysis (DA)
   * Which variables and relationships are you most interested in?
   * What questions are you interested in answering?
- 
-  The world population just break through 8 billion recently. According to World Food Programme, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis.  Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to explore potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
+
+The world population just break through 8 billion recently. According to World Food Programme, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis. Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to explore potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
   
-  As such, we aim to examine the relationship of food security on a worldwide scale using several macro indicators to better understand factors that contribute to food waste. The main variables that we have built our model on are Food Production, GDP, Agriculture as Percentage of GDP, Land Used for Agriculture, Population, and Regions/Continents. One of the primary focuses of our analysis is to look into how food waste may differ by regions and the factors driving the disparity. Therefore, we have selected variables that can, to an extent, provide insight on characteristics of a region. 
+As such, we aim to examine the relationship of food security on a worldwide scale using several macro indicators to better understand factors that contribute to food waste. The main variables that we have built our model on are Food Production, GDP, Agriculture as Percentage of GDP, Land Used for Agriculture, Population, and Regions/Continents. One of the primary focuses of our analysis is to look into how food waste may differ by regions and the factors driving the disparity. Therefore, we have selected variables that can, to an extent, provide insight on characteristics of a region. 
 
 Some of the hypotheses driving our analysis can be seen below:
-  GDP is a relatively effective signal of a country’s development; thus,  “The developed regions waste a greater percentage of food”. 
-  “The greater quantity of food production, the greater amount of food waste percentage”
-  “The greater percentage of agriculture as GDP, the greater amount of food wasted” 
+ * GDP is a relatively effective signal of a country’s development; thus,  “The developed regions waste a greater percentage of food”. 
+ * “The greater quantity of food production, the greater amount of food waste percentage”
+ * “The greater percentage of agriculture as GDP, the greater amount of food wasted” 
 
 While our analysis is quantitatively-driven, …
 
