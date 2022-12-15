@@ -40,7 +40,8 @@ ui <- fluidPage(
                                    selectInput(inputId = "country", label = "country",choices = unique(Food_waste$country),selected = "country"),
                                    selectInput(inputId = "commodity", label = "commodity",choices = unique(Food_waste$commodity),selected = "commodity")),
                       mainPanel( #plotOutput("distPlot"),
-                        plotOutput("dotPlot")
+                        #plot("dotPlot"),
+                        plotlyOutput("dotPlot")
                         )),
              # in this tab, it needs its own plotOutput part
              tabPanel("Heatmap of Available Data", fluid = TRUE,
@@ -96,7 +97,7 @@ server <- function(input, output) {
   # data_country <- reactive({input$country}) 
   # data_commodity <- reactive({input$commodity}) 
     
-    output$dotPlot <- renderPlot ({
+    output$dotPlot <- renderPlotly ({
       
       data_yr <- input$year_range
       data_country <- input$country
@@ -112,9 +113,9 @@ server <- function(input, output) {
       #plot_ly(Food_waste,  x = ~year, y = ~mean_loss_percentage, color = ~country ) %>% add_markers()
       
       #fig1 <- plotly::ggplotly(p1)
-      #plotly::ggplotly(p1
+      plotly::ggplotly(p1)
       
-      p1
+      # p1
     })
     
     br()
