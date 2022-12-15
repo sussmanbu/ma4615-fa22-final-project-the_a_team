@@ -14,11 +14,11 @@ The members of this team are below.
 
 ## Qianhui Rong
 
-Majoring in Finance & Statistics 
+Majoring in Finance & Statistics.
 
 ## Jason (Tzu-Wei) Liu
 
-Majoring in Economics
+Majoring in Economics.
 
 ## Jonathan Aguirre
 
@@ -30,7 +30,7 @@ Master student in Bioinformatics and Biology. Mostly working on RNA-seq data, de
 
 ## Seth Schallies
 
-Majoring in Psychology and Neuroscience
+Majoring in Psychology and Neuroscience.
 
 <!-- Please leave in the information below
 
