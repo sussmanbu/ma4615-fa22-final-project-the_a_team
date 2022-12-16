@@ -2,8 +2,8 @@ baseURL: https://thee-a-team.netlify.app
 title: The A-Team
 
 # Comment when installing using Hugo Modules
-#theme: "github.com/theNewDynamic/gohugo-theme-ananke"
-theme: ananke
+theme: "github.com/theNewDynamic/gohugo-theme-ananke"
+#theme: ananke
 
 # Uncomment when installing using Hugo Modules
 # theme: github.com/wangchucheng/hugo-eureka
