@@ -7,4 +7,4 @@ theme_version: '2.8.2'
 <!--cascade: --> 
 featured_image: '/images/giphy.gif'
 ---
-Welcome! Come along and discover with us how we can tackle the food loss crisis around the globe with some data science!
+Welcome! Come along with us and discover how we can tackle the food crisis around the globe using data science!
