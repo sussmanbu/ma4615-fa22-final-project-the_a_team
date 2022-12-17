@@ -137,23 +137,23 @@ Given that our data dates back to 1960s, we were also interested other bigger wo
   Are there specific countries that are outliers (waste much more/less food than everyone else)?
 
 
-|           In building our the next section of our data analysis, we will be using our "Aggregate Data" file which is the data file that consolidates all the datasets introduced. The main statistical analysis that we have conducted was using regression models, specifically simple and multi-regression. 
+In building our the next section of our data analysis, we will be using our "Aggregate Data" file which is the data file that consolidates all the datasets introduced. The main statistical analysis that we have conducted was using regression models, specifically simple and multi-regression. 
 
 ```{r include=FALSE}
 AggData <- read_csv(here::here("dataset/AggData.csv"))
 load(here::here("dataset/AggData.RData"))
 ```
 
-|           These are the packages that will be used in our analysis.
+These are the packages that will be used in our analysis.
 
 ```{r echo = T}
 suppressPackageStartupMessages(library(olsrr))
 suppressPackageStartupMessages(library(kableExtra))
 suppressPackageStartupMessages(library(corrplot))
 ```
-|           Given that the production was the first initial variable that we were curious about, we wanted to start our analysis by building a model to look specifically at production and loss. 
+Given that the production was the first initial variable that we were curious about, we wanted to start our analysis by building a model to look specifically at production and loss. 
 
-|           The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. Looking at this model, we can see that there exists a small relationship between the two variables. The correlation is aorund 0.413, which could be interpreted as below-average to average correlation. Based on its p-value, it seems that this model is also statistically significant. However, this model alone cannot help answer many of our other questions. In terms of food loss, there are many other variables needed in order to understand the situation. 
+The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. Looking at this model, we can see that there exists a small relationship between the two variables. The correlation is aorund 0.413, which could be interpreted as below-average to average correlation. Based on its p-value, it seems that this model is also statistically significant. However, this model alone cannot help answer many of our other questions. In terms of food loss, there are many other variables needed in order to understand the situation. 
 
 ```{r echo=FALSE, fig.align = 'center'}
 model1 <- lm(Loss ~ Production, data = AggData)
@@ -162,7 +162,7 @@ corr_a <- AggData %>% select(Loss, Production)
 cor(corr_a)
 ```
 
-|           Hence, in this second model, we expanded upon the original simple model into a multi-regression model including other macro predictors that we had originally been interested in: 'Year', 'GDP', 'Agriculture as Percentage of GDP', 'Percentage of Land used for Agriculture', 'Population', and 'Production'. 
+Hence, in this second model, we expanded upon the original simple model into a multi-regression model including other macro predictors that we had originally been interested in: 'Year', 'GDP', 'Agriculture as Percentage of GDP', 'Percentage of Land used for Agriculture', 'Population', and 'Production'. 
 
 ```{r echo=FALSE, fig.align = 'center'}
 model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
@@ -174,7 +174,7 @@ variable_corr <- AggData %>%
 corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
 ```
 
-|           However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. Meaning, we would either have to eliminate some of our variables or transform them. 
+However, upon expanding the model, based on the p-values, it appears that only three out of six predictors proved to be statistically significant. To further this analysis, we generated a correlation matrix to examine potential reasons causing some variables to be "insignificant". As evident, a large portion of the macro predictors were highly correlated. For example, 'GDP' and 'Population' is nearly '1' as is 'Production' and 'Year'. This suggests that, potentially, there exists some level of interaction between some of the variables that causes the other to become "insignificant" in the model. Meaning, we would either have to eliminate some of our variables or transform them. 
 
 The potential interaction between the predictors, therefore, prompts the next step in our analysis. In the next step, using the "olsrr" package, we generated all possible predictors and interaction terms up to three levels (x1 * x2 * x3) to determine the most appropriate predictors based the package's default statistical tests (p-value and AIC). Below we have generated the top 10 variables as determined by the function. 
 
@@ -193,20 +193,20 @@ all_variables %>%
   kable_classic(full_width = F, html_font = "Cambria", fixed_thead = T, position = "center")
 ```
 
-|           With the output listing the Top 10 predictor variables, it appears that 'AgriGDP', 'AgriLand', and 'Year' are the top three predictors in potentially explaining levels of 'Loss'. Using this information, we proceeded to construct a second multi-regression model in attempt to examine the relationship they have on 'Loss'. The reason we stopped at three was also because we are generally comfortable with using these three variables to answer some of our questions. For example 'Year' can allow us to identity the year and looking into other qualitative factors. Agriculture as a percentage GDP is still related to our original question of GDP. And last agricultural land provided potential insights into a countries agricultural practices. 
+With the output listing the Top 10 predictor variables, it appears that 'AgriGDP', 'AgriLand', and 'Year' are the top three predictors in potentially explaining levels of 'Loss'. Using this information, we proceeded to construct a second multi-regression model in attempt to examine the relationship they have on 'Loss'. The reason we stopped at three was also because we are generally comfortable with using these three variables to answer some of our questions. For example 'Year' can allow us to identity the year and looking into other qualitative factors. Agriculture as a percentage GDP is still related to our original question of GDP. And last agricultural land provided potential insights into a countries agricultural practices. 
 
 ```{r echo=F, fig.align='center'}
 model3 <- lm(Loss ~ Year + AgriGDP + AgriLand, data = AggData)
 summary(model3)
 ```
 
-|           In reference to the new model, it appears that similar problems persists. Firstly, the intercept again remains negative, which as previously discussed, is flawed. Additionally, the new model that was constructed based on examing all variables still gives predictors that prove to be statistically insignifiant. Hence, in our next step we proceeded with a step-wise forward predictor selection process. The package uses the predictor's p-values to construct a model with statistically significant predictors. 
+In reference to the new model, it appears that similar problems persists. Firstly, the intercept again remains negative, which as previously discussed, is flawed. Additionally, the new model that was constructed based on examing all variables still gives predictors that prove to be statistically insignifiant. Hence, in our next step we proceeded with a step-wise forward predictor selection process. The package uses the predictor's p-values to construct a model with statistically significant predictors. 
 
 ```{r echo=FALSE, fig.align='center'}
 ols_step_forward_p(model2)
 ```
 
-|           The conclusion drawn from our variable selection was that 'AgriGDP' alone is the most appropriate predictor among all available data in our 'AggData' file. Thus, building our final model, we have the simple regression model below: 
+The conclusion drawn from our variable selection was that 'AgriGDP' alone is the most appropriate predictor among all available data in our 'AggData' file. Thus, building our final model, we have the simple regression model below: 
 
 ```{r echo = F}
 model4 <- model1 <- lm(Loss ~ AgriGDP, data = AggData)
@@ -216,20 +216,20 @@ corr_b <- AggData %>% select(Loss, AgriGDP)
 cor(corr_b, use = "pairwise.complete.obs")
 ```
       
-|           The following model demonstrates a negative relationship between 'Loss' and 'Agriculture as a Percentage of GDP', where correlation ≈ -0.484. This conclusion was initially counter-intuitive as one would likely assume that greater percentage of agriculture as GDP likely means more production and consumption. Upon further analysis (refer back to correlation matrix), we found that 'GDP' has a negative correlation to 'AgriGDP'. Hence, there likely exists factors within the 'AgriGDP' data that explains this relationship. For example, 'AgriGDP' includes data for both import and export of agricultural goods. The 'Loss' data itself reports only loss in production that occurred domestically. Hence, if a country imports a greater proportion of its agricultural goods as opposed to producing domestically, the net effect could indeed be negative. And while the new simple regression model's correlation between the predictor and response variables is still below-average, there appears to be a slight increase. This, while, more promising, still suggests that there exists other factors outside of our consideration that are more appropriate in helping project food production loss. 
+The following model demonstrates a negative relationship between 'Loss' and 'Agriculture as a Percentage of GDP', where correlation ≈ -0.484. This conclusion was initially counter-intuitive as one would likely assume that greater percentage of agriculture as GDP likely means more production and consumption. Upon further analysis (refer back to correlation matrix), we found that 'GDP' has a negative correlation to 'AgriGDP'. Hence, there likely exists factors within the 'AgriGDP' data that explains this relationship. For example, 'AgriGDP' includes data for both import and export of agricultural goods. The 'Loss' data itself reports only loss in production that occurred domestically. Hence, if a country imports a greater proportion of its agricultural goods as opposed to producing domestically, the net effect could indeed be negative. And while the new simple regression model's correlation between the predictor and response variables is still below-average, there appears to be a slight increase. This, while, more promising, still suggests that there exists other factors outside of our consideration that are more appropriate in helping project food production loss. 
 
-|           And despite the final model being more statistically appropriate, and with consideration of all previous models, we determined that our analysis were inconclusive. Even based on the statistically significant final model, we still lack evidence to answer if more developed countries waste more, or how food production relates to food loss. The lack of an effective model meant that any analysis drawn using the model would be flawed. 
+And despite the final model being more statistically appropriate, and with consideration of all previous models, we determined that our analysis were inconclusive. Even based on the statistically significant final model, we still lack evidence to answer if more developed countries waste more, or how food production relates to food loss. The lack of an effective model meant that any analysis drawn using the model would be flawed. 
 
-|           However, using these flaws we have provided potential avenues to further explore this topic. For example, instead of GDP, it was suggested that perhaps income may be a better and more significant predictor of food waste. And with income levels, this will allow for an even more detailed analysis as income can vary greatly even by county, thus, allowing the model to zoom in and out, from city to country. We could also have looked at more specific factors rather than the macro indicators. For example, we could look into average member of household, average spending on groceries, or government spending on agriculture. Perhaps these even more micro factors are better representation of different countries rather than the macro factors. Or alternatively, given the availability and completeness of the US's data, the analysis could look at US alone. 
+However, using these flaws we have provided potential avenues to further explore this topic. For example, instead of GDP, it was suggested that perhaps income may be a better and more significant predictor of food waste. And with income levels, this will allow for an even more detailed analysis as income can vary greatly even by county, thus, allowing the model to zoom in and out, from city to country. We could also have looked at more specific factors rather than the macro indicators. For example, we could look into average member of household, average spending on groceries, or government spending on agriculture. Perhaps these even more micro factors are better representation of different countries rather than the macro factors. Or alternatively, given the availability and completeness of the US's data, the analysis could look at US alone. 
 
 Additionally, while we examined many variables and their interaction terms, we, however, did not transform them. Therefore, another potential change to our analysis could be to log transform variables like GDP to see if there exists better correlation. 
 
-|           In addition, the insignificance may also be due to some inherent flaws in our data. 
+In addition, the insignificance may also be due to some inherent flaws in our data. 
   
-|           One of the biggest inherent flaws with the data is the inconsistencies of data on a year-to-year basis. However, this flaw is unlikely to be addressed or fixed. Because not every country has the same resources, some countries may choose to report data on a bi-annual bases or every three to five years, and some countries many not be as capable in its collection of data. Therefore, while countries like US report every year and rather completely, other countries like Myanmar may not be as comprehensive. 
+One of the biggest inherent flaws with the data is the inconsistencies of data on a year-to-year basis. However, this flaw is unlikely to be addressed or fixed. Because not every country has the same resources, some countries may choose to report data on a bi-annual bases or every three to five years, and some countries many not be as capable in its collection of data. Therefore, while countries like US report every year and rather completely, other countries like Myanmar may not be as comprehensive. 
 
 Additionally, our original food loss data was sourced as a percentage but the food production data was in units. In our data cleaning process, we had to calculate the food loss in tonnes manual using the two datasets. Hence, there were some numbers loss in translation as not all matches up. This likely also impacted our data and therefore our analysis. This problem, however, is also due to the unfortunate method that the data was collected. FAO of the UN collects their data through public information reported by each country's government, universities, outside institutions, or non-profits. Meaning that this was a consolidation of different datasets, as such may not be completely correct or comprehensive. 
 
 While some of our more curious questions were unanswered, the exploratory analysis still provided greater insight into the topic. For example, we were able to better under some of the commodities that the United States wasted the most. We were also able to get more insight into what waste looks like in each country. The macro data by itself also provided insight into how factors in each country has changed over time. It was also interesting to learn that overall food waste is gradually decreasing. While our quantitative data is unable to answer that, we theorize that it is due to the increased efficiency of the agriculture sector that has allowed for gradually decline in loss. 
 
-Given the depth of the subject, there are many components that factor into overall food waste, and there are directions that the study can extend into. 
+Given the depth of the subject, there are many components that factor into overall food waste, and there are many directions that the study can extend into. 
