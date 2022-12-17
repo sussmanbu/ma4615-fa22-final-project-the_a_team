@@ -7,8 +7,6 @@ featured_image: "/images/cookng.gif"
 draft: no
 ---
 
-## Rubric: On this page
-
 The world population recently surpass the 8 billion mark. According to World Food Program, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis. Our team is interested in exploring the relationships between food supply, food waste, GDP, population density and available land for agriculture among different countries. Furthermore, we are looking forward to exploring potential opportunities to mitigate food-waste and calculate world food availability for our current population density.  
   
 As such, we aim to examine the relationship of food security on a worldwide scale using several macro indicators to better understand factors that contribute to food waste. The main variables that we have built our model on are Food Production, GDP, Agriculture as Percentage of GDP, Land Used for Agriculture, Population, and Regions/Continents. The goal is to examine how each of these factors relate to Food Loss via regression models. We will be testing the variables and their significance, and using those variables build a statistically appropriate model. 
