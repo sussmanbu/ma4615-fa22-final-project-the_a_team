@@ -20,6 +20,7 @@ For example, we were able to learn that the United States has consistently lead 
 This project was interesting as it helped us better understand food waste in relation to the world. And perhaps countries that waste the least amount of food could be used as an case study for how other countries could do to reduce food waste. There are many perspective to the subject of food waste and famine, and like solution will not be easy. Nevertheless, there are many direct that one could potentially take on this subject or to continue extending upon our analysis. 
  
 
+
 * Quality of Figures
   * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
   
