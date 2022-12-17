@@ -7,43 +7,23 @@ featuredVideo: null
 draft: no
 ---
 
-This comes from the file `content/big_picture.Rmd`.
-
-Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Importantly, these should be geared towards the general public. You shouldn't assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.
-
 ---
 
-## Rubric: On this page
-
-You will
-
-* Title
-  * Your big picture page should have a creative/click-baity title/headline that provides a hint about your thesis.
   
   Title: Wealthy Countries Waste More Food Than They Produce
   
-* Clarity of Explanation
-  * You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible).
+The world population recently surpass the 8 billion mark. According to World Food Program, around 828 million of people go to bed hungry every night all around the world and more than 49 million people in 49 countries are facing famine crisis. In looking more at this topic, we were interested in looking at how food effects our world. In consideration of those that are facing hunger and famine, we wanted to look into how food is waste. 
   
-  Thesis + analysis: Globally, countries with a high GDP tended to waste more food than they produce. However, using linear regressions GDP does not accurately explain food waste. Additionally, we noticed countries that are experiencing economic turmoil also experience an increase in food waste. """confirm this is true with other countries"""
-  Locally, we are the largest culprit of this food waste. The United States has the most commodities that have above 40% loss, this is a significant amount compared to many other countries. Interestingly, in the U.S., juices take the lead for products with the the highest amount of waste. """include something about juice production""". We observed the highest amount of food loss in the U.S. during the 2008 recession. This is counter intuitive and concerning considering that food becomes more challenging to afford during these times. """also check food production during these times to perhaps draw a connection to food availability """. 
+The goal of this page is to study food waste. In looking at food waste, we initially wanted to look into how food waste relates to food loss. However, in terms of data, this seem a bit too broad, and hence we narrowed our research to trying to identify different amounts of food wasted by country by using macro indicators as predictor variables. Based on some initial considerations and brief exploratory of the data, our main hypothesis that high GDP countries waste more food than lower GDP countries. This was on the basis that higher GDP generally signal developed countries, whereas low GDP signal underdeveloped. 
   
-  All over the world, we need to focus on reducing food waste. Although the global trend shows an overall reduction in food waste since 1970, but many countries including the U.S. have a long way to go to solve this epidemic. 
-  
+In order to test our hypothesis, we use regression models to look at the relationship between food waste and macro indicators such as GDP, percentage of GDP as agriculture, and population. With multiple models tested, it was ultimately inconclusive which factors were significant predictors of food waste. This was likely due to some shortcomings of variable selection. For example, instead of GDP, perhaps income was more appropriate factor in explaining food waste. Or alternatively, perhaps GDP relates to food waste more if we transformed the variable. In addition to potentially ill-fitting variables, the data had some inherent flaws. Our data was sourced from both the UN and World Bank. The way that the UN collected its data was through academic journals, government reporting, and other institutions. Therefore, there may be inconsistencies. However, despite some shortfalls of our analysis, we were still able to gain insight into food waste as a subject. 
+
+For example, we were able to learn that the United States has consistently lead the world in largest percentage of food wasted. With the data, we were also able to see some of the commodities that were wasted most in the US. Curiously, the conclusion were juices (ex. orange juice) that was among the US's highest percentage of food wasted. Other foods that also have higher percentages include spinach and tomatoes. We were also able to get more insight into what waste looks like in each country. One of our analysis showed that, while the US is long ahead, Mexico comes in second in terms of frequency of losing over 40% of a commodity per year. The macro data by itself also provided insight into how factors in each country has changed over time. For example, the changing concentration of agricultural production throughout the years. Another insight in our exploration was learning that as the leading country, the US had its highest amount of food loss during the 2008 recession. This was initially counter-intuitive, as one would think that food would be more valued. However, this could be explained by the financial impact to retailers/supermarkets, farmers, processors, and distributors that may have been impacted. There disappearance in the food supply chain could have caused greater inefficiencies. Also with increased unemployment it could be that less was spent on food, hence more going into waste at retailers. But overall, it was interesting to learn that overall food waste is gradually decreasing. While we do not have data to answer this, we do theorize that it is likely due to increased efficiency of the agricultural sector in terms of production and cultivation that has allowed for improvement on loss.
+ 
+
 * Quality of Figures
   * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
   
-  
-  
-  
-* Creativity
-  * Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
-  
-  
-  
-  
-**Note**: This page should have no code visible, i.e. use `echo=FALSE`.  
-
 ---
 
 ## Rubric: Other components
@@ -69,13 +49,3 @@ Include a link to your video (and password if needed) in your README.md file on 
 This can be presented by any subset of the team members.
 
 
-### Rest of the Site
-
-Finally, here are important things to keep in mind for the rest of the site. 
-
-The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.
