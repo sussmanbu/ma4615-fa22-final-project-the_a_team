@@ -129,10 +129,10 @@ This next section of our analysis will be more holistic and thus focusing more o
 
 Given that our data dates back to 1960s, we were also interested other bigger world trends. For example:
 
-  Has food waste decreased/increased over time?
-  What is the projected food waste loss for a specific region in 2023?
-  On average, how much does the world waste?
-  Are there specific countries that are outliers (waste much more/less food than everyone else)?
+  * Has food waste decreased/increased over time?
+  * What is the projected food waste loss for a specific region in 2023?
+  * On average, how much does the world waste?
+  * Are there specific countries that are outliers (waste much more/less food than everyone else)?
 
 
 In building our the next section of our data analysis, we will be using our "Aggregate Data" file which is the data file that consolidates all the datasets introduced. The main statistical analysis that we have conducted was using regression models, specifically simple and multi-regression. 
