@@ -23,7 +23,7 @@ Food_waste <- read_csv(here::here("dataset", "FoodLossandWasteAllClean.csv"))
 Fooddata <- select(Food_waste, c('year','country','mean_loss_percentage')) %>% filter(year > 1969)
 Fooddata <- Fooddata %>% group_by(year) %>% mutate(mean_loss = mean(mean_loss_percentage)) %>% select(c('year', 'mean_loss'))
 # mean loss is the mean of the mean_loss_percentage for a year. It should still remain as a percentage
-Wasteplot <- Fooddata %>% ggplot(aes(x = year, y = mean_loss)) + geom_smooth(size = .5, se = TRUE) + labs(title = "Global amount of food waste since 1966", x = "Year", y = "Percent of Food Wasted")
+Wasteplot <- Fooddata %>% ggplot(aes(x = year, y = mean_loss)) + geom_smooth(size = .5, se = TRUE) + labs(title = "Global amount of food waste since 1970", x = "Year", y = "Percent of Food Wasted")
 Wasteplot
 ```
 While we do not have a clear answer to why this is occurring from the data, we do theorize that it is likely due to increased efficiency of the agricultural sector in terms of production and cultivation that has allowed for improvement on loss.
