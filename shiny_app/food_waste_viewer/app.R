@@ -53,24 +53,10 @@ ui = fluidPage(theme = shinythemes::shinytheme("darkly"),
                # here is the panel for the left side
                sidebarPanel(sliderInput(inputId = 'Year Range', label = 'Year Range',min=1961,max=2021,value = c(1961,2021),step=1),
                             selectInput(inputId = "type_eda", label = "E.D.A. Categories ",choices = unique(Food_waste$type_eda),selected = "Country")),
-                            # selectInput(inputId = "Aggregation_Options", label = "Aggregation Options",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # selectInput(inputId = "Country", label = "Country",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # selectInput(inputId = "Basket_item", label = "Basket Item",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # selectInput(inputId = "Commodity", label = "Commodity (CPC 2.0)",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # selectInput(inputId = "Value_Chain_Stage", label = "Value Chain Stage(s)",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # selectInput(inputId = "method_data_collect", label = "Method Of Data Collection",
-                            #             choices = c("All" = "malaria_tot", "0-4 yrs" = "malaria_rdt_0-4","5-14 yrs" = "malaria_rdt_5-14","15+ yrs" = "malaria_rdt_15")),
-                            # checkboxInput(inputId = "top_SGD_basket", label = "Select to keep only the top 10 SGD basket items",)),
                
                ## here are the tabs for the right side
                tabsetPanel(
                  tabPanel("Plot of loss percentage", fluid = TRUE),
-                 tabPanel("Heatmap of Available Data", fluid = TRUE),
                  tabPanel("Data", fluid = TRUE)))
                 
 
