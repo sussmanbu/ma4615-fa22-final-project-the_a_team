@@ -17,6 +17,63 @@ draft: no
 <p>The goal of this page is to study food waste. In looking at food waste, we initially wanted to look into how food waste relates to food loss. However, in terms of data, this seem a bit too broad, and hence we narrowed our research to trying to identify different amounts of food wasted by country by using macro indicators as predictor variables. Based on some initial considerations and brief exploratory of the data, our main hypothesis that high GDP countries waste more food than lower GDP countries. This was based on the assumption that higher GDP generally signals developed countries, whereas low GDP signal underdeveloped.</p>
 <p>We first started to formulate this hypothesis when we saw that over the years, food waste seems to be globally decreasing. However, when we looked at individual countries the US stood out as a big food waster. Then, we noticed from our imported GDP data that some of the more ‘wasteful’ countries seemed to be those that had a higher GDP.However, this was just a first look using minimal data. Therefore, we had to delve deeper, and this our regression models came into fruition.</p>
 <p>In order to test our hypothesis, we use regression models to look at the relationship between food waste and macro indicators such as GDP, percentage of GDP as agriculture, and population. We decided to focus on more than just raw GDP because there was a chance that GDP alone would have no relationship with food waste as we had initially hypothesized. With multiple models tested, it was ultimately inconclusive which factors were significant predictors of food waste. This was likely due to some shortcomings of variable selection. For example, instead of GDP, perhaps income was more appropriate factor in explaining food waste. Or alternatively, perhaps GDP relates to food waste more if we transformed the variable. In addition to potentially ill-fitting variables, the data had some inherent flaws. Our data was sourced from both the UN and World Bank. The way that the UN collected its data was through academic journals, government reporting, and other institutions. This data also had some “holes” for individual countries that may not really care about sending yearly data to the UN, so that was another possible flaw with the collected data. Although there may be inconsistencies with the data and consequently our analysis, we are still able to gain insight into food waste as a subject.</p>
+<pre><code>## Rows: 54 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (8): GDP, AgriGDP, AgriLand, Population, Year, Loss, Production, LossPer...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## Warning: package &#39;olsrr&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Warning: package &#39;corrplot&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Loss ~ Production, data = AggData)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -585087131 -115732941  -28574344  142025080  663246104 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 8.700e+08  8.753e+07   9.939 1.28e-13 ***
+## Production  1.818e-02  5.559e-03   3.270  0.00191 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 208500000 on 52 degrees of freedom
+## Multiple R-squared:  0.1706, Adjusted R-squared:  0.1546 
+## F-statistic:  10.7 on 1 and 52 DF,  p-value: 0.00191</code></pre>
+<pre><code>##                 Loss Production
+## Loss       1.0000000  0.4130241
+## Production 0.4130241  1.0000000</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Loss ~ Year + GDP + AgriGDP + AgriLand + Population + 
+##     Production, data = AggData)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -401785287  -99038421  -10308608  112454861  588290004 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -6.277e+11  2.190e+11  -2.866  0.00625 **
+## Year         3.224e+08  1.127e+08   2.860  0.00635 **
+## GDP          6.403e-06  9.913e-06   0.646  0.52157   
+## AgriGDP     -5.089e+07  7.730e+07  -0.658  0.51358   
+## AgriLand     3.005e+08  1.639e+08   1.834  0.07316 . 
+## Population  -5.027e+00  1.449e+00  -3.470  0.00114 **
+## Production   2.169e-01  1.012e-01   2.143  0.03745 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 182800000 on 46 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.4239, Adjusted R-squared:  0.3488 
+## F-statistic: 5.642 on 6 and 46 DF,  p-value: 0.0001869</code></pre>
+<p><img src="/big_picture_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For example, we were able to learn that the United States has consistently lead the world in largest percentage of food wasted. With the data, we were also able to see some of the commodities that were wasted most in the US. Curiously, the conclusion were juices (ex. orange juice) that was among the US’s highest percentage of food wasted. Other foods that also have higher percentages include spinach and tomatoes. We were also able to get more insight into what waste looks like in each country. One of our analysis showed that, while the US is long ahead, Mexico comes in second in terms of frequency of losing over 40% of a commodity per year. The macro data by itself also provided insight into how factors in each country has changed over time. For example, the changing concentration of agricultural production throughout the years. Another insight in our exploration was learning that as the leading country, the US had its highest amount of food loss during the 2008 recession. This was initially counter-intuitive, as one would think that food would be more valued. However, this could be explained by the financial impact to retailers/supermarkets, farmers, processors, and distributors that may have been impacted. There disappearance in the food supply chain could have caused greater inefficiencies. Also with increased unemployment it could be that less was spent on food, hence more going into waste at retailers. But overall, it was interesting to learn that overall food waste is gradually decreasing.
 <img src="/big_picture_files/figure-html/plot1-1.png" width="672" style="display: block; margin: auto;" />
 While we do not have a clear answer to why this is occurring from the data, we do theorize that it is likely due to increased efficiency of the agricultural sector in terms of production and cultivation that has allowed for improvement on loss. Also, with new preservatives and faster modes of transportation, food no longer spoils before even making it to the market. This reason could even explain why some high GDP countries do not waste as much food as others. Less developed countries that may not have the most efficient modes of food transportation could possibly suffer food losses from this reason such as Mexico.</p>

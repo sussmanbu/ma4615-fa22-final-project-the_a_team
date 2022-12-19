@@ -30,7 +30,7 @@ is a main contributor to worldwide Food Waste. As the leading country in food wa
 
 The overall map is quite effective at providing a quick overview of what food waste is like worldwide by country. However, we did encounter some complications when making it. As outlined in our data page, because of the different naming methods between the dataset and package, we had to first change the dataset's country names to match the naming method of the package in order to generate the map using the "maps" package. For example, we had to change United States of America to USA.
 
-```{r heatmapfoodwastebycountry, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+```{r heatmapfoodwastebycountry, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.width = 9}
 suppressPackageStartupMessages(library(maps))
 worlddata <- select(FoodLossandWasteAllClean, c('year','country','mean_loss_percentage'))
 worlddata <- worlddata %>% filter(year > 2009 )
@@ -112,7 +112,7 @@ FoodLossandWasteAllClean %>%
   summarise(sum_loss_per_year = sum(mean_loss_percentage))%>%
   ggplot(aes(x = year, y = sum_loss_per_year))+
   geom_line()+
-  labs(x = "Year", y = "Sum of Loss Per Year")
+  labs(x = "Year", y = "Sum of Loss Per Year for the US")
 ```
 The following data further explore the most wasted food in US. Besides juice, we observe that canned mushrooms, tomatoes, and spinach are also among the highest wasted food in the US.  
 

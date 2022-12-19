@@ -16,6 +16,31 @@ The goal of this page is to study food waste. In looking at food waste, we initi
 We first started to formulate this hypothesis when we saw that over the years, food waste seems to be globally decreasing. However, when we looked at individual countries the US stood out as a big food waster. Then, we noticed from our imported GDP data that some of the more 'wasteful' countries seemed to be those that had a higher GDP.However, this was just a first look using minimal data. Therefore, we had to delve deeper, and this our regression models came into fruition.
   
 In order to test our hypothesis, we use regression models to look at the relationship between food waste and macro indicators such as GDP, percentage of GDP as agriculture, and population. We decided to focus on more than just raw GDP because there was a chance that GDP alone would have no relationship with food waste as we had initially hypothesized. With multiple models tested, it was ultimately inconclusive which factors were significant predictors of food waste. This was likely due to some shortcomings of variable selection. For example, instead of GDP, perhaps income was more appropriate factor in explaining food waste. Or alternatively, perhaps GDP relates to food waste more if we transformed the variable. In addition to potentially ill-fitting variables, the data had some inherent flaws. Our data was sourced from both the UN and World Bank. The way that the UN collected its data was through academic journals, government reporting, and other institutions. This data also had some "holes" for individual countries that may not really care about sending yearly data to the UN, so that was another possible flaw with the collected data. Although there may be inconsistencies with the data and consequently our analysis, we are still able to gain insight into food waste as a subject. 
+```{r echo=FALSE, fig.align = 'center'}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(readr))
+
+AggData <- read_csv(here::here("dataset/AggData.csv"))
+load(here::here("dataset/AggData.RData"))
+
+suppressPackageStartupMessages(library(olsrr))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(corrplot))
+
+
+model1 <- lm(Loss ~ Production, data = AggData)
+summary(model1)
+corr_a <- AggData %>% select(Loss, Production)
+cor(corr_a)
+
+model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
+summary(model2)
+
+variable_corr <- AggData %>% 
+  select(-LossPercentage)
+
+corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
+```
 
 For example, we were able to learn that the United States has consistently lead the world in largest percentage of food wasted. With the data, we were also able to see some of the commodities that were wasted most in the US. Curiously, the conclusion were juices (ex. orange juice) that was among the US's highest percentage of food wasted. Other foods that also have higher percentages include spinach and tomatoes. We were also able to get more insight into what waste looks like in each country. One of our analysis showed that, while the US is long ahead, Mexico comes in second in terms of frequency of losing over 40% of a commodity per year. The macro data by itself also provided insight into how factors in each country has changed over time. For example, the changing concentration of agricultural production throughout the years. Another insight in our exploration was learning that as the leading country, the US had its highest amount of food loss during the 2008 recession. This was initially counter-intuitive, as one would think that food would be more valued. However, this could be explained by the financial impact to retailers/supermarkets, farmers, processors, and distributors that may have been impacted. There disappearance in the food supply chain could have caused greater inefficiencies. Also with increased unemployment it could be that less was spent on food, hence more going into waste at retailers. But overall, it was interesting to learn that overall food waste is gradually decreasing. 
 ```{r plot1, echo = FALSE, message = FALSE, warning=FALSE, fig.align='center'}
