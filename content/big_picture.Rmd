@@ -56,19 +56,20 @@ This project was interesting as it helped us better understand food waste in rel
 
 ---
 
-Please find the link to our interactive below:
+### Links to our interactives below:
+
+## Link to our shiny app web tool:
 
 https://duran.shinyapps.io/thee_a_team/?_ga=2.122774411.128322627.1671483708-574308685.1671483708
 
 This interactive allows for the user to customize their selections in terms of commodity, country, and year. Using our interactive, users can get a better sense of what food waste is like by country and how it has changed over the years. The interactive also allows for the user to zoom-in-and-out to examine waste from a global scale as well as looking at how specific commodities vary by country. The range of years can also be adjusted allowing users to focus on specific ranges of dates. 
 
 
-### Video Recording
+## Link to our Video Recording:
 
-Make a video recording (probably using Zoom) demonstrating your interactive components.
+https://youtu.be/JGg9hco8WwA
+
+
 You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA.
-This video should be no longer than 4 minutes.
-Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website.
-This can be presented by any subset of the team members.
 
 
