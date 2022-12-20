@@ -27,19 +27,12 @@ suppressPackageStartupMessages(library(olsrr))
 suppressPackageStartupMessages(library(kableExtra))
 suppressPackageStartupMessages(library(corrplot))
 
-
 model1 <- lm(Loss ~ Production, data = AggData)
-summary(model1)
-corr_a <- AggData %>% select(Loss, Production)
-cor(corr_a)
-
-model2 <- lm(Loss ~ Year + GDP + AgriGDP + AgriLand + Population + Production, data = AggData)
-summary(model2)
-
-variable_corr <- AggData %>% 
-  select(-LossPercentage)
-
-corrplot(cor(variable_corr, use = "pairwise.complete.obs"), method = "number", type = "upper")
+beta <- coef(model1)
+ggplot(AggData, aes(Production, Loss)) + 
+  geom_point() +
+  geom_abline(intercept =beta[1], slope = beta[2], color = "red") + 
+  labs(title = "Relationship between Loss and Production")
 ```
 
 For example, we were able to learn that the United States has consistently lead the world in largest percentage of food wasted. With the data, we were also able to see some of the commodities that were wasted most in the US. Curiously, the conclusion were juices (ex. orange juice) that was among the US's highest percentage of food wasted. Other foods that also have higher percentages include spinach and tomatoes. We were also able to get more insight into what waste looks like in each country. One of our analysis showed that, while the US is long ahead, Mexico comes in second in terms of frequency of losing over 40% of a commodity per year. The macro data by itself also provided insight into how factors in each country has changed over time. For example, the changing concentration of agricultural production throughout the years. Another insight in our exploration was learning that as the leading country, the US had its highest amount of food loss during the 2008 recession. This was initially counter-intuitive, as one would think that food would be more valued. However, this could be explained by the financial impact to retailers/supermarkets, farmers, processors, and distributors that may have been impacted. There disappearance in the food supply chain could have caused greater inefficiencies. Also with increased unemployment it could be that less was spent on food, hence more going into waste at retailers. But overall, it was interesting to learn that overall food waste is gradually decreasing. 
