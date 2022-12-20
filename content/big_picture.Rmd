@@ -58,6 +58,7 @@ While we do not have a clear answer to why this is occurring from the data, we d
 This project was interesting as it helped us better understand food waste in relation to the world. And perhaps countries that waste the least amount of food could be used as an case study for how other countries could do to reduce food waste. There are many perspective to the subject of food waste and famine, and like solution will not be easy. Nevertheless, there are many direct that one could potentially take on this subject or to continue extending upon our analysis. 
  
 
+<<<<<<< HEAD
 ## Interactive description:
 
 This interactive allows for the user to customize their selections in terms of commodity, country, and year. Using our interactive, users can get a better sense of what food waste is like by country and how it has changed over the years. The interactive also allows for the user to zoom-in-and-out to examine waste from a global scale as well as looking at how specific commodities vary by country. The range of years can also be adjusted allowing users to focus on specific ranges of dates. 
@@ -73,3 +74,16 @@ https://duran.shinyapps.io/thee_a_team/?_ga=2.122774411.128322627.1671483708-574
 The video demonstrates how to use the webtool to explore the data analysis plots and tables for the relationships between food production, food waste, and GDP.
 
 https://www.youtube.com/watch?v=JGg9hco8WwA
+=======
+### Links to our interactives below:
+
+## Link to our shiny app web tool:
+
+https://duran.shinyapps.io/thee_a_team/?_ga=2.122774411.128322627.1671483708-574308685.1671483708
+
+## Link to our Video Recording:
+
+https://youtu.be/JGg9hco8WwA
+
+This interactive allows for the user to customize their selections in terms of commodity, country, and year. Using our interactive, users can get a better sense of what food waste is like by country and how it has changed over the years. The interactive also allows for the user to zoom-in-and-out to examine waste from a global scale as well as looking at how specific commodities vary by country. The range of years can also be adjusted allowing users to focus on specific ranges of dates. As well as descriptive table of the relationships between food production, food waste, and GDP, with the year slide bar to explore different times for global change. 
+>>>>>>> 27cef52ba45b7b3dd5f8d8779f2d2a8f3ac7b5f4
