@@ -144,14 +144,14 @@ load(here::here("dataset/AggData.RData"))
 
 These are the packages that will be used in our analysis.
 
-```{r echo = T}
+```{r echo = T, warning = F}
 suppressPackageStartupMessages(library(olsrr))
 suppressPackageStartupMessages(library(kableExtra))
 suppressPackageStartupMessages(library(corrplot))
 ```
 Given that the production was the first initial variable that we were curious about, we wanted to start our analysis by building a model to look specifically at production and loss. 
 
-The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. Looking at this model, we can see that there exists a small relationship between the two variables. The correlation is aorund 0.413, which could be interpreted as below-average to average correlation. Based on its p-value, it seems that this model is also statistically significant. However, this model alone cannot help answer many of our other questions. In terms of food loss, there are many other variables needed in order to understand the situation. 
+The first model that we introduce is a simple regression model that examines the relationship between 'Loss in tonnes' and 'Production in tonnes'.  Based on these two variables, it appears there exists a positive relationship between 'Loss' and 'Production'. Looking at this model, we can see that there exists a small relationship between the two variables. The correlation is around 0.413, which could be interpreted as below-average to average correlation. Based on its p-value, it seems that this model is also statistically significant. However, this model alone cannot help answer many of our other questions. In terms of food loss, there are many other variables needed in order to understand the situation. 
 
 ```{r echo=FALSE, fig.align = 'center'}
 model1 <- lm(Loss ~ Production, data = AggData)
